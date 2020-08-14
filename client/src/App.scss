@@ -2,7 +2,9 @@
 
 *{
   box-sizing:border-box;
-  // outline:none;
+  outline:none;
+  font-family:'BMHANNAAir';
+       
 }
 
 .App{
@@ -16,9 +18,7 @@
 
 
 .main-header{
-  display:flex;
-  flex-direction: column;
-  padding:15px;
+ 
 
   &-row-1{
     display:flex;
