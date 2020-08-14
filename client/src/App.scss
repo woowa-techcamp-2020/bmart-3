@@ -1,8 +1,23 @@
+@font-face {
+  font-family: 'BMHANNAAir';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+} 
+  
+@font-face {
+  font-family: 'BMDOHYEON';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+          
 
-
-*{
+*,body{
   box-sizing:border-box;
   // outline:none;
+  font-family:'BMHANNAAir';
+       
 }
 
 .App{
@@ -24,6 +39,10 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
+
+    & div{
+      font-family:'BMDOHYEON';
+    }
 
     &-right i:first-child{
       margin-right:10px;
