@@ -1,24 +1,65 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import theme from './theme';
+import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
+import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
+import { Hamburger } from '@styled-icons/fa-solid/Hamburger';
 
-const Mainheader = styled.header`
+const MainHeader = styled.header`
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 15px;
+  background: ${(props) => props.theme.color.primary};
+`;
+const HeaderRowOne = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const HeaderRowOneRightBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Icon = styled.img``;
+
+const ArrowLeft = styled(ArrowBack)`
+  color:${(props) => props.theme.color.secondary}
+  width: 20px;
+  height: 20px;
+`;
+
+const Logo = styled.div`
+  font-family: 'BMDOHYEON';
+`;
+
+const StyledMagnifyingGlass = styled(MagnifyingGlass)`
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+`;
+
+const StyledHamburger = styled(Hamburger)`
+  width: 20px;
+  height: 20px;
 `;
 
 const Header = ({ hasSearchBar }) => {
   return (
-    <div>
-      <Mainheader className="main-header">
-        <div className="main-header-row-1">
-          <i className="fa fa-arrow-left" aria-hidden="true"></i>
-          <div>B mart</div>
-          <div className="main-header-row-1-right">
-            <i className="fa fa-search" aria-hidden="true"></i>
-            <i className="fa fa-bars" aria-hidden="true"></i>
-          </div>
-        </div>
+    <ThemeProvider theme={theme}>
+      <MainHeader>
+        <HeaderRowOne>
+          <Icon src="https://img.icons8.com/carbon-copy/40/red/arrow-pointing-left.png" />
+          <Logo>B mart</Logo>
+          <HeaderRowOneRightBox>
+            <StyledMagnifyingGlass />
+            <StyledHamburger />
+          </HeaderRowOneRightBox>
+        </HeaderRowOne>
+
         {hasSearchBar ? (
           <div className="main-header-row-2">
             <div className="main-search-container">
@@ -29,8 +70,8 @@ const Header = ({ hasSearchBar }) => {
         ) : (
           ''
         )}
-      </Mainheader>
-    </div>
+      </MainHeader>
+    </ThemeProvider>
   );
 };
 
