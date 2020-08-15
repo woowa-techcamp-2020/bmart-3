@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import pizza from 'image/pizza.png';
+import styled, { ThemeProvider } from 'styled-components';
+import theme from '../share/theme';
+import categoryBorder from 'image/categoryBorder.png';
 import salad from 'image/salad.png';
-import tempImg2 from 'banner/2.gif';
+import chicken from 'image/chicken.png';
+import egg from 'image/egg.png';
+import bread from 'image/bread.png';
+import mealKit from 'image/mealKit.png';
+import icecream from 'image/icecream.png';
 import more from 'image/more.png';
-import border1 from 'image/border1.png';
-import paper2 from 'image/paper2.png';
-import paper1 from 'image/paper1.png';
+import milk from 'image/milk.png';
+import snack from 'image/snack.png';
+import wash from 'image/wash.png';
 
 const Nav = styled.nav`
   margin: 0 0 8px 0;
@@ -47,90 +52,49 @@ const CategoryImg = styled.img`
   height: 50px;
   border-radius: 40%;
   border: 2vw solid rgba(0, 0, 0, 0.5);
-  border-image: url(${paper2}) 400 round;
+  border-image: url(${categoryBorder}) 400 round;
   border-image-width: 4.5;
   padding: 2%;
 `;
 
 const CategoryTitle = styled.p`
   margin: 0.5em 0 1em 0;
+  font-size: ${(props) => props.theme.size.sm};
 `;
 
 const Category = () => {
   const [title, setTitle] = useState([
-    '과일﹒샐러드',
-    '정육﹒수산﹒계란',
-    '밀키트',
-    '우유﹒유제품',
-    '빵﹒시리얼﹒잼',
-    '분식﹒야식',
-    '과자﹒초콜릿',
-    '아이스크림',
-    '헤어﹒바디﹒세안',
-    '더보기',
-  ]);
-  const [source, setSource] = useState([
-    'salad',
-    'egg',
-    'mealKit',
-    'milk',
-    'bread',
-    'chicken',
-    'snack',
-    'icecream',
-    'wash',
-    'more',
+    { title: '과일﹒샐러드', src: salad },
+    { title: '정육﹒수산﹒계란', src: egg },
+    { title: '밀키트', src: mealKit },
+    { title: '우유﹒유제품', src: milk },
+    { title: '빵﹒시리얼﹒잼', src: bread },
+    { title: '분식﹒야식', src: chicken },
+    { title: '과자﹒초콜릿', src: snack },
+    { title: '아이스크림', src: icecream },
+    { title: '헤어﹒바디﹒세안', src: wash },
+    { title: '더보기', src: more },
   ]);
 
   return (
-    <Nav className="main-category">
-      <NavTitle>
-        배달 시간 <DeliveryTime>28~38분</DeliveryTime> 예상{' '}
-        <DeliveryExpirationTime>| 24시까지 주문 예상</DeliveryExpirationTime>
-      </NavTitle>
-      <CategoryContainer>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryImg src={salad}></CategoryImg>
-          <CategoryTitle>과일 샐러드</CategoryTitle>
-        </CategoryItem>
-      </CategoryContainer>
-    </Nav>
+    <ThemeProvider theme={theme}>
+      <Nav className="main-category">
+        <NavTitle>
+          배달 시간 <DeliveryTime>28~38분</DeliveryTime> 예상{' '}
+          <DeliveryExpirationTime>| 24시까지 주문 예상</DeliveryExpirationTime>
+        </NavTitle>
+        <CategoryContainer>
+          {title.map((item, idx) => {
+            return (
+              <CategoryItem key={idx}>
+                <CategoryImg src={item.src} />
+                <CategoryTitle>{item.title}</CategoryTitle>
+              </CategoryItem>
+            );
+          })}
+        </CategoryContainer>
+      </Nav>
+    </ThemeProvider>
   );
 };
 
