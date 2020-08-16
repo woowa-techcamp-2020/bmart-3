@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import React, { useState, useEffect, useCallback } from 'react';
+import styled, { ThemeProvider, keyframes } from 'styled-components';
 import theme from '../share/theme';
 import categoryBorder from 'image/categoryBorder.png';
-import salad from 'image/salad.png';
+import salad from '../share/util';
 import chicken from 'image/chicken.png';
 import egg from 'image/egg.png';
 import bread from 'image/bread.png';
@@ -47,14 +47,22 @@ const CategoryItem = styled.div`
   align-items: center;
 `;
 
+const categoryMove = keyframes`
+  50%{transform:rotate(-10deg);}
+`;
+
 const CategoryImg = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 57px;
   border-radius: 40%;
   border: 2vw solid rgba(0, 0, 0, 0.5);
-  border-image: url(${categoryBorder}) 400 round;
+  border-image: url(${categoryBorder}) 399 round;
   border-image-width: 4.5;
-  padding: 2%;
+  padding: 1%;
+
+  &:active {
+    animation: ${categoryMove} 1s ease-in-out;
+  }
 `;
 
 const CategoryTitle = styled.p`
@@ -76,6 +84,18 @@ const Category = () => {
     { title: '더보기', src: more },
   ]);
 
+  //오른쪽 클릭시 이미지 복사 기타 등등 이벤트 막아놓기
+  const preventRightClick = useCallback((e) => {
+    e.preventDefault();
+  });
+
+  useEffect(() => {
+    document.addEventListener('contextmenu', preventRightClick);
+    return () => {
+      document.removeEventListener('contextmenu', preventRightClick);
+    };
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <Nav className="main-category">
@@ -83,11 +103,11 @@ const Category = () => {
           배달 시간 <DeliveryTime>28~38분</DeliveryTime> 예상{' '}
           <DeliveryExpirationTime>| 24시까지 주문 예상</DeliveryExpirationTime>
         </NavTitle>
-        <CategoryContainer>
+        <CategoryContainer onClick={preventRightClick}>
           {title.map((item, idx) => {
             return (
               <CategoryItem key={idx}>
-                <CategoryImg src={item.src} />
+                <CategoryImg src={item.src} alt={item.src} />
                 <CategoryTitle>{item.title}</CategoryTitle>
               </CategoryItem>
             );

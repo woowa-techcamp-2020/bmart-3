@@ -4,13 +4,14 @@ import theme from './theme';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import { Hamburger } from '@styled-icons/fa-solid/Hamburger';
+import bmartLogo from 'image/bmart-logo.png';
 
 const MainHeader = styled.header`
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 15px;
-  background: ${(props) => props.theme.color.primary};
+  background: ${(props) => props.theme.color.pink};
 `;
 const HeaderRowOne = styled.div`
   display: flex;
@@ -24,27 +25,51 @@ const HeaderRowOneRightBox = styled.div`
   align-items: center;
 `;
 
-const Icon = styled.img``;
+const Icon = styled(ArrowBack)`
+  width: 30px;
+  height: 30px;
+  color: ${(props) => props.theme.color.icon};
 
-const ArrowLeft = styled(ArrowBack)`
-  color:${(props) => props.theme.color.secondary}
-  width: 20px;
-  height: 20px;
+  &:hover {
+    color: ${(props) => props.theme.color.lightYello};
+    transform: translateX(-10px);
+    transition: 0.2s linear;
+  }
 `;
 
-const Logo = styled.div`
-  font-family: 'BMDOHYEON';
+// 로고 이미지 쓸지 커스텀 로고 쓸지 고민 중
+// const Logo = styled.div`
+//   font-family: 'BMDOHYEON';
+//   color: ${(props) => props.theme.color.icon};
+// `;
+
+const BmartLogo = styled.img`
+  height: 30px;
 `;
 
 const StyledMagnifyingGlass = styled(MagnifyingGlass)`
   width: 20px;
   height: 20px;
   margin-right: 10px;
+  color: ${(props) => props.theme.color.icon};
 `;
 
 const StyledHamburger = styled(Hamburger)`
   width: 20px;
   height: 20px;
+  color: ${(props) => props.theme.color.icon};
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  margin: 0;
+  margin-top: 10px;
+  padding: 5px;
 `;
 
 const Header = ({ hasSearchBar }) => {
@@ -52,8 +77,8 @@ const Header = ({ hasSearchBar }) => {
     <ThemeProvider theme={theme}>
       <MainHeader>
         <HeaderRowOne>
-          <Icon src="https://img.icons8.com/carbon-copy/40/red/arrow-pointing-left.png" />
-          <Logo>B mart</Logo>
+          <Icon src={ArrowBack} />
+          <BmartLogo src={bmartLogo} />
           <HeaderRowOneRightBox>
             <StyledMagnifyingGlass />
             <StyledHamburger />
@@ -61,12 +86,9 @@ const Header = ({ hasSearchBar }) => {
         </HeaderRowOne>
 
         {hasSearchBar ? (
-          <div className="main-header-row-2">
-            <div className="main-search-container">
-              🔍
-              <input placeholder="B마트 상품을 검색해보세요!" />
-            </div>
-          </div>
+          <InputContainer>
+            <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
+          </InputContainer>
         ) : (
           ''
         )}
