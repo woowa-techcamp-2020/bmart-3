@@ -1,11 +1,15 @@
 const theme = {
   color: {
     lightBlue: '#7DC1E0',
+    deepPurple: '#5f27cd',
     purple: '#CAC0E4',
-    icon: '#000',
+    icon: '#ffb8b8',
+    lightRed: '#ff4d4d',
+    orange: '#ffaf40',
     lightYello: '#FCF6E4',
-    pink: '#F7D9EA',
+    pink: '#ffcccc',
     darkGreen: '#448E9E',
+    activeIcon: '#3d3d3d',
   },
   size: {
     sm: '10px',

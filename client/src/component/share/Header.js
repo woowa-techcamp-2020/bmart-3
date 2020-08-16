@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider, keyframes } from 'styled-components';
 import theme from './theme';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
@@ -11,12 +11,12 @@ const MainHeader = styled.header`
   display: flex;
   flex-direction: column;
   padding: 15px;
-  background: ${(props) => props.theme.color.pink};
 `;
 const HeaderRowOne = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 `;
 
 const HeaderRowOneRightBox = styled.div`
@@ -25,15 +25,20 @@ const HeaderRowOneRightBox = styled.div`
   align-items: center;
 `;
 
+const arrowMove = keyframes`
+  50%{
+    transform:translateX(-10px);
+  }
+`;
+
 const Icon = styled(ArrowBack)`
   width: 30px;
   height: 30px;
   color: ${(props) => props.theme.color.icon};
 
-  &:hover {
-    color: ${(props) => props.theme.color.lightYello};
-    transform: translateX(-10px);
-    transition: 0.2s linear;
+  &:active {
+    color: ${(props) => props.theme.color.orange};
+    animation: ${arrowMove} 0.2s ease-in-out;
   }
 `;
 
@@ -45,19 +50,37 @@ const Icon = styled(ArrowBack)`
 
 const BmartLogo = styled.img`
   height: 30px;
+  position: absolute;
+  left: 40%;
+`;
+
+const IconActiveAnimation = keyframes`
+  50%{
+    transform: scale(1.1);
+    color: ${(props) => props.theme.color.orange};
+  }
 `;
 
 const StyledMagnifyingGlass = styled(MagnifyingGlass)`
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   margin-right: 10px;
   color: ${(props) => props.theme.color.icon};
+
+  &:active {
+    animation: ${IconActiveAnimation} 0.2s ease-in-out;
+    color: ${(props) => props.theme.color.orange};
+  }
 `;
 
 const StyledHamburger = styled(Hamburger)`
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   color: ${(props) => props.theme.color.icon};
+  &:active {
+    animation: ${IconActiveAnimation} 0.2s ease-in-out;
+    color: ${(props) => props.theme.color.orange};
+  }
 `;
 
 const InputContainer = styled.div`
@@ -70,6 +93,12 @@ const Input = styled.input`
   margin: 0;
   margin-top: 10px;
   padding: 5px;
+  border: none;
+  border-bottom: 1.5px solid ${(props) => props.theme.color.pink};
+
+  &:focus {
+    border-color: ${(props) => props.theme.color.orange};
+  }
 `;
 
 const Header = ({ hasSearchBar }) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import styled, { ThemeProvider, keyframes } from 'styled-components';
 import theme from '../share/theme';
 import categoryBorder from 'image/categoryBorder.png';
-import salad from '../share/util';
+import salad from 'image/salad.png';
 import chicken from 'image/chicken.png';
 import egg from 'image/egg.png';
 import bread from 'image/bread.png';
@@ -61,7 +61,7 @@ const CategoryImg = styled.img`
   padding: 1%;
 
   &:active {
-    animation: ${categoryMove} 1s ease-in-out;
+    animation: ${categoryMove} 0.2s ease-in-out;
   }
 `;
 
