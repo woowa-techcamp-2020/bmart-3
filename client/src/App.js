@@ -32,9 +32,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact>
-          <Mainpage />
-        </Route>
+        <Route path="/" exact component={Mainpage} />
         <Route path="/cart">장바구니페이지</Route>
         <Route path="/category">카테고리 페이지</Route>
         <Route path="/category_detail">상세 카테고리 페이지</Route>

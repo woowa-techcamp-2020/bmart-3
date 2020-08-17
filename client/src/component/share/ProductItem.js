@@ -32,7 +32,7 @@ const ProductItem = () => {
   return (
     <>
       <EachItem>
-        <ProductImg img="https://source.unsplash.com/random" />
+        <ProductImg img="https://source.unsplash.com/random/collections=food" />
         <ProductContent>
           <ProductContentRow>한입 쏙 비엔나</ProductContentRow>
           <ProductContentRow>1190원</ProductContentRow>
