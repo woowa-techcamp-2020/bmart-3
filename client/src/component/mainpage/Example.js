@@ -14,6 +14,7 @@ const MainBanner = styled.section`
   width: 100%;
   min-height: 100px;
   height: 9em;
+  position: relative;
 `;
 
 const BannerImg = styled.img`
@@ -21,33 +22,32 @@ const BannerImg = styled.img`
   min-height: 100px;
 `;
 
-const StyledCarousel = styled(Carousel)`
-  padding-bottom: 30px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  position: relative;
-  & .Carousel-buttonWrapper-5 {
-    position: absolute;
-    height: 260px !important;
-    margin: 0;
-    padding: 0;
-  }
-  & button {
-    width: 28px;
-    height: 28px;
-  }
+const CurrentPage = styled.div`
+  position: absolute;
+  width: 50px;
+  bottom: 10px;
+  right: 10px;
+  text-align: center;
+  font-size: ${(props) => props.theme.size.smd};
+  border-radius: 10px;
+  opacity: 0.8;
+  color: #000;
+  background: ${(props) => props.theme.color.gray};
+  padding: 1%;
 `;
+
+const StyledCarousel = styled(Carousel)``;
 
 function Example(props) {
   const items = [{ src: banner1 }, { src: banner2 }, { src: banner3 }, { src: banner4 }];
 
   return (
-    <StyledCarousel autoplay={true} animation={'slide'} navButtonsAlwaysVisible={true} timeout={100}>
+    <StyledCarousel autoplay={true} animation={'slide'} timeout={100}>
       {items.map((item, idx) => (
         <>
           <MainBanner key={idx}>
             <BannerImg src={item.src}></BannerImg>
+            <CurrentPage>{idx + 1 + '/' + items.length}</CurrentPage>
           </MainBanner>
         </>
       ))}

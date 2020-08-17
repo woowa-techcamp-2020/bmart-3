@@ -10,9 +10,12 @@ const theme = {
     pink: '#ffcccc',
     darkGreen: '#448E9E',
     activeIcon: '#3d3d3d',
+    gray: '#dfe4ea',
+    darkGray: '#747d8c',
   },
   size: {
     sm: '10px',
+    smd: '12px',
     md: '20px',
     lg: '32px',
   },
