@@ -14,7 +14,7 @@ const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
   width: 100%;
   height: 130px;
   border: 2vw solid rgba(0, 0, 0, 0.5);
-  border-image: url(${border1}) 200 round;
+  border-image: url(${border1}) 170 round;
   border-image-width: 4.5;
   padding: 2%;
 `;
