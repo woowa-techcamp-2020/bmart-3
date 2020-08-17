@@ -29,7 +29,7 @@ const StyledCarousel = styled(Carousel)`
   position: relative;
   & .Carousel-buttonWrapper-5 {
     position: absolute;
-    height: 340px !important;
+    height: 260px !important;
     margin: 0;
     padding: 0;
   }
