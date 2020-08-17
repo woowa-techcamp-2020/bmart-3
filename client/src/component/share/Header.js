@@ -28,6 +28,7 @@ const HeaderRowOneRightBox = styled.div`
 const arrowMove = keyframes`
   50%{
     transform:translateX(-10px);
+    
   }
 `;
 
@@ -39,6 +40,7 @@ const Icon = styled(ArrowBack)`
   &:active {
     color: ${(props) => props.theme.color.orange};
     animation: ${arrowMove} 0.2s ease-in-out;
+    padding: 2px;
   }
 `;
 
@@ -70,6 +72,8 @@ const StyledMagnifyingGlass = styled(MagnifyingGlass)`
   &:active {
     animation: ${IconActiveAnimation} 0.2s ease-in-out;
     color: ${(props) => props.theme.color.orange};
+    border-bottom: 2px solid ${(props) => props.theme.color.orange};
+    padding: 1%;
   }
 `;
 

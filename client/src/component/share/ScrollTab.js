@@ -15,6 +15,7 @@ function Category() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
     <Tabs
       variant="fullWidth"
