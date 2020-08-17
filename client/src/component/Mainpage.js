@@ -5,6 +5,7 @@ import Product from 'component/share/Product';
 import Header from 'component/share/Header';
 import Banner from 'component/mainpage/Banner';
 import Category from 'component/mainpage/Category';
+import Recommend from 'component/mainpage/Recommend';
 
 const Article = styled.article``;
 
@@ -28,7 +29,9 @@ function Mainpage() {
       <Category />
       <Article>
         <ScrollTab />
-        <RecommendSection>번쩍할인 등등 </RecommendSection>
+        <RecommendSection>
+          <Recommend></Recommend>
+        </RecommendSection>
         <AdvertiseSection>광고</AdvertiseSection>
         <ProductSection>
           {menu.map((item, idx) => (

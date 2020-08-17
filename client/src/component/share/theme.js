@@ -12,6 +12,8 @@ const theme = {
     activeIcon: '#3d3d3d',
     gray: '#dfe4ea',
     darkGray: '#747d8c',
+    yello: '#fff200',
+    buttonGreen: 'yellowGreen',
   },
   size: {
     sm: '10px',
