@@ -5,7 +5,6 @@ import Product from 'component/share/Product';
 import Header from 'component/share/Header';
 import Banner from 'component/mainpage/Banner';
 import Category from 'component/mainpage/Category';
-import Example from 'component/mainpage/Example';
 
 const Article = styled.article``;
 
@@ -25,7 +24,7 @@ function Mainpage() {
   return (
     <>
       <Header hasSearchBar />
-      <Example />
+      <Banner />
       <Category />
       <Article>
         <ScrollTab />
