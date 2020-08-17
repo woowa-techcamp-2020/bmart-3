@@ -34,6 +34,7 @@ const CurrentPage = styled.div`
   color: #000;
   background: ${(props) => props.theme.color.gray};
   padding: 1%;
+  border: 0.2px solid ${(props) => props.theme.color.darkGray};
 `;
 
 const StyledCarousel = styled(Carousel)``;
