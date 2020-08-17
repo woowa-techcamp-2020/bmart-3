@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Title, Button, Wrapper, TomatoButton } from "./util.js";
+import { Title, Button, Wrapper, TomatoButton } from "./share/util.js";
 
 function StyledComponentExample() {
   const onclickEvent = (e) => {

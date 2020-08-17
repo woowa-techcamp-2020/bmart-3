@@ -1,86 +1,42 @@
 import React from 'react';
-import './Product.scss';
-import pizza from 'banner/pizza.png';
+import styled from 'styled-components';
 
-const Product = ({ category }) => {
+import ProductItem from './ProductItem';
+
+const ProductContainerHeader = styled.div`
+  font-family: 'BMDOHYEON';
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+`;
+
+const ProductContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const HeaderBtn = styled.button`
+  background: none;
+  color: yellowgreen;
+  border: none;
+`;
+
+const Product = () => {
   return (
     <>
-      <div className="product-container-header">
-        <h1>{category}</h1>
-        <button>더보기</button>
-      </div>
-      <div className="product-container">
-        <div className="product-item">
-          <img src={pizza}></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-        <div className="product-item">
-          <img src="https://source.unsplash.com/random"></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-        <div className="product-item">
-          <img src="https://source.unsplash.com/random"></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-        <div className="product-item">
-          <img src="https://source.unsplash.com/random"></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-        <div className="product-item">
-          <img src="https://source.unsplash.com/random"></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-        <div className="product-item">
-          <img src="https://source.unsplash.com/random"></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-        <div className="product-item">
-          <img src="https://source.unsplash.com/random"></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-        <div className="product-item">
-          <img src="https://source.unsplash.com/random"></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-        <div className="product-item">
-          <img src="https://source.unsplash.com/random"></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-        <div className="product-item">
-          <img src="https://source.unsplash.com/random"></img>
-          <div>
-            <p>한입 쏙 비엔나</p>
-            <p>1190원</p>
-          </div>
-        </div>
-      </div>
+      <ProductContainerHeader>
+        <h1>분식 야식</h1>
+        <HeaderBtn>더보기</HeaderBtn>
+      </ProductContainerHeader>
+      <ProductContainer>
+        {Array(parseInt(10))
+          .fill()
+          .map((item, idx) => (
+            <ProductItem key={idx} />
+          ))}
+      </ProductContainer>
     </>
   );
 };

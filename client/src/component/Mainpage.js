@@ -19,9 +19,9 @@ function Mainpage() {
         <section className="section-recommend">번쩍할인 등등 </section>
         <section className="section-advertise">광고</section>
         <section className="section-product">
-          {menu.map((item, idx) => {
-            return <Product category={item} key={idx} />;
-          })}
+          {menu.map((item, idx) => (
+            <Product category={item} key={idx} />
+          ))}
         </section>
       </article>
     </>

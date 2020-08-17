@@ -15,7 +15,7 @@
 
 *,body{
   box-sizing:border-box;
-  // outline:none;
+  outline:none;
   font-family:'BMHANNAAir';
        
 }
@@ -25,28 +25,16 @@
 }
 
 .App > *{
-  background:white;
   color:black;
 }
 
 
 .main-header{
-  display:flex;
-  flex-direction: column;
-  padding:15px;
-
   &-row-1{
     display:flex;
     justify-content: space-between;
     align-items: center;
 
-    & div{
-      font-family:'BMDOHYEON';
-    }
-
-    &-right i:first-child{
-      margin-right:10px;
-    }
   }
 
   &-row-2{
@@ -88,57 +76,6 @@
   }
 }
 
-
-.main-category{
-
-  margin:0 0 8px 0;
-  border-bottom:1px solid #ddd;
-  margin-bottom:5px;
-  // box-shadow: 0px 5px 2px #eee;
-
-
-  & h1{
-    padding:10px 0 5px 10px;
-    & span:nth-of-type(1){
-      font-weight: bold;
-    }
-
-    & span:nth-of-type(2){
-      color:burlywood;
-    }
-  }
-
-  & .category-item-container{
-    display:grid;
-    grid-template-columns: repeat(5,1fr);
-    grid-auto-rows:90px;
-    width:100%;
-    min-height:100px;
-    font-size:0.8em;
-   
-
-    .category-item{
-      display:flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-    }
-    
-    
-    & div img{
-      width:50px;
-      height:50px;
-      border:1px solid black;
-      border-radius:40%;
-
-    }
-
-    & div p{
-      margin: 0.5em 0 1em 0;
-    }
-  }
-
-}
 
 .section-product{
   padding:0 15px;

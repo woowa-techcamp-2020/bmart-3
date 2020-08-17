@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import "./ScrollTab.scss";
+import React, { useState } from 'react';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 function a11yProps(index) {
   return {
     id: `nav-tab-${index}`,
-    "aria-controls": `nav-tabpanel-${index}`,
+    'aria-controls': `nav-tabpanel-${index}`,
   };
 }
 
