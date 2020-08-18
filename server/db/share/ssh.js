@@ -1,12 +1,16 @@
-const SSH2Client = require('ssh2').Client;
-const { sshConf, dbConf } = require('./db.config');
-const { makeExecutableSchema } = require('graphql-tools');
-const { graphqlHTTP } = require('express-graphql');
-const bodyParser = require('body-parser');
-const { typeDefs, resolvers } = require('./graphql');
+import ssh2 from 'ssh2';
+import { sshConf, dbConf } from './db.config.js';
+import pkg from 'graphql-tools';
+import gHTTP from 'express-graphql';
+import bodyParser from 'body-parser';
+import { typeDefs, resolvers } from '../graphql/index.js';
+
+const { makeExecutableSchema } = pkg;
+const { graphqlHTTP } = gHTTP;
+const SSH2Client = ssh2.Client;
 const ssh = new SSH2Client();
 
-module.exports = function (app) {
+export default function (app) {
   ssh.on('ready', function () {
     ssh.forwardOut('127.0.0.1', 24000, dbConf.host, dbConf.port, async function (err, stream) {
       if (err) throw err;
@@ -30,4 +34,4 @@ module.exports = function (app) {
   });
 
   ssh.connect(sshConf);
-};
+}

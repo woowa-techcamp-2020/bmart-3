@@ -1,11 +1,13 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const ssh = require('./db/ssh');
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import ssh from './db/share/ssh.js';
 
 const app = express();
 ssh(app);
+
+const __dirname = path.resolve();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -29,4 +31,4 @@ app.listen(port, () => {
   console.log('Express server started on port: ' + port);
 });
 
-module.exports = app;
+export default app;

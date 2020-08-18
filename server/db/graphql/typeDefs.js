@@ -1,4 +1,4 @@
-module.exports = `type User{
+export default `type User{
     id: ID!,
     name: String,
     google_id: String,

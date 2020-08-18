@@ -1,7 +1,7 @@
-const mysql2 = require('mysql2/promise');
-const { dbConf } = require('../db.config');
+import mysql2 from 'mysql2/promise.js';
+import { dbConf } from '../share/db.config.js';
 
-module.exports = async function (stream) {
+export default async function (stream) {
   dbConf.stream = stream;
   const pool = mysql2.createPool(dbConf);
   const connection = await pool.getConnection();
@@ -16,4 +16,4 @@ module.exports = async function (stream) {
       Users: () => getUsers(),
     },
   };
-};
+}
