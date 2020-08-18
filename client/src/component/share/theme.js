@@ -14,10 +14,13 @@ const theme = {
     darkGray: '#747d8c',
     yello: '#fff200',
     buttonGreen: 'yellowGreen',
+    backgroundGray: '#57606f',
+    lightBrown: '#cc8e35',
   },
   size: {
     sm: '10px',
     smd: '12px',
+    mmd: '18px',
     md: '20px',
     lg: '32px',
   },
