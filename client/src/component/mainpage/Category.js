@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styled, { ThemeProvider, keyframes } from 'styled-components';
-import theme from '../share/theme';
+import styled, { keyframes } from 'styled-components';
 import categoryBorder from 'image/categoryBorder.png';
 import salad from 'image/salad.png';
 import chicken from 'image/chicken.png';
@@ -97,24 +96,22 @@ const Category = () => {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <Nav className="main-category">
-        <NavTitle>
-          배달 시간 <DeliveryTime>28~38분</DeliveryTime> 예상{' '}
-          <DeliveryExpirationTime>| 24시까지 주문 예상</DeliveryExpirationTime>
-        </NavTitle>
-        <CategoryContainer onClick={preventRightClick}>
-          {title.map((item, idx) => {
-            return (
-              <CategoryItem key={idx}>
-                <CategoryImg src={item.src} alt={item.src} />
-                <CategoryTitle>{item.title}</CategoryTitle>
-              </CategoryItem>
-            );
-          })}
-        </CategoryContainer>
-      </Nav>
-    </ThemeProvider>
+    <Nav className="main-category">
+      <NavTitle>
+        배달 시간 <DeliveryTime>28~38분</DeliveryTime> 예상{' '}
+        <DeliveryExpirationTime>| 24시까지 주문 예상</DeliveryExpirationTime>
+      </NavTitle>
+      <CategoryContainer onClick={preventRightClick}>
+        {title.map((item, idx) => {
+          return (
+            <CategoryItem key={idx}>
+              <CategoryImg src={item.src} alt={item.src} />
+              <CategoryTitle>{item.title}</CategoryTitle>
+            </CategoryItem>
+          );
+        })}
+      </CategoryContainer>
+    </Nav>
   );
 };
 

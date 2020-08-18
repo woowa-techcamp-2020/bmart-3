@@ -1,6 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider, keyframes } from 'styled-components';
-import theme from './theme';
+import styled, { keyframes } from 'styled-components';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import { Hamburger } from '@styled-icons/fa-solid/Hamburger';
@@ -107,26 +106,24 @@ const Input = styled.input`
 
 const Header = ({ hasSearchBar }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <MainHeader>
-        <HeaderRowOne>
-          <Icon src={ArrowBack} />
-          <BmartLogo src={bmartLogo} />
-          <HeaderRowOneRightBox>
-            <StyledMagnifyingGlass />
-            <StyledHamburger />
-          </HeaderRowOneRightBox>
-        </HeaderRowOne>
+    <MainHeader>
+      <HeaderRowOne>
+        <Icon src={ArrowBack} />
+        <BmartLogo src={bmartLogo} />
+        <HeaderRowOneRightBox>
+          <StyledMagnifyingGlass />
+          <StyledHamburger />
+        </HeaderRowOneRightBox>
+      </HeaderRowOne>
 
-        {hasSearchBar ? (
-          <InputContainer>
-            <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
-          </InputContainer>
-        ) : (
-          ''
-        )}
-      </MainHeader>
-    </ThemeProvider>
+      {hasSearchBar ? (
+        <InputContainer>
+          <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
+        </InputContainer>
+      ) : (
+        ''
+      )}
+    </MainHeader>
   );
 };
 
