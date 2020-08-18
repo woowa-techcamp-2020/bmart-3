@@ -1,13 +1,10 @@
-import ssh2 from 'ssh2';
-import { sshConf, dbConf } from './db.config.js';
-import pkg from 'graphql-tools';
-import gHTTP from 'express-graphql';
+import { Client as SSH2Client } from 'ssh2';
+import { sshConf, dbConf } from './db.config';
+import { makeExecutableSchema } from 'graphql-tools';
+import { graphqlHTTP } from 'express-graphql';
 import bodyParser from 'body-parser';
-import { typeDefs, resolvers } from '../graphql/index.js';
+import { typeDefs, resolvers } from '../graphql';
 
-const { makeExecutableSchema } = pkg;
-const { graphqlHTTP } = gHTTP;
-const SSH2Client = ssh2.Client;
 const ssh = new SSH2Client();
 
 export default function (app) {

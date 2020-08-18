@@ -8,7 +8,7 @@ const sshConf = {
   host: process.env.SSH_HOST,
   port: process.env.SSH_PORT,
   user: process.env.SSH_USER,
-  privateKey: fs.readFileSync('/Users/woowahan17/Documents/프로젝트/Project4/bmart-3/server/db/share/bmart-3.pem'), //리눅스에서 ssh접속시 사용할 키!!
+  privateKey: fs.readFileSync(path.join(__dirname, 'bmart-3.pem')), //리눅스에서 ssh접속시 사용할 키!!
 };
 
 const dbConf = {

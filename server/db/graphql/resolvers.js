@@ -1,5 +1,5 @@
-import mysql2 from 'mysql2/promise.js';
-import { dbConf } from '../share/db.config.js';
+import mysql2 from 'mysql2/promise';
+import { dbConf } from '../share/db.config';
 
 export default async function (stream) {
   dbConf.stream = stream;

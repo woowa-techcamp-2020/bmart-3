@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import ssh from './db/share/ssh.js';
+import ssh from './db/share/ssh';
 
 const app = express();
 ssh(app);
