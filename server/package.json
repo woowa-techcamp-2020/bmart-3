@@ -2,9 +2,8 @@
   "name": "server",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "start": "node ./app.js"
+    "start": "babel-node ./app.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -19,5 +18,11 @@
     "morgan": "~1.9.1",
     "mysql2": "^2.1.0",
     "ssh2": "^0.8.9"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.0"
   }
 }
