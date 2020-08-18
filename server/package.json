@@ -16,7 +16,6 @@
     "graphql": "^15.3.0",
     "graphql-tools": "^6.0.18",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "mysql2": "^2.1.0",
     "ssh2": "^0.8.9"
