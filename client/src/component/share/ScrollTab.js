@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Product from './Product';
 import Recommend from 'component/mainpage/Recommend';
 
 function TabPanel(props) {
@@ -31,7 +30,6 @@ const StyledTabs = withStyles({
       width: '100%',
       backgroundColor: '#635ee7',
     },
-    button: { padding: '0' },
   },
 })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
@@ -46,7 +44,6 @@ const StyledTab = withStyles((theme) => ({
     '&:focus': {
       opacity: 1,
     },
-    button: { padding: '0' },
   },
 }))((props) => <Tab disableRipple {...props} />);
 
@@ -95,7 +92,6 @@ function Category() {
       </div>
       <TabPanel value={value} index={0}>
         Item One
-        <Product />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Recommend />
