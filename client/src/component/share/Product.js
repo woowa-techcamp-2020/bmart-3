@@ -19,7 +19,7 @@ const ProductContainer = styled.div`
 
 const HeaderBtn = styled.button`
   background: none;
-  color: yellowgreen;
+  color: ${(props) => props.theme.color.buttonGreen};
   border: none;
 `;
 

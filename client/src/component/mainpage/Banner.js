@@ -1,7 +1,6 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Carousel from 'react-material-ui-carousel';
-import { Paper } from '@material-ui/core';
 import banner1 from 'banner/1.gif';
 import banner2 from 'banner/2.gif';
 import banner3 from 'banner/3.gif';
@@ -30,7 +29,7 @@ const CurrentPage = styled.div`
   text-align: center;
   font-size: ${(props) => props.theme.size.smd};
   border-radius: 10px;
-  opacity: 0.8;
+  opacity: 0.5;
   color: #000;
   background: ${(props) => props.theme.color.gray};
   padding: 1%;
@@ -39,14 +38,14 @@ const CurrentPage = styled.div`
 
 const StyledCarousel = styled(Carousel)``;
 
-function Banner(props) {
+function Banner() {
   const items = [{ src: banner1 }, { src: banner2 }, { src: banner3 }, { src: banner4 }];
 
   return (
     <StyledCarousel autoplay={true} animation={'slide'} timeout={100}>
       {items.map((item, idx) => (
         <>
-          <MainBanner key={idx}>
+          <MainBanner key={'banner' + idx}>
             <BannerImg src={item.src}></BannerImg>
             <CurrentPage>{idx + 1 + '/' + items.length}</CurrentPage>
           </MainBanner>
