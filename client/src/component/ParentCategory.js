@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from 'component/share/Header';
 import Product from 'component/share/Product';
+import Advertise from 'component/share/Advertise';
 
 import styled from 'styled-components';
 
@@ -13,8 +14,6 @@ function ParentCategory() {
   const Article = styled.article``;
 
   const ChildCategoryList = styled.div``;
-
-  const AdvertiseSection = styled.section``;
 
   const ProductSection = styled.section`
     padding: 0 15px;
@@ -29,9 +28,9 @@ function ParentCategory() {
   // 아이템 리스트
   return (
     <>
-      <Header hasSearchBar />
+      <Header />
       <Article>
-        <AdvertiseSection>광고</AdvertiseSection>
+        <Advertise />
         <ChildCategoryList childCategories={dummyCategoryDetails} />
         <ProductSection>
           {dummyProductList.map((item, idx) => (
