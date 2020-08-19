@@ -2,7 +2,24 @@ import React, { useState } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Product from './Product';
+import Recommend from 'component/mainpage/Recommend';
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <div>{children}</div>}
+    </div>
+  );
+}
 const StyledTabs = withStyles({
   indicator: {
     display: 'flex',
@@ -59,22 +76,34 @@ function Category() {
   };
 
   return (
-    <div className={classes.demo2}>
-      <StyledTabs
-        variant="fullWidth"
-        value={value}
-        onChange={handleChange}
-        aria-label="nav tabs example"
-        scrollButtons="off"
-        variant="scrollable"
-      >
-        <StyledTab label="널 위한 상품" {...a11yProps(0)} />
-        <StyledTab label="번쩍 할인" {...a11yProps(1)} />
-        <StyledTab label="지금 뭐 먹지?" {...a11yProps(2)} />
-        <StyledTab label="새로 나왔어요" {...a11yProps(3)} />
-        <StyledTab label="요즘 잘 팔려요" {...a11yProps(4)} />
-      </StyledTabs>
-    </div>
+    <>
+      <div className={classes.demo2}>
+        <StyledTabs
+          variant="fullWidth"
+          value={value}
+          onChange={handleChange}
+          aria-label="nav tabs example"
+          scrollButtons="off"
+          variant="scrollable"
+        >
+          <StyledTab label="널 위한 상품" {...a11yProps(0)} />
+          <StyledTab label="번쩍 할인" {...a11yProps(1)} />
+          <StyledTab label="지금 뭐 먹지?" {...a11yProps(2)} />
+          <StyledTab label="새로 나왔어요" {...a11yProps(3)} />
+          <StyledTab label="요즘 잘 팔려요" {...a11yProps(4)} />
+        </StyledTabs>
+      </div>
+      <TabPanel value={value} index={0}>
+        Item One
+        <Product />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Recommend />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        Item Three
+      </TabPanel>
+    </>
   );
 }
 
