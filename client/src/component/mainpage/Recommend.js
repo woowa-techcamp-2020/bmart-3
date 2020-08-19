@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { addCommaToNumber } from 'component/share/util';
+import { RECOMMEND_INTERVAL_TIME } from 'component/share/constant';
 
 import {
   RecommendWrapper,
@@ -68,7 +69,7 @@ const Recommend = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSelected((prevState) => (prevState + 1) % 4);
-    }, 4000);
+    }, RECOMMEND_INTERVAL_TIME);
     return () => clearInterval(interval);
   }, []);
 

@@ -1,0 +1,1 @@
+export const RECOMMEND_INTERVAL_TIME = 4000;
