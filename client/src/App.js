@@ -1,12 +1,11 @@
 import React from 'react';
 import './reset.scss';
-import './App.scss';
-import styled, { createGlobalStyle } from 'styled-components';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import theme from './component/share/theme';
 import Mainpage from 'component/Mainpage';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-function App() {
-  const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'BMHANNAAir';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff');
@@ -29,18 +28,23 @@ function App() {
          
   }
   `;
+
+function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/" exact component={Mainpage} />
-        <Route path="/cart">장바구니페이지</Route>
-        <Route path="/category">카테고리 페이지</Route>
-        <Route path="/category_detail">상세 카테고리 페이지</Route>
-        <Route path="/liked">찜 페이지</Route>
-        <Route path="/ordered_list">주문 내역 페이지</Route>
-        <Route path="/">not found</Route>
-      </Switch>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Router>
+        <Switch>
+          <Route path="/" exact component={Mainpage} />
+          <Route path="/cart">장바구니페이지</Route>
+          <Route path="/category">카테고리 페이지</Route>
+          <Route path="/category_detail">상세 카테고리 페이지</Route>
+          <Route path="/liked">찜 페이지</Route>
+          <Route path="/ordered_list">주문 내역 페이지</Route>
+          <Route path="/">not found</Route>
+        </Switch>
+      </Router>
+    </ThemeProvider>
   );
 }
 

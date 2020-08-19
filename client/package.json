@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-material-ui-carousel": "^1.8.2",
     "react-scripts": "3.4.2",
     "styled-components": "^5.1.1"
   },
@@ -34,7 +35,10 @@
   },
   "devDependencies": {
     "@material-ui/core": "^4.11.0",
+    "node-sass": "^4.14.1",
+    "@material-ui/icons": "^4.9.1",
     "react-router-dom": "^5.2.0",
+    "sass": "^1.26.10",
     "styled-icons": "^10.16.0"
   }
 }
