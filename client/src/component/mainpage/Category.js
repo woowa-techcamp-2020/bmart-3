@@ -1,16 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
-import categoryBorder from 'image/categoryBorder.png';
-import salad from 'image/salad.png';
-import chicken from 'image/chicken.png';
-import egg from 'image/egg.png';
-import bread from 'image/bread.png';
-import mealKit from 'image/mealKit.png';
-import icecream from 'image/icecream.png';
-import more from 'image/more.png';
-import milk from 'image/milk.png';
-import snack from 'image/snack.png';
-import wash from 'image/wash.png';
+import { CategoryContext } from 'context/CategoryContext';
+import { IMG_URL } from 'component/share/constant';
 
 const Nav = styled.nav`
   margin: 0 0 8px 0;
@@ -55,7 +46,7 @@ const CategoryImg = styled.img`
   height: 57px;
   border-radius: 40%;
   border: 2vw solid rgba(0, 0, 0, 0.5);
-  border-image: url(${categoryBorder}) 399 round;
+  border-image: url(${IMG_URL}categoryBorder.png) 399 round;
   border-image-width: 4.5;
   padding: 1%;
 
@@ -70,18 +61,7 @@ const CategoryTitle = styled.p`
 `;
 
 const Category = () => {
-  const [title, setTitle] = useState([
-    { title: '과일﹒샐러드', src: salad },
-    { title: '정육﹒수산﹒계란', src: egg },
-    { title: '밀키트', src: mealKit },
-    { title: '우유﹒유제품', src: milk },
-    { title: '빵﹒시리얼﹒잼', src: bread },
-    { title: '분식﹒야식', src: chicken },
-    { title: '과자﹒초콜릿', src: snack },
-    { title: '아이스크림', src: icecream },
-    { title: '헤어﹒바디﹒세안', src: wash },
-    { title: '더보기', src: more },
-  ]);
+  const [title] = useContext(CategoryContext);
 
   //오른쪽 클릭시 이미지 복사 기타 등등 이벤트 막아놓기
   const preventRightClick = useCallback((e) => {
@@ -105,7 +85,7 @@ const Category = () => {
         {title.map((item, idx) => {
           return (
             <CategoryItem key={idx}>
-              <CategoryImg src={item.src} alt={item.src} />
+              <CategoryImg src={`${IMG_URL}${item.src}.png`} alt={`${IMG_URL}${item.src}.png`} />
               <CategoryTitle>{item.title}</CategoryTitle>
             </CategoryItem>
           );

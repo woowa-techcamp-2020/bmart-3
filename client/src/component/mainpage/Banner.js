@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Carousel from 'react-material-ui-carousel';
-import banner1 from 'banner/1.gif';
-import banner2 from 'banner/2.gif';
-import banner3 from 'banner/3.gif';
-import banner4 from 'banner/4.gif';
+import { BANNER_URL } from 'component/share/constant';
 
 const MainBanner = styled.section`
   display: flex;
@@ -39,13 +36,13 @@ const CurrentPage = styled.div`
 const StyledCarousel = styled(Carousel)``;
 
 function Banner() {
-  const items = [{ src: banner1 }, { src: banner2 }, { src: banner3 }, { src: banner4 }];
+  const items = [{ src: '1' }, { src: '2' }, { src: '3' }, { src: '4' }];
 
   return (
     <StyledCarousel autoplay={true} animation={'slide'} timeout={100}>
       {items.map((item, idx) => (
         <MainBanner key={`banner-${idx}`}>
-          <BannerImg src={item.src}></BannerImg>
+          <BannerImg src={`${BANNER_URL}${item.src}.gif`}></BannerImg>
           <CurrentPage>{idx + 1 + '/' + items.length}</CurrentPage>
         </MainBanner>
       ))}
