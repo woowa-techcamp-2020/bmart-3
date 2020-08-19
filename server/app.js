@@ -3,8 +3,14 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import ssh from './db/share/ssh';
+import cors from 'cors';
 
 const app = express();
+app.use(
+  cors({
+    credentials: true,
+  })
+);
 ssh(app);
 
 const __dirname = path.resolve();
