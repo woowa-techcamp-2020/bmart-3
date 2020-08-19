@@ -16,6 +16,8 @@ import milk from 'image/milk.png';
 import snack from 'image/snack.png';
 import wash from 'image/wash.png';
 
+const srcList = [salad, egg, mealKit, milk, bread, chicken, snack, icecream, wash];
+
 const Nav = styled.nav`
   margin: 0 0 8px 0;
   border-bottom: 1px solid #ddd;
@@ -74,24 +76,25 @@ const CategoryTitle = styled.p`
 `;
 
 const Category = () => {
-  const { loading, error, categories, refetch } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
-    variables: { categoryId: 10 },
-  });
-  const { loading2, error2, categoriesChild, refetch2 } = useQuery(CATEGORIES_CHILD, {
-    variables: { parentName: '밀키트' },
-  });
-  const [title, setTitle] = useState([
-    { title: '과일﹒샐러드', src: salad },
-    { title: '정육﹒수산﹒계란', src: egg },
-    { title: '밀키트', src: mealKit },
-    { title: '우유﹒유제품', src: milk },
-    { title: '빵﹒시리얼﹒잼', src: bread },
-    { title: '분식﹒야식', src: chicken },
-    { title: '과자﹒초콜릿', src: snack },
-    { title: '아이스크림', src: icecream },
-    { title: '헤어﹒바디﹒세안', src: wash },
-    { title: '더보기', src: more },
-  ]);
+  const { loading: loadingCategories, error: errorCategories, data: categories, refetch: refetchCategories } = useQuery(
+    CATEGORIES_PARENT
+  );
+  // const { loading, error, categories, refetch } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
+  //   variables: { categoryId: 10 },
+  // });
+  // const { loading2, error2, categoriesChild, refetch2 } = useQuery(CATEGORIES_CHILD, {
+  //   variables: { parentName: '밀키트' },
+  // });
+
+  const [title, setTitle] = useState([]);
+
+  useEffect(() => {
+    if (categories) {
+      const title = categories.CategoriesParent.map((category, idx) => ({ title: category.name, src: srcList[idx] }));
+      title.push({ title: '더보기', src: more });
+      setTitle(title);
+    }
+  }, [categories]);
 
   //오른쪽 클릭시 이미지 복사 기타 등등 이벤트 막아놓기
   const preventRightClick = useCallback((e) => {
