@@ -8,6 +8,7 @@ const EachItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1%;
 `;
 
 const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
@@ -17,6 +18,7 @@ const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
   border-image: url(${border1}) 170 round;
   border-image-width: 4.5;
   padding: 2%;
+  box-shadow: inset 0 0 7px ${(props) => props.theme.color.darkGray};
 `;
 
 const ProductContent = styled.div`
