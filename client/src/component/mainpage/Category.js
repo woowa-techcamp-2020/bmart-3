@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { CATEGORIES_PARENT, CATEGORIES_CHILD } from 'api/graphql/category';
+import { PRODUCTS_BY_CATEGORY_ID } from 'api/graphql/product';
+
 import categoryBorder from 'image/categoryBorder.png';
 import salad from 'image/salad.png';
 import chicken from 'image/chicken.png';
@@ -70,6 +74,12 @@ const CategoryTitle = styled.p`
 `;
 
 const Category = () => {
+  const { loading, error, categories, refetch } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
+    variables: { categoryId: 10 },
+  });
+  const { loading2, error2, categoriesChild, refetch2 } = useQuery(CATEGORIES_CHILD, {
+    variables: { parentName: '밀키트' },
+  });
   const [title, setTitle] = useState([
     { title: '과일﹒샐러드', src: salad },
     { title: '정육﹒수산﹒계란', src: egg },
