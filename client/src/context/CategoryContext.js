@@ -1,19 +1,29 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
+
+import { useQuery } from '@apollo/react-hooks';
+import { CATEGORIES_PARENT } from 'graphql/category';
+import { IMG_URL } from 'component/share/constant';
 
 export const CategoryContext = createContext();
 
 export const CategoryProvider = (props) => {
-  const [title, setTitle] = useState([
-    { title: '과일﹒샐러드', src: 'salad' },
-    { title: '정육﹒수산﹒계란', src: 'egg' },
-    { title: '밀키트', src: 'mealKit' },
-    { title: '우유﹒유제품', src: 'milk' },
-    { title: '빵﹒시리얼﹒잼', src: 'bread' },
-    { title: '분식﹒야식', src: 'chicken' },
-    { title: '과자﹒초콜릿', src: 'snack' },
-    { title: '아이스크림', src: 'icecream' },
-    { title: '헤어﹒바디﹒세안', src: 'wash' },
-    { title: '더보기', src: 'more' },
-  ]);
+  const { loading: loadingCategories, error: errorCategories, data: categories, refetch: refetchCategories } = useQuery(
+    CATEGORIES_PARENT
+  );
+
+  const [title, setTitle] = useState([]);
+
+  useEffect(() => {
+    if (categories) {
+      console.log(categories);
+      const title = categories.CategoriesParent.map((category, idx) => ({
+        title: category.name,
+        src: `${IMG_URL}/category/${category.id}.png`,
+      }));
+      title.push({ title: '더보기', src: `${IMG_URL}/more.png` });
+      console.log(title);
+      setTitle(title);
+    }
+  }, [categories]);
   return <CategoryContext.Provider value={[title, setTitle]}>{props.children}</CategoryContext.Provider>;
 };
