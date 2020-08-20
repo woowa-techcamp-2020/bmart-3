@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import ProductItem from './ProductItem';
+import ProductItem from 'component/share/ProductItem';
 
 const ProductContainerHeader = styled.div`
   font-family: 'BMDOHYEON';
@@ -23,11 +22,11 @@ const HeaderBtn = styled.button`
   border: none;
 `;
 
-const Product = () => {
+const Product = ({ category }) => {
   return (
     <>
       <ProductContainerHeader>
-        <h1>분식 야식</h1>
+        <h1>{category}</h1>
         <HeaderBtn>더보기</HeaderBtn>
       </ProductContainerHeader>
       <ProductContainer>
