@@ -3,6 +3,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { EventScrollContext } from 'context/EventScrollContext';
+import { RecommendContextProvider } from 'context/RecommendContext';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -90,9 +91,11 @@ function Category() {
       </div>
 
       {data.map((item, idx) => (
-        <TabPanel key={`tabpanel-${idx}`} value={value} index={idx}>
-          {item.title} {item.component || '아직 컴포넌트 없음'}
-        </TabPanel>
+        <RecommendContextProvider>
+          <TabPanel key={`tabpanel-${idx}`} value={value} index={idx}>
+            {item.title} {item.component || '아직 컴포넌트 없음'}
+          </TabPanel>
+        </RecommendContextProvider>
       ))}
     </>
   );

@@ -1,7 +1,5 @@
 import React, { useState, createContext } from 'react';
 import Recommend from 'component/mainpage/Recommend';
-import { RecommendContextProvider } from 'context/RecommendContext';
-
 export const EventScrollContext = createContext();
 
 export const EventScrollProvider = ({ children }) => {
@@ -13,11 +11,7 @@ export const EventScrollProvider = ({ children }) => {
     },
     {
       title: '지금 뭐 먹지?',
-      component: (
-        <RecommendContextProvider>
-          <Recommend />
-        </RecommendContextProvider>
-      ),
+      component: <Recommend />,
     },
     {
       title: '새로 나왔어요',
