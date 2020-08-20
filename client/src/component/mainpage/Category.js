@@ -1,22 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { CATEGORIES_PARENT, CATEGORIES_CHILD } from 'api/graphql/category';
-import { PRODUCTS_BY_CATEGORY_ID } from 'api/graphql/product';
-
-import categoryBorder from 'image/categoryBorder.png';
-import salad from 'image/salad.png';
-import chicken from 'image/chicken.png';
-import egg from 'image/egg.png';
-import bread from 'image/bread.png';
-import mealKit from 'image/mealKit.png';
-import icecream from 'image/icecream.png';
-import more from 'image/more.png';
-import milk from 'image/milk.png';
-import snack from 'image/snack.png';
-import wash from 'image/wash.png';
-
-const srcList = [salad, egg, mealKit, milk, bread, chicken, snack, icecream, wash];
+import { CategoryContext } from 'context/CategoryContext';
+import { IMG_URL } from 'component/share/constant';
 
 const Nav = styled.nav`
   margin: 0 0 8px 0;
@@ -61,7 +46,7 @@ const CategoryImg = styled.img`
   height: 57px;
   border-radius: 40%;
   border: 2vw solid rgba(0, 0, 0, 0.5);
-  border-image: url(${categoryBorder}) 399 round;
+  border-image: url(${IMG_URL}/categoryBorder.png) 399 round;
   border-image-width: 4.5;
   padding: 1%;
 
@@ -76,25 +61,7 @@ const CategoryTitle = styled.p`
 `;
 
 const Category = () => {
-  const { loading: loadingCategories, error: errorCategories, data: categories, refetch: refetchCategories } = useQuery(
-    CATEGORIES_PARENT
-  );
-  // const { loading, error, categories, refetch } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
-  //   variables: { categoryId: 10 },
-  // });
-  // const { loading2, error2, categoriesChild, refetch2 } = useQuery(CATEGORIES_CHILD, {
-  //   variables: { parentName: '밀키트' },
-  // });
-
-  const [title, setTitle] = useState([]);
-
-  useEffect(() => {
-    if (categories) {
-      const title = categories.CategoriesParent.map((category, idx) => ({ title: category.name, src: srcList[idx] }));
-      title.push({ title: '더보기', src: more });
-      setTitle(title);
-    }
-  }, [categories]);
+  const [title] = useContext(CategoryContext);
 
   //오른쪽 클릭시 이미지 복사 기타 등등 이벤트 막아놓기
   const preventRightClick = useCallback((e) => {
@@ -107,7 +74,6 @@ const Category = () => {
       document.removeEventListener('contextmenu', preventRightClick);
     };
   });
-
   return (
     <Nav className="main-category">
       <NavTitle>
@@ -118,7 +84,7 @@ const Category = () => {
         {title.map((item, idx) => {
           return (
             <CategoryItem key={idx}>
-              <CategoryImg src={item.src} alt={item.src} />
+              <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
               <CategoryTitle>{item.title}</CategoryTitle>
             </CategoryItem>
           );

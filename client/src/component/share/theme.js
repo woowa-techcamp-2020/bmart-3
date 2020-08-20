@@ -15,7 +15,8 @@ const theme = {
     yello: '#fff200',
     buttonGreen: 'yellowGreen',
     backgroundGray: '#57606f',
-    lightBrown: '#cc8e35',
+    lightBrown: '#f7e7bd',
+    brown: '#c26565',
   },
   size: {
     sm: '10px',

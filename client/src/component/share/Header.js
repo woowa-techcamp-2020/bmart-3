@@ -37,7 +37,8 @@ const Icon = styled(ArrowBack)`
   color: ${(props) => props.theme.color.icon};
 
   &:active {
-    color: ${(props) => props.theme.color.orange};
+    text-Shadow: 1px 1px 2px #ff0000;
+    // color: ${(props) => props.theme.color.orange};
     animation: ${arrowMove} 0.2s ease-in-out;
     padding: 2px;
   }
