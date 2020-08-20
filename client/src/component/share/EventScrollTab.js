@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Recommend from 'component/mainpage/Recommend';
+import { EventScrollContext } from 'context/EventScrollContext';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,7 +67,7 @@ function a11yProps(index) {
 
 function Category() {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  const [data, value, setValue] = useContext(EventScrollContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -83,22 +84,17 @@ function Category() {
           scrollButtons="off"
           variant="scrollable"
         >
-          <StyledTab label="널 위한 상품" {...a11yProps(0)} />
-          <StyledTab label="번쩍 할인" {...a11yProps(1)} />
-          <StyledTab label="지금 뭐 먹지?" {...a11yProps(2)} />
-          <StyledTab label="새로 나왔어요" {...a11yProps(3)} />
-          <StyledTab label="요즘 잘 팔려요" {...a11yProps(4)} />
+          {data.map((item, idx) => (
+            <StyledTab label={item.title} {...a11yProps({ idx })} />
+          ))}
         </StyledTabs>
       </div>
-      <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Recommend />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
+
+      {data.map((item, idx) => (
+        <TabPanel value={value} index={idx}>
+          {item.title} {item.component || '아직 컴포넌트 없음'}
+        </TabPanel>
+      ))}
     </>
   );
 }
