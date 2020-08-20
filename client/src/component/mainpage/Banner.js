@@ -42,7 +42,7 @@ function Banner() {
     <StyledCarousel autoplay={true} animation={'slide'} timeout={100}>
       {items.map((item, idx) => (
         <MainBanner key={`banner-${idx}`}>
-          <BannerImg src={`${BANNER_URL}${item.src}.gif`}></BannerImg>
+          <BannerImg src={`${BANNER_URL}/${item.src}.gif`}></BannerImg>
           <CurrentPage>{idx + 1 + '/' + items.length}</CurrentPage>
         </MainBanner>
       ))}
