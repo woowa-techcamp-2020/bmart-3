@@ -38,7 +38,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Mainpage} />
           <Route path="/cart">장바구니페이지</Route>
-          <Route path="/category" component={ParentCategory} />
+          <Route path="/category/:category_id" component={ParentCategory} />
           <Route path="/category_detail">상세 카테고리 페이지</Route>
           <Route path="/liked">찜 페이지</Route>
           <Route path="/ordered_list">주문 내역 페이지</Route>

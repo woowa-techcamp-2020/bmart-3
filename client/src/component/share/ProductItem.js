@@ -20,6 +20,15 @@ const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
   box-shadow: inset 0 0 7px ${(props) => props.theme.color.darkGray};
 `;
 
+// {
+//   id: 4,
+//   name: '제품1',
+//   price: 4500,
+//   img_url: 'https://img-cf.kurly.com/shop/data/goods/1562318813669l0.jpg',
+//   category_id: 21,
+//   discount_percent: 0,
+// },
+
 const ProductContent = styled.div`
   width: 100%;
   padding: 5px 0;
@@ -29,16 +38,15 @@ const ProductContentRow = styled.p`
   padding: 2px 0;
 `;
 
-const ProductItem = () => {
+const ProductItem = ({ itemData }) => {
   return (
     <EachItem>
-      <ProductImg img="https://source.unsplash.com/random/collections=food" />
+      <ProductImg img={itemData.img_url} />
       <ProductContent>
-        <ProductContentRow>한입 쏙 비엔나</ProductContentRow>
-        <ProductContentRow>1190원</ProductContentRow>
+        <ProductContentRow>{itemData.name}</ProductContentRow>
+        <ProductContentRow>{itemData.price}원</ProductContentRow>
       </ProductContent>
     </EachItem>
   );
 };
-
 export default ProductItem;

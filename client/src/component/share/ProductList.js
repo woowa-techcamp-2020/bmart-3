@@ -24,22 +24,14 @@ const HeaderBtn = styled.button`
 
 //부모한테 category_id를 받아서 본인이 api를 통해 데이터를 가져옴 >
 
-const Product = ({ category }) => {
+const ProductList = ({ productItems }) => {
   return (
-    <>
-      <ProductContainerHeader>
-        <h1>{category}</h1>
-        <HeaderBtn>더보기</HeaderBtn>
-      </ProductContainerHeader>
-      <ProductContainer>
-        {Array(parseInt(10))
-          .fill()
-          .map((item, idx) => (
-            <ProductItem key={idx} />
-          ))}
-      </ProductContainer>
-    </>
+    <ProductContainer>
+      {productItems.map((item, idx) => (
+        <ProductItem itemData={item} key={idx} />
+      ))}
+    </ProductContainer>
   );
 };
 
-export default Product;
+export default ProductList;
