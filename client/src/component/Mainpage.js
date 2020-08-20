@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import ScrollTab from 'component/share/ScrollTab';
+import ScrollTab from 'component/share/EventScrollTab';
 import Product from 'component/share/Product';
 import Header from 'component/share/Header';
 import Banner from 'component/mainpage/Banner';
 import Category from 'component/mainpage/Category';
 import Recommend from 'component/mainpage/Recommend';
 import { CategoryProvider, CategoryContext } from 'context/CategoryContext';
-
+import { EventScrollContext, EventScrollProvider } from 'context/EventScrollContext';
 const Article = styled.article``;
 
 const Section = styled.section`
@@ -22,26 +22,6 @@ const AdvertiseSection = styled(Section)``;
 
 const ProductSection = styled(Section)``;
 
-function Mainpage() {
-  return (
-    <CategoryProvider>
-      <Header hasSearchBar />
-      <Banner />
-      <Category />
-      <Article>
-        <ScrollTab />
-        <RecommendSection>
-          <Recommend />
-        </RecommendSection>
-        <ProductSection>
-          <MapProductList />
-        </ProductSection>
-        <AdvertiseSection>광고</AdvertiseSection>
-      </Article>
-    </CategoryProvider>
-  );
-}
-
 function MapProductList() {
   const [title] = useContext(CategoryContext);
   return (
@@ -49,6 +29,30 @@ function MapProductList() {
       {title.map((item, idx) => (
         <Product category={item.title} key={idx} />
       ))}
+    </>
+  );
+}
+
+function Mainpage() {
+  return (
+    <>
+      <Header hasSearchBar />
+      <Banner />
+      <CategoryProvider>
+        <Category />
+      </CategoryProvider>
+      <Article>
+        <EventScrollProvider>
+          <ScrollTab />
+        </EventScrollProvider>
+        <RecommendSection>
+          <Recommend />
+        </RecommendSection>
+        <CategoryProvider>
+          <ProductSection>{/* <MapProductList /> */}</ProductSection>
+        </CategoryProvider>
+        <AdvertiseSection>광고</AdvertiseSection>
+      </Article>
     </>
   );
 }

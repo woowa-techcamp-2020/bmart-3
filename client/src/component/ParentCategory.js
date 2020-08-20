@@ -2,18 +2,47 @@ import React, { useState } from 'react';
 import Header from 'component/share/Header';
 import ProductList from 'component/share/ProductList';
 import Advertise from 'component/share/Advertise';
-
 import styled from 'styled-components';
 
-function ParentCategory() {
+const CategoryContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const CategoryBox = styled.div`
+  border: solid 2px ${(props) => props.theme.color.brown};
+  font-size: 0.8em;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+`;
+
+function ChildCategoryList(props) {
+  return (
+    <CategoryContainer>
+      {props.childCategories.map((childCategory, idx) => (
+        <CategoryBox key={idx}>{childCategory.name}</CategoryBox>
+      ))}
+    </CategoryContainer>
+  );
+}
+
+function ParentCategory(props) {
   //   const [, ] = useState();
 
-  const dummyCategoryDetails = ['자식 카테고리1', '자식 카테고리2', '자식 카테고리3'];
+  const dummyCategoryDetails = [
+    { name: '자식 카테고리1', id: '11' },
+    { name: '자식 카테고리2', id: '12' },
+    { name: '자식 카테고리3', id: '13' },
+  ];
   const dummyProductList = ['상품1', '상품2', '상품3', '상품4', '상품5', '상품6', '상품7'];
 
   const Article = styled.article``;
 
-  const ChildCategoryList = styled.div``;
+  // const ChildCategoryList = styled.div``;
 
   const ListControlBar = styled.div``;
 
@@ -23,6 +52,7 @@ function ParentCategory() {
     border-top: 1px solid #eee;
   `;
 
+  const categoryId = props.location.search.split('=')[1];
   // 헤더
   // 광고배너(짧은거)
   // 자식 카테고리 리스트
