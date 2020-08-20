@@ -9,11 +9,7 @@ import bodyParser from 'body-parser';
 import { typeDefs, resolvers } from './db/graphql';
 
 const app = express();
-app.use(
-  cors({
-    credentials: true,
-  })
-);
+app.use(cors());
 
 const __dirname = path.resolve();
 
