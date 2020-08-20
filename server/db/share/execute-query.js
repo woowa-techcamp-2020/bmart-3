@@ -1,4 +1,3 @@
-import { initPool } from './connection';
 import { sshConf, dbConf } from '../share/db.config';
 import { Client as SSH2Client } from 'ssh2';
 import mysql2 from 'mysql2/promise';
