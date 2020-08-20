@@ -20,7 +20,6 @@ export const CategoryProvider = (props) => {
         src: `${IMG_URL}/category/${category.id}.png`,
       }));
       title.push({ title: '더보기', src: `${IMG_URL}/more.png` });
-      console.log(title);
       setTitle(title);
     }
   }, [categories]);

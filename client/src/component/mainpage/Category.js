@@ -66,7 +66,7 @@ const Category = () => {
   //오른쪽 클릭시 이미지 복사 기타 등등 이벤트 막아놓기
   const preventRightClick = useCallback((e) => {
     e.preventDefault();
-  });
+  }, []);
 
   useEffect(() => {
     document.addEventListener('contextmenu', preventRightClick);
