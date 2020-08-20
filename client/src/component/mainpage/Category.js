@@ -83,7 +83,7 @@ const Category = () => {
       <CategoryContainer onClick={preventRightClick}>
         {title.map((item, idx) => {
           return (
-            <CategoryItem key={idx}>
+            <CategoryItem key={`category-item-${idx}`}>
               <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
               <CategoryTitle>{item.title}</CategoryTitle>
             </CategoryItem>

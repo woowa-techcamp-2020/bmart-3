@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Recommend from 'component/mainpage/Recommend';
 import { EventScrollContext } from 'context/EventScrollContext';
 
 function TabPanel(props) {
@@ -85,13 +84,13 @@ function Category() {
           variant="scrollable"
         >
           {data.map((item, idx) => (
-            <StyledTab label={item.title} {...a11yProps({ idx })} />
+            <StyledTab key={`styled-tab-${idx}`} label={item.title} {...a11yProps({ idx })} />
           ))}
         </StyledTabs>
       </div>
 
       {data.map((item, idx) => (
-        <TabPanel value={value} index={idx}>
+        <TabPanel key={`tabpanel-${idx}`} value={value} index={idx}>
           {item.title} {item.component || '아직 컴포넌트 없음'}
         </TabPanel>
       ))}

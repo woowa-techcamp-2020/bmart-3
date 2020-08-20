@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect, createContext } from 'react';
-
 import { useQuery } from '@apollo/react-hooks';
 import { CATEGORIES_PARENT } from 'graphql/category';
 import { IMG_URL } from 'component/share/constant';
