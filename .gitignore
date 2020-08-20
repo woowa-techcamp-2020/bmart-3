@@ -1,2 +1,4 @@
 # extract node modules
 node_modules/
+.env
+*.pem

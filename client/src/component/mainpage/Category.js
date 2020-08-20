@@ -46,7 +46,7 @@ const CategoryImg = styled.img`
   height: 57px;
   border-radius: 40%;
   border: 2vw solid rgba(0, 0, 0, 0.5);
-  border-image: url(${IMG_URL}categoryBorder.png) 399 round;
+  border-image: url(${IMG_URL}/categoryBorder.png) 399 round;
   border-image-width: 4.5;
   padding: 1%;
 
@@ -66,7 +66,7 @@ const Category = () => {
   //오른쪽 클릭시 이미지 복사 기타 등등 이벤트 막아놓기
   const preventRightClick = useCallback((e) => {
     e.preventDefault();
-  });
+  }, []);
 
   useEffect(() => {
     document.addEventListener('contextmenu', preventRightClick);
@@ -74,7 +74,6 @@ const Category = () => {
       document.removeEventListener('contextmenu', preventRightClick);
     };
   });
-
   return (
     <Nav className="main-category">
       <NavTitle>
@@ -85,7 +84,7 @@ const Category = () => {
         {title.map((item, idx) => {
           return (
             <CategoryItem key={idx}>
-              <CategoryImg src={`${IMG_URL}${item.src}.png`} alt={`${IMG_URL}${item.src}.png`} />
+              <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
               <CategoryTitle>{item.title}</CategoryTitle>
             </CategoryItem>
           );
