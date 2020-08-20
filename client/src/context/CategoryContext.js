@@ -15,7 +15,6 @@ export const CategoryProvider = (props) => {
 
   useEffect(() => {
     if (categories) {
-      console.log(categories);
       const title = categories.CategoriesParent.map((category, idx) => ({
         title: category.name,
         src: `${IMG_URL}/category/${category.id}.png`,
