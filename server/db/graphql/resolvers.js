@@ -10,7 +10,7 @@ export default async function () {
       Product: async (_, { id }) => await getProductById(id),
       ProductsByCategoryId: async (_, { categoryId }) => await getProductsByCategoryId(categoryId),
       CategoriesParent: async () => await getCategoriesParent(),
-      CategoriesChild: async (_, { parentName }) => await getCategoriesChild(parentName),
+      CategoriesChild: async (_, { parentId }) => await getCategoriesChild(parentId),
     },
   };
 }

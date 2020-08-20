@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from 'component/share/Header';
 import ProductList from 'component/share/ProductList';
 import Advertise from 'component/share/Advertise';
 import styled from 'styled-components';
+import { useQuery } from '@apollo/react-hooks';
+import { CATEGORIES_CHILD } from 'graphql/category';
 
 const CategoryContainer = styled.div`
   display: flex;
@@ -32,17 +34,43 @@ function ChildCategoryList(props) {
 
 function ParentCategory(props) {
   //   const [, ] = useState();
+  const splitUrl = props.location.pathname.split('/');
+  const categoryId = parseInt(splitUrl[splitUrl.length - 1]);
+  console.log('props.location : ', categoryId);
 
-  const dummyCategoryDetails = [
-    { name: '자식 카테고리1', id: '11' },
-    { name: '자식 카테고리2', id: '12' },
-    { name: '자식 카테고리3', id: '13' },
-  ];
-  const dummyProductList = ['상품1', '상품2', '상품3', '상품4', '상품5', '상품6', '상품7'];
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    data: childcategories,
+    refetch: refetchCategories,
+  } = useQuery(CATEGORIES_CHILD, {
+    variables: {
+      parentId: categoryId,
+    },
+  });
+
+  useEffect(() => {
+    if (childcategories) {
+      console.log('childcategories : ', childcategories);
+    }
+  }, [childcategories]);
+
+  // {
+  //   "data": {
+  //     "CategoriesChild": [
+  //       {
+  //         "id": 16,
+  //         "name": "간편식﹒냉동식품"
+  //       },
+  //       {
+  //         "id": 17,
+  //         "name": "밥류﹒면식품﹒즉석시품"
+  //       }
+  //     ]
+  //   }
+  // }
 
   const Article = styled.article``;
-
-  // const ChildCategoryList = styled.div``;
 
   const ListControlBar = styled.div``;
 
@@ -52,13 +80,14 @@ function ParentCategory(props) {
     border-top: 1px solid #eee;
   `;
 
-  const categoryId = props.location.search.split('=')[1];
-  // 헤더
-  // 광고배너(짧은거)
-  // 자식 카테고리 리스트
-  // 이 상품 어때요?
-  // 아이템 리스트
+  // 자식 카테고리 정보
+  const dummyCategoryDetails = [
+    { name: '자식 카테고리1', id: '11' },
+    { name: '자식 카테고리2', id: '12' },
+    { name: '자식 카테고리3', id: '13' },
+  ];
 
+  //큰 카테고리에 해당되는 모든 제품들
   const productItems = [
     {
       id: 1,
@@ -99,7 +128,7 @@ function ParentCategory(props) {
       <Header />
       <Article>
         <Advertise />
-        <ChildCategoryList childCategories={dummyCategoryDetails} />
+        {!loadingCategories ? <ChildCategoryList childCategories={childcategories.CategoriesChild} /> : ''}
         <ProductSection>
           <ListControlBar />
           <ProductList productItems={productItems} />
