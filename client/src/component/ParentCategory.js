@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Header from 'component/share/Header';
 import ProductList from 'component/share/ProductList';
+import Product from 'component/share/Product';
 import Advertise from 'component/share/Advertise';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { CATEGORIES_CHILD } from 'graphql/category';
+import { PRODUCTS_BY_CATEGORY_ID } from 'graphql/product';
+
+//--------------------스타일드 컴포넌트 구현 영역
+function ChildCategoryList(props) {
+  return (
+    <CategoryContainer>
+      {props.childCategories.map((childCategory, idx) => (
+        <CategoryBox key={idx}>{childCategory.name}</CategoryBox>
+      ))}
+    </CategoryContainer>
+  );
+}
 
 const CategoryContainer = styled.div`
   display: flex;
@@ -22,22 +35,23 @@ const CategoryBox = styled.div`
   padding: 1%;
 `;
 
-function ChildCategoryList(props) {
-  return (
-    <CategoryContainer>
-      {props.childCategories.map((childCategory, idx) => (
-        <CategoryBox key={idx}>{childCategory.name}</CategoryBox>
-      ))}
-    </CategoryContainer>
-  );
-}
+const Article = styled.article``;
 
+const ListControlBar = styled.div``;
+
+const ProductSection = styled.section`
+  padding: 0 15px;
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
+`;
+
+// ------------------graphql 영역
 function ParentCategory(props) {
   //   const [, ] = useState();
   const splitUrl = props.location.pathname.split('/');
   const categoryId = parseInt(splitUrl[splitUrl.length - 1]);
-  console.log('props.location : ', categoryId);
 
+  // 자식 카테고리 요청
   const {
     loading: loadingCategories,
     error: errorCategories,
@@ -49,74 +63,43 @@ function ParentCategory(props) {
     },
   });
 
+  // 부모 카테고리 제품 데이터 요청
+  const { loading: loadingProducts, error: errorProducts, data: products, refetch: refetchProducts } = useQuery(
+    PRODUCTS_BY_CATEGORY_ID,
+    {
+      variables: {
+        categoryId: categoryId,
+      },
+    }
+  );
+
   useEffect(() => {
     if (childcategories) {
       console.log('childcategories : ', childcategories);
     }
-  }, [childcategories]);
-
-  const Article = styled.article``;
-
-  const ListControlBar = styled.div``;
-
-  const ProductSection = styled.section`
-    padding: 0 15px;
-    border-bottom: 1px solid #eee;
-    border-top: 1px solid #eee;
-  `;
-
-  // 자식 카테고리 정보
-  const dummyCategoryDetails = [
-    { name: '자식 카테고리1', id: '11' },
-    { name: '자식 카테고리2', id: '12' },
-    { name: '자식 카테고리3', id: '13' },
-  ];
-
-  //큰 카테고리에 해당되는 모든 제품들
-  const productItems = [
-    {
-      id: 1,
-      name: '제품1',
-      price: 4500,
-      img_url: 'https://img-cf.kurly.com/shop/data/goods/1562318813669l0.jpg',
-      category_id: 21,
-      discount_percent: 23,
-    },
-    {
-      id: 2,
-      name: '제품2',
-      price: 14500,
-      img_url: 'https://img-cf.kurly.com/shop/data/goods/1562318813669l0.jpg',
-      category_id: 21,
-      discount_percent: 0,
-    },
-    {
-      id: 3,
-      name: '제품3',
-      price: 114500,
-      img_url: 'https://img-cf.kurly.com/shop/data/goods/1562318813669l0.jpg',
-      category_id: 21,
-      discount_percent: 11,
-    },
-    {
-      id: 4,
-      name: '제품4',
-      price: 124500,
-      img_url: 'https://img-cf.kurly.com/shop/data/goods/1562318813669l0.jpg',
-      category_id: 21,
-      discount_percent: 0,
-    },
-  ];
+    if (products) {
+      console.log('products :', products);
+    }
+  }, [childcategories, products]);
 
   return (
     <>
       <Header />
       <Article>
         <Advertise />
-        {!loadingCategories ? <ChildCategoryList childCategories={childcategories.CategoriesChild} /> : ''}
+        {!loadingCategories ? (
+          <ChildCategoryList childCategories={childcategories.CategoriesChild} />
+        ) : (
+          <div>카테고리 정보를 가져오고 있어요!</div>
+        )}
         <ProductSection>
           <ListControlBar />
-          <ProductList productItems={productItems} />
+          {/* <Product category={categoryId} /> */}
+          {!loadingProducts ? (
+            <ProductList productItems={products.ProductsByCategoryId} />
+          ) : (
+            <div>제품정보를 가져오고 있어요!</div>
+          )}
         </ProductSection>
       </Article>
     </>
