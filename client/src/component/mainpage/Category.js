@@ -44,6 +44,11 @@ const categoryMove = keyframes`
   50%{transform:rotate(-10deg);}
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
 const CategoryImg = styled.img`
   width: 55px;
   height: 57px;
@@ -85,12 +90,12 @@ const Category = () => {
       </NavTitle>
       <CategoryContainer onClick={preventRightClick}>
         {categoryList.map((item, idx) => (
-          <Link to={categoryBaseUrl + item.id} key={`category-item-${idx}`}>
+          <StyledLink to={categoryBaseUrl + item.id} key={`category-item-${idx}`}>
             <CategoryItem>
               <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
               <CategoryTitle>{item.name}</CategoryTitle>
             </CategoryItem>
-          </Link>
+          </StyledLink>
         ))}
       </CategoryContainer>
     </Nav>
