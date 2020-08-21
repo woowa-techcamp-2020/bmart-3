@@ -61,7 +61,7 @@ const CategoryTitle = styled.p`
 `;
 
 const Category = () => {
-  const [title] = useContext(CategoryContext);
+  const [categoryList] = useContext(CategoryContext);
 
   //오른쪽 클릭시 이미지 복사 기타 등등 이벤트 막아놓기
   const preventRightClick = useCallback((e) => {
@@ -81,14 +81,12 @@ const Category = () => {
         <DeliveryExpirationTime>| 24시까지 주문 예상</DeliveryExpirationTime>
       </NavTitle>
       <CategoryContainer onClick={preventRightClick}>
-        {title.map((item, idx) => {
-          return (
-            <CategoryItem key={idx}>
-              <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
-              <CategoryTitle>{item.title}</CategoryTitle>
-            </CategoryItem>
-          );
-        })}
+        {categoryList.map((item, idx) => (
+          <CategoryItem key={`category-item-${idx}`}>
+            <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
+            <CategoryTitle>{item.name}</CategoryTitle>
+          </CategoryItem>
+        ))}
       </CategoryContainer>
     </Nav>
   );

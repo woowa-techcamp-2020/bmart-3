@@ -29,13 +29,13 @@ const ProductContentRow = styled.p`
   padding: 2px 0;
 `;
 
-const ProductItem = () => {
+const ProductItem = ({ contents }) => {
   return (
     <EachItem>
-      <ProductImg img="https://source.unsplash.com/random/collections=food" />
+      <ProductImg img={contents.img_url} />
       <ProductContent>
-        <ProductContentRow>한입 쏙 비엔나</ProductContentRow>
-        <ProductContentRow>1190원</ProductContentRow>
+        <ProductContentRow>{contents.name}</ProductContentRow>
+        <ProductContentRow>{contents.price}원</ProductContentRow>
       </ProductContent>
     </EachItem>
   );
