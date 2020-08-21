@@ -1,26 +1,33 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { PRODUCTS_BY_CATEGORY_ID } from 'graphql/category';
-import { IMG_URL } from 'component/share/constant';
+import { PRODUCTS_BY_CATEGORY_ID } from 'graphql/product';
 
-export const CategoryContext = createContext();
+export const ProductContext = createContext();
 
-export const CategoryProvider = (props) => {
-  const { loading: loadingCategories, error: errorCategories, data: categories, refetch: refetchCategories } = useQuery(
-    PRODUCTS_BY_CATEGORY_ID
-  );
+export const ProductProvider = ({ categoryId, children }) => {
+  const {
+    loading: loadingProducts,
+    error: errorProducts,
+    data: products,
+    refetch: refetchProducts,
+  } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: { categoryId } });
 
-  const [title, setTitle] = useState([]);
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    if (categories) {
-      const title = categories.CategoriesParent.map((category, idx) => ({
-        title: category.name,
-        src: `${IMG_URL}/category/${category.id}.png`,
+    if (products) {
+      const data = products.ProductsByCategoryId.map((product, idx) => ({
+        name: product.name,
+        price: product.price,
+        category_id: product.category_id,
+        img_url: product.img_url,
       }));
-      title.push({ title: '더보기', src: `${IMG_URL}/more.png` });
-      setTitle(title);
+      setProductList(data);
+      console.log(productList);
     }
-  }, [categories]);
-  return <CategoryContext.Provider value={[title, setTitle]}>{props.children}</CategoryContext.Provider>;
+  }, [productList]);
+
+  return (
+    <ProductContext.Provider value={[loadingProducts, productList, setProductList]}>{children}</ProductContext.Provider>
+  );
 };

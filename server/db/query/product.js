@@ -11,9 +11,8 @@ const getProductByIdQuery = (id) => {
 };
 
 const getProductsByCategoryIdQuery = (categoryId) => {
-  const getProductsByCategoryIdFormat = `select * from product where category_id in (select id from category where parent_name=(select name from category where id=?))`;
+  const getProductsByCategoryIdFormat = `select * from product where category_id in (select id from category where parent_name=(select name from category where id=?)) limit 10`;
 
-  //  = `select * from product where category_id=${category_ids}`;
   return mysql2.format(getProductsByCategoryIdFormat, [categoryId]);
 };
 

@@ -27,8 +27,6 @@ import {
 const Recommend = () => {
   const [recommendList, setRecommendList, selected, setSelected] = useContext(RecommendContext);
 
-  console.log(recommendList, selected);
-
   const updateImg = (id) => {
     setSelected(id - 1);
   };

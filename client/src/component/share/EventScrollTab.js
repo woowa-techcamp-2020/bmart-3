@@ -91,8 +91,8 @@ function Category() {
       </div>
 
       {data.map((item, idx) => (
-        <RecommendContextProvider>
-          <TabPanel key={`tabpanel-${idx}`} value={value} index={idx}>
+        <RecommendContextProvider key={`tabpanel-${idx}`}>
+          <TabPanel value={value} index={idx}>
             {item.title} {item.component || '아직 컴포넌트 없음'}
           </TabPanel>
         </RecommendContextProvider>
