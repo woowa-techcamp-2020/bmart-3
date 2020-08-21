@@ -42,12 +42,10 @@ function Advertise() {
   return (
     <StyledCarousel autoplay={true} animation={'slide'} timeout={100}>
       {items.map((item, idx) => (
-        <>
-          <MainBanner key={'banner' + idx}>
-            <BannerImg src={item.src}></BannerImg>
-            <CurrentPage>{idx + 1 + '/' + items.length}</CurrentPage>
-          </MainBanner>
-        </>
+        <MainBanner key={'banner' + idx}>
+          <BannerImg src={item.src}></BannerImg>
+          <CurrentPage>{idx + 1 + '/' + items.length}</CurrentPage>
+        </MainBanner>
       ))}
     </StyledCarousel>
   );

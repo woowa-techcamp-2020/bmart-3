@@ -2,6 +2,9 @@ import React, { useEffect, useCallback, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { CategoryContext } from 'context/CategoryContext';
 import { IMG_URL } from 'component/share/constant';
+import { Link } from 'react-router-dom';
+
+const categoryBaseUrl = '/category/';
 
 const Nav = styled.nav`
   margin: 0 0 8px 0;
@@ -82,10 +85,12 @@ const Category = () => {
       </NavTitle>
       <CategoryContainer onClick={preventRightClick}>
         {categoryList.map((item, idx) => (
-          <CategoryItem key={`category-item-${idx}`}>
-            <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
-            <CategoryTitle>{item.name}</CategoryTitle>
-          </CategoryItem>
+          <Link to={categoryBaseUrl + item.id} key={`category-item-${idx}`}>
+            <CategoryItem>
+              <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
+              <CategoryTitle>{item.name}</CategoryTitle>
+            </CategoryItem>
+          </Link>
         ))}
       </CategoryContainer>
     </Nav>

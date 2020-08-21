@@ -44,7 +44,7 @@ const Product = ({ category }) => {
       </ProductContainerHeader>
       <ProductContainer>
         {products.ProductsByCategoryId.map((item, idx) => {
-          return <ProductItem key={`productsByCategoryId-${idx}`} contents={item}></ProductItem>;
+          return <ProductItem key={`productsByCategoryId-${idx}`} content={item}></ProductItem>;
         })}
       </ProductContainer>
     </>

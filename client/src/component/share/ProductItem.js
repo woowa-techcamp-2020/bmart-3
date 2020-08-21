@@ -38,13 +38,13 @@ const ProductContentRow = styled.p`
   padding: 2px 0;
 `;
 
-const ProductItem = ({ productItems }) => {
+const ProductItem = ({ content }) => {
   return (
     <EachItem>
-      <ProductImg img={productItems.img_url} />
+      <ProductImg img={content.img_url} />
       <ProductContent>
-        <ProductContentRow>{productItems.name}</ProductContentRow>
-        <ProductContentRow>{productItems.price}원</ProductContentRow>
+        <ProductContentRow>{content.name}</ProductContentRow>
+        <ProductContentRow>{content.price}원</ProductContentRow>
       </ProductContent>
     </EachItem>
   );
