@@ -8,9 +8,10 @@ const CATEGORIES_PARENT = gql`
     }
   }
 `;
+
 const CATEGORIES_CHILD = gql`
-  query($parentName: String!) {
-    CategoriesChild(parentName: $parentName) {
+  query($parentId: Int!) {
+    CategoriesChild(parentId: $parentId) {
       id
       name
     }

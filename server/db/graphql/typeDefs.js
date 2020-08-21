@@ -27,5 +27,5 @@ type Query{
     Product(id: Int): Product,
     ProductsByCategoryId(categoryId: Int): [Product],
     CategoriesParent: [Category],
-    CategoriesChild(parentName: String): [Category],
+    CategoriesChild(parentId: Int): [Category],
 }`;
