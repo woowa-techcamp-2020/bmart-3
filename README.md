@@ -10,7 +10,7 @@
 ### 1. 깃 클론 및 모듈 설치
 ```bash
 git clone https://github.com/woowa-techcamp-2020/bmart-3
-cd hbk-1/client
+cd bmart-3/client
 npm install
 cd ../server
 npm install
@@ -107,6 +107,7 @@ npm start
 
 
 # 🐻 프로젝트 산출물
+- [투두리스트](https://github.com/woowa-techcamp-2020/bmart-3/wiki/%ED%88%AC%EB%91%90%EB%A6%AC%EC%8A%A4%ED%8A%B8)
 - [테이블 상세구조](https://github.com/woowa-techcamp-2020/bmart-3/wiki/DB-%ED%85%8C%EC%9D%B4%EB%B8%94-%EA%B5%AC%EC%A1%B0)
 - [ERD](https://github.com/woowa-techcamp-2020/bmart-3/wiki/ERD)
 - [회고록](https://github.com/woowa-techcamp-2020/bmart-3/wiki/%ED%9A%8C%EA%B3%A0%EB%A1%9D)
