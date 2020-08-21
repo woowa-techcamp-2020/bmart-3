@@ -10,9 +10,9 @@ const getCategoriesParent = async () => {
   }
 };
 
-const getCategoriesChild = async (parentName) => {
+const getCategoriesChild = async (parentId) => {
   try {
-    const rows = await executeQuery(getCategoriesChildQuery(parentName));
+    const rows = await executeQuery(getCategoriesChildQuery(parentId));
     return rows;
   } catch (err) {
     throw err;

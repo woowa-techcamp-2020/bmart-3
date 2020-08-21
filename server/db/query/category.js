@@ -5,9 +5,15 @@ const getCategoriesParentQuery = () => {
   return mysql2.format(getCategoriesParentFormat);
 };
 
-const getCategoriesChildQuery = (parentName) => {
-  const getCategoriesChildFormat = `select * from category where parent_name=?`;
-  return mysql2.format(getCategoriesChildFormat, [parentName]);
+const getCategoriesChildQuery = (parentId) => {
+  const getCategoriesChildFormat = `
+  select id, name 
+  from category C
+  where parent_name=
+  (select name from category C2
+  where id = ?)
+  `;
+  return mysql2.format(getCategoriesChildFormat, [parentId]);
 };
 
 export { getCategoriesParentQuery, getCategoriesChildQuery };

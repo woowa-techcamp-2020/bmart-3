@@ -24,6 +24,8 @@ const HeaderBtn = styled.button`
   border: none;
 `;
 
+//부모한테 category_id를 받아서 본인이 api를 통해 데이터를 가져옴 >
+
 const Product = ({ category }) => {
   const categoryId = category.id;
   const { loading, error, data: products, refetch: refetchProducts } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
@@ -42,7 +44,7 @@ const Product = ({ category }) => {
       </ProductContainerHeader>
       <ProductContainer>
         {products.ProductsByCategoryId.map((item, idx) => {
-          return <ProductItem key={`productsByCategoryId-${idx}`} contents={item}></ProductItem>;
+          return <ProductItem key={`productsByCategoryId-${idx}`} content={item}></ProductItem>;
         })}
       </ProductContainer>
     </>
