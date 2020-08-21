@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect, createContext } from 'react';
-
 import { useQuery } from '@apollo/react-hooks';
 import { CATEGORIES_PARENT } from 'graphql/category';
 import { IMG_URL } from 'component/share/constant';
@@ -12,17 +10,18 @@ export const CategoryProvider = (props) => {
     CATEGORIES_PARENT
   );
 
-  const [title, setTitle] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
     if (categories) {
-      const title = categories.CategoriesParent.map((category, idx) => ({
-        title: category.name,
+      const categoryList = categories.CategoriesParent.map((category, idx) => ({
+        id: category.id,
+        name: category.name,
         src: `${IMG_URL}/category/${category.id}.png`,
       }));
-      title.push({ title: '더보기', src: `${IMG_URL}/more.png` });
-      setTitle(title);
+      categoryList.push({ id: 0, name: '더보기', src: `${IMG_URL}/more.png` });
+      setCategoryList(categoryList);
     }
   }, [categories]);
-  return <CategoryContext.Provider value={[title, setTitle]}>{props.children}</CategoryContext.Provider>;
+  return <CategoryContext.Provider value={[categoryList, setCategoryList]}>{props.children}</CategoryContext.Provider>;
 };

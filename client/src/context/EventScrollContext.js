@@ -1,9 +1,8 @@
 import React, { useState, createContext } from 'react';
 import Recommend from 'component/mainpage/Recommend';
-
 export const EventScrollContext = createContext();
 
-export const EventScrollProvider = (props) => {
+export const EventScrollProvider = ({ children }) => {
   const [data, setData] = useState([
     { title: '널 위한 상품' },
     {
@@ -22,5 +21,5 @@ export const EventScrollProvider = (props) => {
     },
   ]);
   const [value, setValue] = useState(0);
-  return <EventScrollContext.Provider value={[data, value, setValue]}>{props.children}</EventScrollContext.Provider>;
+  return <EventScrollContext.Provider value={[data, value, setValue]}>{children}</EventScrollContext.Provider>;
 };

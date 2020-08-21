@@ -55,21 +55,6 @@ function ParentCategory(props) {
     }
   }, [childcategories]);
 
-  // {
-  //   "data": {
-  //     "CategoriesChild": [
-  //       {
-  //         "id": 16,
-  //         "name": "간편식﹒냉동식품"
-  //       },
-  //       {
-  //         "id": 17,
-  //         "name": "밥류﹒면식품﹒즉석시품"
-  //       }
-  //     ]
-  //   }
-  // }
-
   const Article = styled.article``;
 
   const ListControlBar = styled.div``;
