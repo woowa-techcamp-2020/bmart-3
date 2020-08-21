@@ -8,6 +8,8 @@ const MapProductList = ({ end }) => {
   const [fetching, setFetching] = useContext(FetchingContext);
   setFetching(false);
 
+ 
+
   return (
     <>
       {categoryList.slice(0, end).map((item, idx) => (

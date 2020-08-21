@@ -13,8 +13,13 @@ export const ProductProvider = ({ categoryId, children }) => {
   } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: { categoryId } });
 
   const [productList, setProductList] = useState([]);
+  // const [productList, setProductList] = useState({});
+
+  // {1:[{},{},{}]}
 
   useEffect(() => {
+    // const arr = { categoryId: [] };
+
     if (products) {
       const data = products.ProductsByCategoryId.map((product, idx) => ({
         name: product.name,
@@ -22,8 +27,8 @@ export const ProductProvider = ({ categoryId, children }) => {
         category_id: product.category_id,
         img_url: product.img_url,
       }));
-      setProductList(data);
-      console.log(productList);
+      // arr[categoryId] = data;
+      // setProductList(...productList, arr);
     }
   }, [productList]);
 

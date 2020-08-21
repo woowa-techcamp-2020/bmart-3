@@ -30,7 +30,7 @@ const Product = ({ category }) => {
     variables: { categoryId },
   });
 
-  if (loading || !products) return <div style={{ height: 100 }}>loading...</div>;
+  if (loading || !products) return <div>loading...</div>;
   if (error) return <div>error</div>;
   if (products) console.log(products);
 

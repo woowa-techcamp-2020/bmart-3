@@ -12,6 +12,7 @@ export const CategoryProvider = (props) => {
 
   const [categoryList, setCategoryList] = useState([]);
 
+
   useEffect(() => {
     if (categories) {
       const categoryList = categories.CategoriesParent.map((category, idx) => ({
