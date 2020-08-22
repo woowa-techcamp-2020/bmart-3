@@ -20,15 +20,6 @@ const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
   box-shadow: inset 0 0 7px ${(props) => props.theme.color.darkGray};
 `;
 
-// {
-//   id: 4,
-//   name: '제품1',
-//   price: 4500,
-//   img_url: 'https://img-cf.kurly.com/shop/data/goods/1562318813669l0.jpg',
-//   category_id: 21,
-//   discount_percent: 0,
-// },
-
 const ProductContent = styled.div`
   width: 100%;
   padding: 5px 0;

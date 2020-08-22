@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from 'component/share/Header';
 import ProductList from 'component/share/ProductList';
-import Product from 'component/share/Product';
 import Advertise from 'component/share/Advertise';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';

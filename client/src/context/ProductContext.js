@@ -4,22 +4,12 @@ import { PRODUCTS_BY_CATEGORY_ID } from 'graphql/product';
 
 export const ProductContext = createContext();
 
-export const ProductProvider = ({ categoryId, children }) => {
-  const {
-    loading: loadingProducts,
-    error: errorProducts,
-    data: products,
-    refetch: refetchProducts,
-  } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: { categoryId } });
+export const ProductProvider = ({ children }) => {
+  const { loading, error, data: products, refetch } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: 1 });
 
   const [productList, setProductList] = useState([]);
-  // const [productList, setProductList] = useState({});
-
-  // {1:[{},{},{}]}
 
   useEffect(() => {
-    // const arr = { categoryId: [] };
-
     if (products) {
       const data = products.ProductsByCategoryId.map((product, idx) => ({
         name: product.name,
@@ -27,12 +17,9 @@ export const ProductProvider = ({ categoryId, children }) => {
         category_id: product.category_id,
         img_url: product.img_url,
       }));
-      // arr[categoryId] = data;
-      // setProductList(...productList, arr);
+      setProductList(data);
     }
   }, [productList]);
 
-  return (
-    <ProductContext.Provider value={[loadingProducts, productList, setProductList]}>{children}</ProductContext.Provider>
-  );
+  return <ProductContext.Provider value={[productList, setProductList]}>{children}</ProductContext.Provider>;
 };
