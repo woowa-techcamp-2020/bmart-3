@@ -69,7 +69,7 @@ function Category() {
   const classes = useStyles();
   const [data, value, setValue] = useContext(EventScrollContext);
 
-  const handleChange = (newValue) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -77,7 +77,6 @@ function Category() {
     <>
       <div className={classes.demo2}>
         <StyledTabs
-          variant="fullWidth"
           value={value}
           onChange={handleChange}
           aria-label="nav tabs example"
