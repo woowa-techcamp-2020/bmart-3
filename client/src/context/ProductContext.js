@@ -5,7 +5,7 @@ import { PRODUCTS_BY_CATEGORY_ID } from 'graphql/product';
 export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-  const { loading, error, data: products, refetch } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: 1 });
+  const { data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: 1 });
 
   const [productList, setProductList] = useState([]);
 
@@ -19,7 +19,7 @@ export const ProductProvider = ({ children }) => {
       }));
       setProductList(data);
     }
-  }, [productList]);
+  }, [products]);
 
   return <ProductContext.Provider value={[productList, setProductList]}>{children}</ProductContext.Provider>;
 };

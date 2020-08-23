@@ -34,7 +34,7 @@ const Product = () => {
     <>
       {productList.length
         ? productList.map((item, idx) => {
-            if (idx === 0) return;
+            if (idx === 0) return null;
             else {
               return (
                 <div key={`product-container-header-${idx}`}>

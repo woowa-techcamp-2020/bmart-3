@@ -3,7 +3,7 @@ import Recommend from 'component/mainpage/Recommend';
 export const EventScrollContext = createContext();
 
 export const EventScrollProvider = ({ children }) => {
-  const [data, setData] = useState([
+  const [data] = useState([
     { title: '널 위한 상품' },
     {
       title: '번쩍 할인',

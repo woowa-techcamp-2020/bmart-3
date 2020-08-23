@@ -6,7 +6,7 @@ import { IMG_URL } from 'component/share/constant';
 export const CategoryContext = createContext();
 
 export const CategoryProvider = (props) => {
-  const { loading, error, data: categories, refetch } = useQuery(CATEGORIES_PARENT);
+  const { data: categories } = useQuery(CATEGORIES_PARENT);
 
   const [categoryList, setCategoryList] = useState([]);
 

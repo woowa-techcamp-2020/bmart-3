@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from 'component/share/Header';
 import ProductList from 'component/share/ProductList';
 import Advertise from 'component/share/Advertise';
@@ -51,35 +51,18 @@ function ParentCategory(props) {
   const categoryId = parseInt(splitUrl[splitUrl.length - 1]);
 
   // 자식 카테고리 요청
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    data: childcategories,
-    refetch: refetchCategories,
-  } = useQuery(CATEGORIES_CHILD, {
+  const { loading: loadingCategories, data: childcategories } = useQuery(CATEGORIES_CHILD, {
     variables: {
       parentId: categoryId,
     },
   });
 
   // 부모 카테고리 제품 데이터 요청
-  const { loading: loadingProducts, error: errorProducts, data: products, refetch: refetchProducts } = useQuery(
-    PRODUCTS_BY_CATEGORY_ID,
-    {
-      variables: {
-        categoryId: categoryId,
-      },
-    }
-  );
-
-  useEffect(() => {
-    if (childcategories) {
-      console.log('childcategories : ', childcategories);
-    }
-    if (products) {
-      console.log('products :', products);
-    }
-  }, [childcategories, products]);
+  const { loading: loadingProducts, data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
+    variables: {
+      categoryId: categoryId,
+    },
+  });
 
   return (
     <>
@@ -93,7 +76,6 @@ function ParentCategory(props) {
         )}
         <ProductSection>
           <ListControlBar />
-          {/* <Product category={categoryId} /> */}
           {!loadingProducts ? (
             <ProductList productItems={products.ProductsByCategoryId} />
           ) : (

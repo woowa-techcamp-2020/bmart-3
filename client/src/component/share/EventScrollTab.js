@@ -69,7 +69,7 @@ function Category() {
   const classes = useStyles();
   const [data, value, setValue] = useContext(EventScrollContext);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (newValue) => {
     setValue(newValue);
   };
 

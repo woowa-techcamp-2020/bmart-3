@@ -86,7 +86,7 @@ const MapProductList = () => {
   const [start, setStart] = useState(1);
 
   const categoryId = start;
-  const { loading, error, data: products, refetch: refetchProducts } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
+  const { loading, error, data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
     variables: { categoryId },
   });
 
@@ -111,10 +111,10 @@ const MapProductList = () => {
       setProductList(productList);
     }
     // scroll event listener 등록
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       // scroll event listener 해제
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll, { passive: true });
     };
   }, [products, fetching]);
 
