@@ -11,7 +11,7 @@ services:
       - ${PORT}:80
   app:
     build:
-      context: ./server
+      context: ../../../server
     container_name: app
     environment:
       DB_HOST: ${DB_HOST}
