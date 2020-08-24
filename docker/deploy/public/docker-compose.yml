@@ -5,8 +5,8 @@ services:
     image: nginx
     container_name: nginx
     volumes:
-      - './docker/nginx/nginx.conf:/etc/nginx/nginx.conf'
-      - './client/build:/etc/nginx/http'
+      - '../../docker/nginx/nginx.conf:/etc/nginx/nginx.conf'
+      - '../../../client/build:/etc/nginx/http'
     ports:
       - ${PORT}:80
   app:
