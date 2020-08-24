@@ -9,6 +9,7 @@ services:
       - '../../../client/build:/etc/nginx/http'
     ports:
       - ${PORT}:80
+    restart: 'unless-stopped'
   app:
     build:
       context: ../../../server
