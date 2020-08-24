@@ -83,7 +83,7 @@ const InnerThree = styled(Inner)`
 const MapProductList = () => {
   const [fetching, setFetching] = useContext(FetchingContext);
   const [productList, setProductList] = useContext(ProductContext);
-  const [start, setStart] = useState(1);
+  const [start, setStart] = useState(2);
 
   const categoryId = start;
   const { loading, error, data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, {

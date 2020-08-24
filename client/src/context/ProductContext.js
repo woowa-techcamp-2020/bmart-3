@@ -5,19 +5,15 @@ import { PRODUCTS_BY_CATEGORY_ID } from 'graphql/product';
 export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-  const { data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: 1 });
+  const categoryId = 1;
+  const { loading, data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: { categoryId } });
 
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     if (products) {
-      const data = products.ProductsByCategoryId.map((product, idx) => ({
-        name: product.name,
-        price: product.price,
-        category_id: product.category_id,
-        img_url: product.img_url,
-      }));
-      setProductList(data);
+      productList[categoryId] = data;
+      setProductList(productList);
     }
   }, [products]);
 
