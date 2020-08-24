@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IMG_URL } from 'component/share/constant';
+import { addCommaToNumber } from 'component/share/util';
 const EachItem = styled.div`
   font-size: 0.8em;
   width: 45%;
@@ -35,7 +36,7 @@ const ProductItem = ({ content }) => {
       <ProductImg img={content.img_url} />
       <ProductContent>
         <ProductContentRow>{content.name}</ProductContentRow>
-        <ProductContentRow>{content.price}원</ProductContentRow>
+        <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow>
       </ProductContent>
     </EachItem>
   );
