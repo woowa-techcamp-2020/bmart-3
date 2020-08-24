@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "babel-node ./app.js"
+    "start": "nodemon -L --exec babel-node ./app.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -18,7 +18,7 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "mysql2": "^2.1.0",
-    "ssh2": "^0.8.9"
+    "nodemon": "^2.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
