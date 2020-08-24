@@ -7,7 +7,7 @@ import PopularItems from 'component/mainpage/PopularItems';
 export const EventScrollContext = createContext();
 
 export const EventScrollProvider = ({ children }) => {
-  const [data] = useState([
+  const [data, setData] = useState([
     { title: '널 위한 상품', component: <ProductForYou /> },
     {
       title: '번쩍 할인',

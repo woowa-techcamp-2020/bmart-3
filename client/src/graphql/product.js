@@ -5,13 +5,21 @@ const PRODUCTS_BY_CATEGORY_ID = gql`
     ProductsByCategoryId(categoryId: $categoryId) {
       name
       price
-      registered_date
-      remain
-      saled_count
       category_id
       img_url
     }
   }
 `;
 
-export { PRODUCTS_BY_CATEGORY_ID };
+const GET_NEW_RELEASE = gql`
+  query {
+    GetNewRelease {
+      name
+      price
+      category_id
+      img_url
+    }
+  }
+`;
+
+export { PRODUCTS_BY_CATEGORY_ID, GET_NEW_RELEASE };

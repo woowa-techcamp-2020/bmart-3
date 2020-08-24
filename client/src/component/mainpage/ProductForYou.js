@@ -15,7 +15,7 @@ const ProductForYou = () => {
   const { loading, error, data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
     variables: { categoryId },
   });
-  if (products) console.log('productlist', products.ProductsByCategoryId);
+
   return (
     <>
       <Container>
