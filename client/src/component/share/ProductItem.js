@@ -22,12 +22,12 @@ const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
 `;
 
 const ProductContent = styled.div`
-  width: 100%;
+  width: 110%;
   padding: 5px 0;
 `;
 
 const ProductContentRow = styled.p`
-  padding: 2px 0;
+  padding: 2px 0 2px 10px;
 `;
 
 const ProductItem = ({ content }) => {
