@@ -33,4 +33,15 @@ const GET_POPULAR_ITEMS = gql`
   }
 `;
 
-export { PRODUCTS_BY_CATEGORY_ID, GET_NEW_RELEASE, GET_POPULAR_ITEMS };
+const GET_RAND_ITEMS = gql`
+  query($limit: Int) {
+    GetRandItems(limit: $limit) {
+      name
+      price
+      category_id
+      img_url
+    }
+  }
+`;
+
+export { PRODUCTS_BY_CATEGORY_ID, GET_NEW_RELEASE, GET_POPULAR_ITEMS, GET_RAND_ITEMS };

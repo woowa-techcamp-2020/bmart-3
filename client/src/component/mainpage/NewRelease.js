@@ -12,7 +12,11 @@ const Container = styled.div`
 
 const NewRelease = () => {
   const limit = 15;
+
   const { loading, error, data: products } = useQuery(GET_NEW_RELEASE, { variables: { limit } });
+
+  if (products !== undefined && products.GetNewRelease.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
+  if (error) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;
   return (
     <>
       <Container>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { addCommaToNumber } from 'component/share/util';
 import { RecommendContext } from 'context/RecommendContext';
 
@@ -37,6 +37,8 @@ const Recommend = () => {
 
   const selectedItem = recommendList[selected];
   const discountedPrice = parseInt((selectedItem.price * (1 - selectedItem.discount_percent / 100)) / 10) * 10;
+
+  useEffect(() => {}, [recommendList, selected]);
 
   return (
     <RecommendWrapper>

@@ -44,7 +44,8 @@ const MapProductList = () => {
     };
   }, [products, fetching]);
 
-  if (error) return <div>error</div>;
+  if (productList.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
+  if (error) return <div>ㅠㅠ...데이터가 없습니다</div>;
 
   return (
     <>
