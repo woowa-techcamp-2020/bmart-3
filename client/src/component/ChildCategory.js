@@ -63,20 +63,23 @@ function ChildCategory(props) {
     io.observe(document.querySelector('.reload-div'));
   };
 
+  // 생명주기 함수
   useEffect(() => {
     if (products) {
+      setProductList([...productList, ...products.ProductsByChildCategoryId]);
+      // setProductList(...productList, products.ProductsByChildCategoryId);
+
       setIntersectionObserver();
-      console.log('products : ', products);
     }
-  }, [
-    products,
-    // fetching
-  ]);
+  }, [products]);
+
+  console.log('productList : ', productList);
+  console.log('products : ', products);
 
   //최초 1회 실행
   useEffect(() => {
     setIntersectionObserver();
-  }, []);
+  });
 
   return (
     <>
@@ -84,11 +87,7 @@ function ChildCategory(props) {
       <Article>
         <ProductSection>
           <ListControlBar />
-          {!loadingProducts ? (
-            <ProductList productItems={products.ProductsByChildCategoryId} />
-          ) : (
-            <div>제품정보를 가져오고 있어요!</div>
-          )}
+          {!loadingProducts ? <ProductList productItems={productList} /> : <div>제품정보를 가져오고 있어요!</div>}
           <div ref={reloadRef} className="reload-div">
             상세 카테고리 페이지 컴포넌트입니다. 해당 페이지의 카테고리 id는 {categoryId}입니다.
           </div>
