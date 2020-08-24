@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { IMG_URL } from 'component/share/constant';
 import { addCommaToNumber } from 'component/share/util';
+import { Unlike, Liked } from 'component/mainpage/RecommendStyle';
+
 const EachItem = styled.div`
+  position: relative;
   font-size: 0.8em;
   width: 45%;
   display: flex;
@@ -12,6 +15,7 @@ const EachItem = styled.div`
 `;
 
 const OneRowEachItem = styled.div`
+  position: relative;
   font-size: 0.8em;
   display: flex;
   flex-direction: column;
@@ -20,6 +24,14 @@ const OneRowEachItem = styled.div`
   min-width: 130px;
   min-height: 120px;
   margin: 0 10px;
+`;
+
+const StyledLiked = styled(Liked)`
+  position: absolute;
+  top: 95px;
+  right: 15px;
+  width: 25px;
+  height: 25px;
 `;
 
 const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
@@ -51,6 +63,7 @@ const ProductItem = ({ content, row }) => {
             <ProductContentRow>{content.name}</ProductContentRow>
             <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow>
           </ProductContent>
+          <StyledLiked></StyledLiked>
         </EachItem>
       ) : (
         <OneRowEachItem>
@@ -59,6 +72,7 @@ const ProductItem = ({ content, row }) => {
             <ProductContentRow>{content.name}</ProductContentRow>
             <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow>
           </ProductContent>
+          <StyledLiked></StyledLiked>
         </OneRowEachItem>
       )}
     </>

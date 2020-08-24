@@ -7,10 +7,16 @@ import { EventScrollContext } from 'context/EventScrollContext';
 import { RecommendContextProvider } from 'context/RecommendContext';
 import { MoreBtn } from 'component/mainpage/RecommendStyle';
 
-const Container = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px;
+`;
+
+const Container = styled.div`
+  width: 100%;
+  min-height: 120px;
   padding: 10px;
 `;
 
@@ -109,12 +115,12 @@ function Category() {
             {idx === 1 ? (
               ''
             ) : (
-              <Container>
+              <HeaderContainer>
                 <Header>{item.title}</Header>
                 <MoreBtn>더보기 > </MoreBtn>
-              </Container>
+              </HeaderContainer>
             )}
-            {item.component || '아직 컴포넌트 없음'}
+            <Container>{item.component || '아직 컴포넌트 없음'}</Container>
           </TabPanel>
         </RecommendContextProvider>
       ))}
