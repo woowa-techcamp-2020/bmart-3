@@ -51,7 +51,9 @@ function App() {
           </Route>
           <Route path="/cart">장바구니페이지</Route>
           <Route path="/category/:category_id" component={ParentCategory} />
-          <Route path="/category_detail/:category_id" component={ChildCategory} />
+          <FetchingProvider>
+            <Route path="/category_detail/:category_id" component={ChildCategory} />
+          </FetchingProvider>
           <Route path="/liked">찜 페이지</Route>
           <Route path="/ordered_list">주문 내역 페이지</Route>
           <Route path="/">not found</Route>
