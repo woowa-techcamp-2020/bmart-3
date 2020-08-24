@@ -1,5 +1,10 @@
 import executeQuery from './share/execute-query';
-import { getProductsQuery, getProductByIdQuery, getProductsByCategoryIdQuery } from './query/product';
+import {
+  getProductsQuery,
+  getProductByIdQuery,
+  getProductsByCategoryIdQuery,
+  getProductsByChildCategoryIdQuery,
+} from './query/product';
 
 const getProducts = async () => {
   try {
@@ -28,4 +33,15 @@ const getProductsByCategoryId = async (categoryId) => {
   }
 };
 
-export { getProducts, getProductById, getProductsByCategoryId };
+const getProductsByChildCategoryId = async (categoryId, id, cursor, ordertype, limit, direction) => {
+  try {
+    const rows = await executeQuery(
+      getProductsByChildCategoryIdQuery(categoryId, id, cursor, ordertype, limit, direction)
+    );
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export { getProducts, getProductById, getProductsByCategoryId, getProductsByChildCategoryId };

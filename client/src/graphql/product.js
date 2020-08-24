@@ -15,8 +15,16 @@ const PRODUCTS_BY_CATEGORY_ID = gql`
 `;
 
 const PRODUCTS_BY_CHILD_CATEGORY_ID = gql`
-  query($categoryId: Int) {
-    ProductsByCategoryId(categoryId: $categoryId) {
+  query($categoryId: Int, $id: Int, $cursor: Int, $ordertype: String, $limit: Int, $direction: String) {
+    ProductsByChildCategoryId(
+      categoryId: $categoryId
+      id: $id
+      cursor: $cursor
+      ordertype: $ordertype
+      limit: $limit
+      direction: $direction
+    ) {
+      id
       name
       price
       registered_date

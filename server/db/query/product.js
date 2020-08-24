@@ -16,4 +16,17 @@ const getProductsByCategoryIdQuery = (categoryId) => {
   return mysql2.format(getProductsByCategoryIdFormat, [categoryId]);
 };
 
-export { getProductsQuery, getProductByIdQuery, getProductsByCategoryIdQuery };
+const getProductsByChildCategoryIdQuery = (categoryId, id, cursor, ordertype, limit, direction) => {
+  const getProductsByChildCategoryIdFormat = `
+    select *
+    from product
+    where category_id = ? and ${ordertype} ${direction == 'ASC' ? '>=' : '<='} ? and id ${
+    direction == 'ASC' ? '>' : '<'
+  } ?
+    order by ${ordertype} ${direction}, id ${direction}
+    LIMIT ?;
+  `;
+  return mysql2.format(getProductsByChildCategoryIdFormat, [categoryId, cursor, id, limit]);
+};
+
+export { getProductsQuery, getProductByIdQuery, getProductsByCategoryIdQuery, getProductsByChildCategoryIdQuery };

@@ -28,4 +28,5 @@ type Query{
     ProductsByCategoryId(categoryId: Int): [Product],
     CategoriesParent: [Category],
     CategoriesChild(parentId: Int): [Category],
+    ProductsByChildCategoryId(categoryId: Int, id: Int, cursor: Int, ordertype: String, limit: Int, direction: String ): [Product],
 }`;
