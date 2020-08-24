@@ -77,7 +77,6 @@ function Category() {
     <>
       <div className={classes.demo2}>
         <StyledTabs
-          variant="fullWidth"
           value={value}
           onChange={handleChange}
           aria-label="nav tabs example"
