@@ -12,6 +12,7 @@ export const ProductProvider = ({ children }) => {
 
   useEffect(() => {
     if (products) {
+      const data = products.ProductsByCategoryId;
       productList[categoryId] = data;
       setProductList(productList);
     }
