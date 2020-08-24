@@ -6,6 +6,8 @@ import Mainpage from 'component/Mainpage';
 import ParentCategory from 'component/ParentCategory';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FetchingProvider } from 'context/FetchingContext';
+import { CategoryProvider } from 'context/CategoryContext';
+import { ProductProvider } from 'context/ProductContext';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -38,9 +40,13 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact>
-            <FetchingProvider>
-              <Mainpage />
-            </FetchingProvider>
+            <ProductProvider>
+              <CategoryProvider>
+                <FetchingProvider>
+                  <Mainpage />
+                </FetchingProvider>
+              </CategoryProvider>
+            </ProductProvider>
           </Route>
           <Route path="/cart">장바구니페이지</Route>
           <Route path="/category/:category_id" component={ParentCategory} />

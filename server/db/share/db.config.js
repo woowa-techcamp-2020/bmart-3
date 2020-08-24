@@ -8,7 +8,6 @@ const sshConf = {
   host: process.env.SSH_HOST,
   port: process.env.SSH_PORT,
   user: process.env.SSH_USER,
-  readyTimeout: 99999,
   privateKey: fs.readFileSync(path.join(__dirname, 'bmart-3.pem')), //리눅스에서 ssh접속시 사용할 키!!
 };
 

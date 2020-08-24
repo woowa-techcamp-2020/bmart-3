@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IMG_URL } from 'component/share/constant';
+import { addCommaToNumber } from 'component/share/util';
 const EachItem = styled.div`
   font-size: 0.8em;
   width: 45%;
@@ -20,22 +21,13 @@ const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
   box-shadow: inset 0 0 7px ${(props) => props.theme.color.darkGray};
 `;
 
-// {
-//   id: 4,
-//   name: '제품1',
-//   price: 4500,
-//   img_url: 'https://img-cf.kurly.com/shop/data/goods/1562318813669l0.jpg',
-//   category_id: 21,
-//   discount_percent: 0,
-// },
-
 const ProductContent = styled.div`
-  width: 100%;
+  width: 110%;
   padding: 5px 0;
 `;
 
 const ProductContentRow = styled.p`
-  padding: 2px 0;
+  padding: 2px 0 2px 10px;
 `;
 
 const ProductItem = ({ content }) => {
@@ -44,7 +36,7 @@ const ProductItem = ({ content }) => {
       <ProductImg img={content.img_url} />
       <ProductContent>
         <ProductContentRow>{content.name}</ProductContentRow>
-        <ProductContentRow>{content.price}원</ProductContentRow>
+        <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow>
       </ProductContent>
     </EachItem>
   );
