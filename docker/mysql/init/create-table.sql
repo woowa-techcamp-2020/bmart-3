@@ -1,4 +1,4 @@
-USE `bmart`
+USE `bmart`;
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
