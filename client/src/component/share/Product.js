@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import ProductList from 'component/share/ProductList';
+import LoadingIcon from 'component/share/LoadingIcon';
 import { ProductContext } from 'context/ProductContext';
 import { CategoryContext } from 'context/CategoryContext';
 
@@ -32,24 +33,26 @@ const Product = () => {
 
   return (
     <>
-      {productList.length
-        ? productList.map((item, idx) => {
-            if (idx === 0) return null;
-            else {
-              return (
-                <div key={`product-container-header-${idx}`}>
-                  <ProductContainerHeader>
-                    <h1>{categoryList.length ? categoryList[idx - 1].name : ''}</h1>
-                    <HeaderBtn>더보기</HeaderBtn>
-                  </ProductContainerHeader>
-                  <ProductContainer>
-                    <ProductList productItems={item} />
-                  </ProductContainer>
-                </div>
-              );
-            }
-          })
-        : ''}
+      {productList.length ? (
+        productList.map((item, idx) => {
+          if (idx === 0) return null;
+          else {
+            return (
+              <div key={`product-container-header-${idx}`}>
+                <ProductContainerHeader>
+                  <h1>{categoryList.length ? categoryList[idx - 1].name : ''}</h1>
+                  <HeaderBtn>더보기</HeaderBtn>
+                </ProductContainerHeader>
+                <ProductContainer>
+                  <ProductList productItems={item} />
+                </ProductContainer>
+              </div>
+            );
+          }
+        })
+      ) : (
+        <LoadingIcon />
+      )}
     </>
   );
 };

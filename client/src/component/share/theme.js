@@ -21,7 +21,7 @@ const theme = {
   size: {
     sm: '10px',
     smd: '12px',
-    mmd: '18px',
+    mmd: '16px',
     md: '20px',
     lg: '32px',
   },

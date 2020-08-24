@@ -12,7 +12,7 @@ const RecommendWrapper = styled.div`
 const RecommendHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 0;
 `;
 
 const RecommendTitle = styled.h1``;
@@ -27,7 +27,7 @@ const Emphasize = styled.span`
   color: ${(props) => props.theme.color.lightRed};
 `;
 
-const RecommendBtn = styled.button`
+const MoreBtn = styled.button`
   border: none;
   background: none;
   color: ${(props) => props.theme.color.buttonGreen};
@@ -35,7 +35,6 @@ const RecommendBtn = styled.button`
 
 const RecommenedContent = styled.div`
   display: flex;
-  padding: 0 10px;
   justify-content: space-between;
   flex-wrap: wrap;
 `;
@@ -150,7 +149,7 @@ export {
   RecommendTitle,
   StyledLight,
   Emphasize,
-  RecommendBtn,
+  MoreBtn,
   RecommenedContent,
   FirstRowItem,
   ImgWrapper,

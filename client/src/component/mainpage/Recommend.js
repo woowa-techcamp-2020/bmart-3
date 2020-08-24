@@ -8,7 +8,7 @@ import {
   RecommendTitle,
   StyledLight,
   Emphasize,
-  RecommendBtn,
+  MoreBtn,
   RecommenedContent,
   FirstRowItem,
   ImgWrapper,
@@ -45,7 +45,7 @@ const Recommend = () => {
           지금 사면 <StyledLight />
           <Emphasize>번쩍할인</Emphasize>
         </RecommendTitle>
-        <RecommendBtn>더보기</RecommendBtn>
+        <MoreBtn>더보기 ></MoreBtn>
       </RecommendHeader>
       <RecommenedContent>
         {recommendList.map((item, idx) => (
