@@ -12,8 +12,8 @@ const PRODUCTS_BY_CATEGORY_ID = gql`
 `;
 
 const GET_NEW_RELEASE = gql`
-  query {
-    GetNewRelease {
+  query($limit: Int) {
+    GetNewRelease(limit: $limit) {
       name
       price
       category_id

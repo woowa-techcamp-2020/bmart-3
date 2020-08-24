@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_NEW_RELEASE } from 'graphql/product';
@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const NewRelease = () => {
-  const { loading, error, data: products } = useQuery(GET_NEW_RELEASE);
+  const { loading, error, data: products } = useQuery(GET_NEW_RELEASE, { limit: 15 });
 
   return (
     <>
