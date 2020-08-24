@@ -13,7 +13,6 @@ const Container = styled.div`
 const NewRelease = () => {
   const limit = 15;
   const { loading, error, data: products } = useQuery(GET_NEW_RELEASE, { variables: { limit } });
-  console.log(products);
   return (
     <>
       <Container>

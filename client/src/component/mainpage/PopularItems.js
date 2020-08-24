@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import LoadingIcon from 'component/share/LoadingIcon';
-import { PRODUCTS_BY_CATEGORY_ID } from 'graphql/product';
+import { GET_POPULAR_ITEMS } from 'graphql/product';
 import { useQuery } from '@apollo/react-hooks';
 import ProductItem from 'component/share/ProductItem';
 
@@ -11,9 +11,9 @@ const Container = styled.div`
 `;
 
 const PopularItems = () => {
-  const categoryId = 7;
-  const { loading, error, data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
-    variables: { categoryId },
+  const limit = 15;
+  const { loading, error, data: products } = useQuery(GET_POPULAR_ITEMS, {
+    variables: { limit },
   });
 
   return (
@@ -22,7 +22,7 @@ const PopularItems = () => {
         {loading ? (
           <LoadingIcon />
         ) : (
-          products.ProductsByCategoryId.map((item, idx) => (
+          products.GetPopularItems.map((item, idx) => (
             <ProductItem content={item} key={`popular-items-${idx}`} row="one" />
           ))
         )}
