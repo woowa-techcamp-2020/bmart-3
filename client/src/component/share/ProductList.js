@@ -9,7 +9,6 @@ const ProductContainer = styled.div`
 `;
 
 const ProductList = ({ productItems }) => {
-
   return (
     <ProductContainer>
       {productItems.map((item, idx) => (

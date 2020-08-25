@@ -5,6 +5,7 @@ import Header from 'component/share/Header';
 import Banner from 'component/mainpage/Banner';
 import Category from 'component/mainpage/Category';
 import Recommend from 'component/mainpage/Recommend';
+import ProductForYou from 'component/mainpage/ProductForYou';
 import MapProductList from 'component/mainpage/MapProductList';
 import { EventScrollProvider } from 'context/EventScrollContext';
 import { RecommendContextProvider } from 'context/RecommendContext';
@@ -38,6 +39,7 @@ function Mainpage() {
         <EventScrollProvider>
           <ScrollTab />
         </EventScrollProvider>
+
         {/* 반짝할인 */}
         <RecommendContextProvider>
           <RecommendSection>

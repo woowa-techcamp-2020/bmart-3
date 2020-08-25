@@ -51,18 +51,25 @@ function ParentCategory(props) {
   const categoryId = parseInt(splitUrl[splitUrl.length - 1]);
 
   // 자식 카테고리 요청
-  const { loading: loadingCategories, data: childcategories } = useQuery(CATEGORIES_CHILD, {
+  const { loading: loadingCategories, data: childcategories, error: childError } = useQuery(CATEGORIES_CHILD, {
     variables: {
       parentId: categoryId,
     },
   });
 
   // 부모 카테고리 제품 데이터 요청
-  const { loading: loadingProducts, data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
+  const { loading: loadingProducts, data: products, error: productsError } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
     variables: {
       categoryId: categoryId,
     },
   });
+
+  if (products !== undefined && products.ProductsByCategoryId.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
+  if (productsError) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;
+
+  if (childcategories !== undefined && childcategories.CategoriesChild.length === 0)
+    return <div>ㅠㅠ...데이터가 없습니다</div>;
+  if (childError) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;
 
   return (
     <>
