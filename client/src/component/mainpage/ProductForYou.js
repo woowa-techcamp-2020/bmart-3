@@ -12,12 +12,9 @@ const Container = styled.div`
 
 const ProductForYou = () => {
   const limit = 15;
-  const [data, setData] = useState([]);
   const { loading, error, data: products } = useQuery(GET_RAND_ITEMS, {
     variables: { limit },
   });
-
-  useEffect(() => {}, []);
 
   if (products !== undefined && products.GetRandItems.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
   if (error) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;
