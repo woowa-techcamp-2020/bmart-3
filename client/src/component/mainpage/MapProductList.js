@@ -21,7 +21,7 @@ const MapProductList = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight * 0.5 && fetching === false) {
+    if (scrollTop + clientHeight >= scrollHeight && fetching === false) {
       // 페이지 끝에 도달하면 추가 데이터를 받아온다
       if (start < 9) {
         setStart(start + 1);

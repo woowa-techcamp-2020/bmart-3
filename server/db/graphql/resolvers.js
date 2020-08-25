@@ -1,6 +1,15 @@
 // import mysql2 from 'mysql2/promise';
 import { getUsers } from '../user';
-import { getProducts, getProductById, getProductsByCategoryId, getProductsByChildCategoryId } from '../product';
+import {
+  getProducts,
+  getProductById,
+  getProductsByCategoryId,
+  getProductsByChildCategoryId,
+  getNewRelease,
+  getPopularItems,
+  getRandItems,
+} from '../product';
+
 import { getCategoriesParent, getCategoriesChild } from '../category';
 export default async function () {
   return {
@@ -13,6 +22,9 @@ export default async function () {
         await getProductsByChildCategoryId(categoryId, id, cursor, ordertype, limit, direction),
       CategoriesParent: async () => await getCategoriesParent(),
       CategoriesChild: async (_, { parentId }) => await getCategoriesChild(parentId),
+      GetNewRelease: async (_, { limit }) => await getNewRelease(limit),
+      GetPopularItems: async (_, { limit }) => await getPopularItems(limit),
+      GetRandItems: async (_, { limit }) => await getRandItems(limit),
     },
   };
 }

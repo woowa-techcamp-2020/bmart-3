@@ -4,6 +4,9 @@ import {
   getProductByIdQuery,
   getProductsByCategoryIdQuery,
   getProductsByChildCategoryIdQuery,
+  getNewReleaseQuery,
+  getPopularItemsQuery,
+  getRandItemsQuery,
 } from './query/product';
 
 const getProducts = async () => {
@@ -33,6 +36,7 @@ const getProductsByCategoryId = async (categoryId) => {
   }
 };
 
+
 const getProductsByChildCategoryId = async (categoryId, id, cursor, ordertype, limit, direction) => {
   try {
     const rows = await executeQuery(
@@ -44,4 +48,30 @@ const getProductsByChildCategoryId = async (categoryId, id, cursor, ordertype, l
   }
 };
 
-export { getProducts, getProductById, getProductsByCategoryId, getProductsByChildCategoryId };
+const getNewRelease = async (limit) => {
+  try {
+    const rows = await executeQuery(getNewReleaseQuery(limit));
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getPopularItems = async (limit) => {
+  try {
+    const rows = await executeQuery(getPopularItemsQuery(limit));
+    return rows;
+  catch (err) {
+    throw err;
+  }
+};
+
+const getRandItems = async (limit) => {
+  try {
+    const rows = await executeQuery(getRandItemsQuery(limit));
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
+export { getProducts, getProductById, getProductsByCategoryId, getNewRelease, getPopularItems, getRandItems, getProductsByChildCategoryId };

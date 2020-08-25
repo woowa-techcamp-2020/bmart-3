@@ -38,8 +38,6 @@ const Recommend = () => {
   const selectedItem = recommendList[selected];
   const discountedPrice = parseInt((selectedItem.price * (1 - selectedItem.discount_percent / 100)) / 10) * 10;
 
-  useEffect(() => {}, [recommendList, selected]);
-
   return (
     <RecommendWrapper>
       <RecommendHeader>
