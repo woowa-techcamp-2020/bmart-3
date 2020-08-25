@@ -28,4 +28,7 @@ type Query{
     ProductsByCategoryId(categoryId: Int): [Product],
     CategoriesParent: [Category],
     CategoriesChild(parentId: Int): [Category],
+    GetNewRelease(limit:Int):[Product],
+    GetPopularItems(limit:Int):[Product]
+    GetRandItems(limit:Int):[Product]
 }`;
