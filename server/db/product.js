@@ -7,6 +7,7 @@ import {
   getNewReleaseQuery,
   getPopularItemsQuery,
   getRandItemsQuery,
+  getTimesaleItemsQuery,
 } from './query/product';
 
 const getProducts = async () => {
@@ -27,9 +28,10 @@ const getProductById = async (id) => {
   }
 };
 
-const getProductsByCategoryId = async (categoryId) => {
+const getProductsByCategoryId = async (categoryId, limit) => {
   try {
-    const rows = await executeQuery(getProductsByCategoryIdQuery(categoryId));
+    const rows = await executeQuery(getProductsByCategoryIdQuery(categoryId, limit));
+
     return rows;
   } catch (err) {
     throw err;
@@ -73,6 +75,14 @@ const getRandItems = async (limit) => {
     throw err;
   }
 };
+const getTimeSaleItems = async (limit) => {
+  try {
+    const rows = await executeQuery(getTimesaleItemsQuery(limit));
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
 export {
   getProducts,
   getProductById,
@@ -80,5 +90,6 @@ export {
   getNewRelease,
   getPopularItems,
   getRandItems,
+  getTimeSaleItems,
   getProductsByChildCategoryId,
 };

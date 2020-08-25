@@ -20,16 +20,20 @@ type Product{
     saled_count: Int!,
     category_id: Int!,
     img_url: String,
+    liked:String,
+    discount_percent:Int!
 }
 type Query{
     Users: [User],
     Products: [Product],
     Product(id: Int): Product,
-    ProductsByCategoryId(categoryId: Int): [Product],
+    ProductsByCategoryId(categoryId: Int,limit:Int): [Product],
     CategoriesParent: [Category],
     CategoriesChild(parentId: Int): [Category],
     ProductsByChildCategoryId(categoryId: Int, id: Int, cursor: Int, ordertype: String, limit: Int, direction: String ): [Product],
     GetNewRelease(limit:Int):[Product],
-    GetPopularItems(limit:Int):[Product]
-    GetRandItems(limit:Int):[Product]
+    GetPopularItems(limit:Int):[Product],
+    GetRandItems(limit:Int):[Product],
+    GetTimeSaleItems(limit:Int):[Product]
+
 }`;

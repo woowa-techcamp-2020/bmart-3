@@ -10,10 +10,11 @@ const getProductByIdQuery = (id) => {
   return mysql2.format(getProductByIdFormat, [id]);
 };
 
-const getProductsByCategoryIdQuery = (categoryId) => {
-  const getProductsByCategoryIdFormat = `select * from product where category_id in (select id from category where parent_name=(select name from category where id=?)) limit 10`;
+const getProductsByCategoryIdQuery = (categoryId, limit) => {
+  const getProductsByCategoryIdFormat = `select p.id,p.name,p.price,p.img_url,ifnull(s.discount_percent, 0) as discount_percent from product p left outer join sale s on p.id=s.product_id where category_id in 
+  (select id from category where parent_name=(select name from category where id=?)) limit ?;`;
 
-  return mysql2.format(getProductsByCategoryIdFormat, [categoryId]);
+  return mysql2.format(getProductsByCategoryIdFormat, [categoryId, limit]);
 };
 
 const getProductsByChildCategoryIdQuery = (categoryId, id, cursor, ordertype, limit, direction) => {
@@ -27,8 +28,8 @@ const getProductsByChildCategoryIdQuery = (categoryId, id, cursor, ordertype, li
     LIMIT ?;
   `;
   return mysql2.format(getProductsByChildCategoryIdFormat, [categoryId, cursor, id, limit]);
-};  
-  
+};
+
 const getNewReleaseQuery = (limit) => {
   const getNewReleaseFormat = `select * from product order by registered_date desc limit ?`;
   return mysql2.format(getNewReleaseFormat, [limit]);
@@ -43,6 +44,13 @@ const getRandItemsQuery = (limit) => {
   return mysql2.format(getRandItemsFormat, [limit]);
 };
 
+const getTimesaleItemsQuery = (limit) => {
+  const getTimesaleItemsFormat = `select p.id,p.name,p.price,s.discount_percent, p.img_url, if(l.product_id,'true','false') as liked from sale s left outer join liked l
+  on s.product_id=l.product_id and s.is_timesale=1
+  left outer join product p on p.id=s.product_id limit ?`;
+  return mysql2.format(getTimesaleItemsFormat, [limit]);
+};
+
 export {
   getProductsQuery,
   getProductByIdQuery,
@@ -50,5 +58,6 @@ export {
   getNewReleaseQuery,
   getPopularItemsQuery,
   getRandItemsQuery,
+  getTimesaleItemsQuery,
   getProductsByChildCategoryIdQuery,
 };
