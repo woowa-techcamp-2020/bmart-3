@@ -18,7 +18,7 @@ function ChildCategory(props) {
     border-top: 1px solid #eee;
   `;
 
-  // hook 선언
+  // -------------------- hook 선언 영역
   const splitUrl = props.location.pathname.split('/');
   const categoryId = parseInt(splitUrl[splitUrl.length - 1]);
   const [cursor, setCursor] = useState(0);
@@ -28,9 +28,8 @@ function ChildCategory(props) {
   const [listDireaction, setListDireaction] = useState('ASC');
   const [productList, setProductList] = useState([]);
   const reloadRef = useRef();
-  // const [fetching, setFetching] = useContext(FetchingContext);
 
-  // 백엔드 데이터 요청
+  // -------------------- 백엔드 데이터 요청 영역
   const { loading: loadingProducts, error: errorProducts, data: products, refetch: refetchProducts } = useQuery(
     //아래 쿼리 자식 카테고리도 같은 이름으로 써야 하니까 수정해야 할듯
     PRODUCTS_BY_CHILD_CATEGORY_ID,
@@ -46,6 +45,7 @@ function ChildCategory(props) {
     }
   );
 
+  // -------------------- IntersectionObserver 구현 영역
   const setIntersectionObserver = () => {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -63,25 +63,21 @@ function ChildCategory(props) {
     io.observe(document.querySelector('.reload-div'));
   };
 
-  // 생명주기 함수
+  // -------------------- 생명주기 함수(useEffect) 영역
+  // products 갱신될 때마다 실행
   useEffect(() => {
     if (products) {
       setProductList([...productList, products.ProductsByChildCategoryId]);
-      // setProductList([...productList, ...products.ProductsByChildCategoryId]);
-      // setProductList(...productList, products.ProductsByChildCategoryId);
-
       setIntersectionObserver();
     }
   }, [products]);
-
-  console.log('productList : ', productList);
-  console.log('products : ', products);
 
   //최초 1회 실행
   useEffect(() => {
     setIntersectionObserver();
   });
 
+  // 렌더링 영역
   return (
     <>
       <Header />
@@ -92,9 +88,7 @@ function ChildCategory(props) {
             <ProductList productItems={productItems} />
           ))}
           {loadingProducts ? <div>제품정보를 가져오고 있어요!</div> : <LoadingIcon />}
-          <div ref={reloadRef} className="reload-div">
-            {/* 상세 카테고리 페이지 컴포넌트입니다. 해당 페이지의 카테고리 id는 {categoryId}입니다. */}
-          </div>
+          <div ref={reloadRef} className="reload-div"></div>
         </ProductSection>
       </Article>
     </>
