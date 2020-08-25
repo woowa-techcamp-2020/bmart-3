@@ -31,7 +31,6 @@ const getProductById = async (id) => {
 const getProductsByCategoryId = async (categoryId, limit) => {
   try {
     const rows = await executeQuery(getProductsByCategoryIdQuery(categoryId, limit));
-
     return rows;
   } catch (err) {
     throw err;

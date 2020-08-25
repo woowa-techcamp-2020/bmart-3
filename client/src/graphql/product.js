@@ -8,6 +8,7 @@ const PRODUCTS_BY_CATEGORY_ID = gql`
       price
       img_url
       discount_percent
+      liked
     }
   }
 `;

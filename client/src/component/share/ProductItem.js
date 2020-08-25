@@ -40,6 +40,14 @@ const StyledLiked = styled(Liked)`
   height: 25px;
 `;
 
+const StyledUnliked = styled(Unlike)`
+  position: absolute;
+  top: 95px;
+  right: 15px;
+  width: 25px;
+  height: 25px;
+`;
+
 const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
   width: 100%;
   height: 130px;
@@ -81,9 +89,8 @@ const ProductItem = ({ content, row }) => {
                 <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
               </DiscountInfoSection>
             </ProductContentRow>
-            {/* <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow> */}
           </ProductContent>
-          <StyledLiked></StyledLiked>
+          {content.liked === 'true' ? <StyledLiked /> : <StyledUnliked />}
         </EachItem>
       ) : (
         <OneRowEachItem>

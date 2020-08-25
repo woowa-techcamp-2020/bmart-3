@@ -11,8 +11,9 @@ const getProductByIdQuery = (id) => {
 };
 
 const getProductsByCategoryIdQuery = (categoryId, limit) => {
-  const getProductsByCategoryIdFormat = `select p.id,p.name,p.price,p.img_url,ifnull(s.discount_percent, 0) as discount_percent from product p left outer join sale s on p.id=s.product_id where category_id in 
-  (select id from category where parent_name=(select name from category where id=?)) limit ?;`;
+  const getProductsByCategoryIdFormat = `select p.id,p.name,p.price,p.img_url,ifnull(s.discount_percent, 0) as discount_percent,if(l.product_id,'true','false') as liked
+  from product p left outer join sale s on p.id=s.product_id left outer join liked l on l.product_id=s.product_id
+  where category_id in (select id from category where parent_name=(select name from category where id=?)) limit ?`;
 
   return mysql2.format(getProductsByCategoryIdFormat, [categoryId, limit]);
 };
