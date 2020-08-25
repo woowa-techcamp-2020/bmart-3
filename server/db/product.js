@@ -3,6 +3,7 @@ import {
   getProductsQuery,
   getProductByIdQuery,
   getProductsByCategoryIdQuery,
+  getProductsByChildCategoryIdQuery,
   getNewReleaseQuery,
   getPopularItemsQuery,
   getRandItemsQuery,
@@ -30,7 +31,18 @@ const getProductById = async (id) => {
 const getProductsByCategoryId = async (categoryId, limit) => {
   try {
     const rows = await executeQuery(getProductsByCategoryIdQuery(categoryId, limit));
-    
+
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getProductsByChildCategoryId = async (categoryId, id, cursor, ordertype, limit, direction) => {
+  try {
+    const rows = await executeQuery(
+      getProductsByChildCategoryIdQuery(categoryId, id, cursor, ordertype, limit, direction)
+    );
     return rows;
   } catch (err) {
     throw err;
@@ -45,6 +57,7 @@ const getNewRelease = async (limit) => {
     throw err;
   }
 };
+
 const getPopularItems = async (limit) => {
   try {
     const rows = await executeQuery(getPopularItemsQuery(limit));
@@ -78,4 +91,5 @@ export {
   getPopularItems,
   getRandItems,
   getTimeSaleItems,
+  getProductsByChildCategoryId,
 };

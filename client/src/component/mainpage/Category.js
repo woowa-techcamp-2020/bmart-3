@@ -67,7 +67,6 @@ const CategoryTitle = styled.p`
   margin: 0.5em 0 1em 0;
   font-size: ${(props) => props.theme.size.sm};
 `;
-
 const Category = () => {
   const [categoryList] = useContext(CategoryContext);
 

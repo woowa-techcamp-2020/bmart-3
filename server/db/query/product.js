@@ -17,6 +17,19 @@ const getProductsByCategoryIdQuery = (categoryId, limit) => {
   return mysql2.format(getProductsByCategoryIdFormat, [categoryId, limit]);
 };
 
+const getProductsByChildCategoryIdQuery = (categoryId, id, cursor, ordertype, limit, direction) => {
+  const getProductsByChildCategoryIdFormat = `
+    select *
+    from product
+    where category_id = ? and ${ordertype} ${direction == 'ASC' ? '>=' : '<='} ? and id ${
+    direction == 'ASC' ? '>' : '<'
+  } ?
+    order by ${ordertype} ${direction}, id ${direction}
+    LIMIT ?;
+  `;
+  return mysql2.format(getProductsByChildCategoryIdFormat, [categoryId, cursor, id, limit]);
+};
+
 const getNewReleaseQuery = (limit) => {
   const getNewReleaseFormat = `select * from product order by registered_date desc limit ?`;
   return mysql2.format(getNewReleaseFormat, [limit]);
@@ -46,4 +59,5 @@ export {
   getPopularItemsQuery,
   getRandItemsQuery,
   getTimesaleItemsQuery,
+  getProductsByChildCategoryIdQuery,
 };
