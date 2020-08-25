@@ -4,7 +4,7 @@ import ProductList from 'component/share/ProductList';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { PRODUCTS_BY_CHILD_CATEGORY_ID } from 'graphql/product';
-import { FetchingContext } from 'context/FetchingContext';
+import LoadingIcon from 'component/share/LoadingIcon';
 
 function ChildCategory(props) {
   //--------------------스타일드 컴포넌트 구현 영역
@@ -66,7 +66,8 @@ function ChildCategory(props) {
   // 생명주기 함수
   useEffect(() => {
     if (products) {
-      setProductList([...productList, ...products.ProductsByChildCategoryId]);
+      setProductList([...productList, products.ProductsByChildCategoryId]);
+      // setProductList([...productList, ...products.ProductsByChildCategoryId]);
       // setProductList(...productList, products.ProductsByChildCategoryId);
 
       setIntersectionObserver();
@@ -87,9 +88,12 @@ function ChildCategory(props) {
       <Article>
         <ProductSection>
           <ListControlBar />
-          {!loadingProducts ? <ProductList productItems={productList} /> : <div>제품정보를 가져오고 있어요!</div>}
+          {productList.map((productItems) => (
+            <ProductList productItems={productItems} />
+          ))}
+          {loadingProducts ? <div>제품정보를 가져오고 있어요!</div> : <LoadingIcon />}
           <div ref={reloadRef} className="reload-div">
-            상세 카테고리 페이지 컴포넌트입니다. 해당 페이지의 카테고리 id는 {categoryId}입니다.
+            {/* 상세 카테고리 페이지 컴포넌트입니다. 해당 페이지의 카테고리 id는 {categoryId}입니다. */}
           </div>
         </ProductSection>
       </Article>
