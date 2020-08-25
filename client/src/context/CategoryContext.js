@@ -23,17 +23,3 @@ export const CategoryProvider = (props) => {
   }, [categories]);
   return <CategoryContext.Provider value={[categoryList, setCategoryList]}>{props.children}</CategoryContext.Provider>;
 };
-
-// useEffect(() => {
-//   if (items) {
-//     const data = items.GetTimeSaleItems.map((item, idx) => ({
-//       id: idx,
-//       name: item.name,
-//       img_url: item.img_url,
-//       liked: item.liked,
-//       price: item.price,
-//       discount_percent: item.discount_percent,
-//     }));
-//     setRecommendList(data);
-//   }
-// }, [items]);
