@@ -63,7 +63,7 @@ const getRandItems = async (limit) => {
 };
 const getTimeSaleItems = async (limit) => {
   try {
-    const rows = await executeQuery(getTimesaleItemsQuery());
+    const rows = await executeQuery(getTimesaleItemsQuery(limit));
     return rows;
   } catch (err) {
     throw err;

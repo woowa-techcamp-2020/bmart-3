@@ -45,8 +45,8 @@ const GET_RAND_ITEMS = gql`
 `;
 
 const GET_TIMESALE_ITEMS = gql`
-  query {
-    GetTimeSaleItems {
+  query($limit: Int) {
+    GetTimeSaleItems(limit: $limit) {
       id
       name
       img_url

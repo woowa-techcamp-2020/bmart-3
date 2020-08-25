@@ -6,7 +6,7 @@ export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const categoryId = 1;
-  const { loading, data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: { categoryId } });
+  const { data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, { variables: { categoryId } });
 
   const [productList, setProductList] = useState([]);
 

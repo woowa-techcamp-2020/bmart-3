@@ -33,6 +33,6 @@ type Query{
     GetNewRelease(limit:Int):[Product],
     GetPopularItems(limit:Int):[Product],
     GetRandItems(limit:Int):[Product],
-    GetTimeSaleItems:[Product]
+    GetTimeSaleItems(limit:Int):[Product]
 
 }`;

@@ -1,4 +1,3 @@
-// import mysql2 from 'mysql2/promise';
 import { getUsers } from '../user';
 import {
   getProducts,
@@ -22,7 +21,7 @@ export default async function () {
       GetNewRelease: async (_, { limit }) => await getNewRelease(limit),
       GetPopularItems: async (_, { limit }) => await getPopularItems(limit),
       GetRandItems: async (_, { limit }) => await getRandItems(limit),
-      GetTimeSaleItems: async () => await getTimeSaleItems(),
+      GetTimeSaleItems: async (_, { limit }) => await getTimeSaleItems(limit),
     },
   };
 }
