@@ -36,7 +36,6 @@ const getProductsByCategoryId = async (categoryId) => {
   }
 };
 
-
 const getProductsByChildCategoryId = async (categoryId, id, cursor, ordertype, limit, direction) => {
   try {
     const rows = await executeQuery(
@@ -61,7 +60,7 @@ const getPopularItems = async (limit) => {
   try {
     const rows = await executeQuery(getPopularItemsQuery(limit));
     return rows;
-  catch (err) {
+  } catch (err) {
     throw err;
   }
 };
@@ -74,4 +73,12 @@ const getRandItems = async (limit) => {
     throw err;
   }
 };
-export { getProducts, getProductById, getProductsByCategoryId, getNewRelease, getPopularItems, getRandItems, getProductsByChildCategoryId };
+export {
+  getProducts,
+  getProductById,
+  getProductsByCategoryId,
+  getNewRelease,
+  getPopularItems,
+  getRandItems,
+  getProductsByChildCategoryId,
+};
