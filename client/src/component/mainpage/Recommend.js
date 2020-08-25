@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { addCommaToNumber } from 'component/share/util';
 import { RecommendContext } from 'context/RecommendContext';
 
@@ -31,11 +31,14 @@ const Recommend = () => {
     setSelected(idx - 1);
   };
 
-  const toggleLike = (idx) => {
+  const toggleLike = (idx, id) => {
+    console.log(id);
     setRecommendList((prev) =>
       prev.map((item) => (item.idx === idx ? { ...item, liked: item.liked === 'true' ? 'false' : 'true' } : item))
     );
   };
+
+  useEffect(() => {}, [recommendList]);
 
   if (recommendList.length === 0) return <div>loading...</div>;
   const selectedItem = recommendList[selected];
@@ -62,9 +65,9 @@ const Recommend = () => {
         <ImgWrapper>
           <CurrentItem src={selectedItem.img_url}></CurrentItem>
           {selectedItem.liked === 'true' ? (
-            <Liked onClick={() => toggleLike(selected + 1)} />
+            <Liked onClick={() => toggleLike(selected + 1, selectedItem.id)} />
           ) : (
-            <Unlike onClick={() => toggleLike(selected + 1)} />
+            <Unlike onClick={() => toggleLike(selected + 1, selectedItem.id)} />
           )}
         </ImgWrapper>
         <ProductTitle>{selectedItem.name}</ProductTitle>
