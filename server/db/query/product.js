@@ -10,10 +10,11 @@ const getProductByIdQuery = (id) => {
   return mysql2.format(getProductByIdFormat, [id]);
 };
 
-const getProductsByCategoryIdQuery = (categoryId) => {
-  const getProductsByCategoryIdFormat = `select * from product where category_id in (select id from category where parent_name=(select name from category where id=?)) limit 10`;
+const getProductsByCategoryIdQuery = (categoryId, limit) => {
+  const getProductsByCategoryIdFormat = `select p.id,p.name,p.price,p.img_url,ifnull(s.discount_percent, 0) as discount_percent from product p left outer join sale s on p.id=s.product_id where category_id in 
+  (select id from category where parent_name=(select name from category where id=?)) limit ?;`;
 
-  return mysql2.format(getProductsByCategoryIdFormat, [categoryId]);
+  return mysql2.format(getProductsByCategoryIdFormat, [categoryId, limit]);
 };
 
 const getNewReleaseQuery = (limit) => {

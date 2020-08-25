@@ -27,7 +27,7 @@ type Query{
     Users: [User],
     Products: [Product],
     Product(id: Int): Product,
-    ProductsByCategoryId(categoryId: Int): [Product],
+    ProductsByCategoryId(categoryId: Int,limit:Int): [Product],
     CategoriesParent: [Category],
     CategoriesChild(parentId: Int): [Category],
     GetNewRelease(limit:Int):[Product],

@@ -3,6 +3,12 @@ import styled from 'styled-components';
 import { IMG_URL } from 'component/share/constant';
 import { addCommaToNumber } from 'component/share/util';
 import { Unlike, Liked } from 'component/mainpage/RecommendStyle';
+import {
+  DiscountInfoSection,
+  DiscountPercent,
+  DiscountedPrice,
+  BeforeDiscountPrice,
+} from 'component/mainpage/RecommendStyle';
 
 const EachItem = styled.div`
   position: relative;
@@ -49,11 +55,12 @@ const ProductContent = styled.div`
   padding: 5px 0;
 `;
 
-const ProductContentRow = styled.p`
+const ProductContentRow = styled.div`
   padding: 2px 0 2px 10px;
 `;
 
 const ProductItem = ({ content, row }) => {
+  const discountedPrice = parseInt((content.price * (1 - content.discount_percent / 100)) / 10) * 10;
   return (
     <>
       {row !== 'one' ? (
@@ -61,7 +68,20 @@ const ProductItem = ({ content, row }) => {
           <ProductImg img={content.img_url} />
           <ProductContent>
             <ProductContentRow>{content.name}</ProductContentRow>
-            <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow>
+            <ProductContentRow>
+              <DiscountInfoSection>
+                {content.discount_percent ? (
+                  <>
+                    <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
+                    <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
+                  </>
+                ) : (
+                  ''
+                )}
+                <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
+              </DiscountInfoSection>
+            </ProductContentRow>
+            {/* <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow> */}
           </ProductContent>
           <StyledLiked></StyledLiked>
         </EachItem>

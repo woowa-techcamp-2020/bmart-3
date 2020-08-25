@@ -1,12 +1,13 @@
 import { gql } from '@apollo/client';
 
 const PRODUCTS_BY_CATEGORY_ID = gql`
-  query($categoryId: Int) {
-    ProductsByCategoryId(categoryId: $categoryId) {
+  query($categoryId: Int, $limit: Int) {
+    ProductsByCategoryId(categoryId: $categoryId, limit: $limit) {
+      id
       name
       price
-      category_id
       img_url
+      discount_percent
     }
   }
 `;

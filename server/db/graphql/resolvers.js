@@ -15,7 +15,7 @@ export default async function () {
       Users: async () => await getUsers(),
       Products: async () => await getProducts(),
       Product: async (_, { id }) => await getProductById(id),
-      ProductsByCategoryId: async (_, { categoryId }) => await getProductsByCategoryId(categoryId),
+      ProductsByCategoryId: async (_, { categoryId, limit }) => await getProductsByCategoryId(categoryId, limit),
       CategoriesParent: async () => await getCategoriesParent(),
       CategoriesChild: async (_, { parentId }) => await getCategoriesChild(parentId),
       GetNewRelease: async (_, { limit }) => await getNewRelease(limit),
