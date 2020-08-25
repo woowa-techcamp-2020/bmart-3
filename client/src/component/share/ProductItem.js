@@ -2,13 +2,36 @@ import React from 'react';
 import styled from 'styled-components';
 import { IMG_URL } from 'component/share/constant';
 import { addCommaToNumber } from 'component/share/util';
+import { Unlike, Liked } from 'component/mainpage/RecommendStyle';
+
 const EachItem = styled.div`
+  position: relative;
   font-size: 0.8em;
   width: 45%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1%;
+`;
+
+const OneRowEachItem = styled.div`
+  position: relative;
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+  min-width: 130px;
+  min-height: 120px;
+  margin: 0 10px;
+`;
+
+const StyledLiked = styled(Liked)`
+  position: absolute;
+  top: 95px;
+  right: 15px;
+  width: 25px;
+  height: 25px;
 `;
 
 const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
@@ -30,15 +53,29 @@ const ProductContentRow = styled.p`
   padding: 2px 0 2px 10px;
 `;
 
-const ProductItem = ({ content }) => {
+const ProductItem = ({ content, row }) => {
   return (
-    <EachItem>
-      <ProductImg img={content.img_url} />
-      <ProductContent>
-        <ProductContentRow>{content.name}</ProductContentRow>
-        <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow>
-      </ProductContent>
-    </EachItem>
+    <>
+      {row !== 'one' ? (
+        <EachItem>
+          <ProductImg img={content.img_url} />
+          <ProductContent>
+            <ProductContentRow>{content.name}</ProductContentRow>
+            <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow>
+          </ProductContent>
+          <StyledLiked></StyledLiked>
+        </EachItem>
+      ) : (
+        <OneRowEachItem>
+          <ProductImg img={content.img_url} />
+          <ProductContent>
+            <ProductContentRow>{content.name}</ProductContentRow>
+            <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow>
+          </ProductContent>
+          <StyledLiked></StyledLiked>
+        </OneRowEachItem>
+      )}
+    </>
   );
 };
 export default ProductItem;

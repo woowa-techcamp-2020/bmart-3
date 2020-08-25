@@ -1,9 +1,29 @@
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { EventScrollContext } from 'context/EventScrollContext';
 import { RecommendContextProvider } from 'context/RecommendContext';
+import { MoreBtn } from 'component/mainpage/RecommendStyle';
+
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+`;
+
+const Container = styled.div`
+  width: 100%;
+  min-height: 120px;
+  padding: 10px;
+`;
+
+const Header = styled.div`
+  font-weight: bold;
+  font-size: ${(props) => props.theme.size.mmd};
+`;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -92,7 +112,15 @@ function Category() {
       {data.map((item, idx) => (
         <RecommendContextProvider key={`tabpanel-${idx}`}>
           <TabPanel value={value} index={idx}>
-            {item.title} {item.component || '아직 컴포넌트 없음'}
+            {idx === 1 ? (
+              ''
+            ) : (
+              <HeaderContainer>
+                <Header>{item.title}</Header>
+                <MoreBtn>더보기 > </MoreBtn>
+              </HeaderContainer>
+            )}
+            <Container>{item.component || '아직 컴포넌트 없음'}</Container>
           </TabPanel>
         </RecommendContextProvider>
       ))}

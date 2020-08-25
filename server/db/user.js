@@ -1,9 +1,9 @@
 import executeQuery from './share/execute-query';
 import { getUsersQuery } from './query/user';
 
-const getUsers = async ({ stream }) => {
+const getUsers = async () => {
   try {
-    const result = await executeQuery({ stream, query: getUsersQuery() });
+    const result = await executeQuery(getUsersQuery());
     return result;
   } catch (err) {
     throw err;
