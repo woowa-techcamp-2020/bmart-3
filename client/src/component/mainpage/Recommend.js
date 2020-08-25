@@ -27,12 +27,12 @@ import {
 const Recommend = () => {
   const [recommendList, setRecommendList, selected, setSelected] = useContext(RecommendContext);
 
-  const updateImg = (id) => {
-    setSelected(id - 1);
+  const updateImg = (idx) => {
+    setSelected(idx - 1);
   };
 
-  const toggleLike = (id) => {
-    setRecommendList((prev) => prev.map((item) => (item.id === id ? { ...item, liked: !item.liked } : item)));
+  const toggleLike = (idx) => {
+    setRecommendList((prev) => prev.map((item) => (item.idx === idx ? { ...item, liked: !item.liked } : item)));
   };
 
   const selectedItem = recommendList[selected];
@@ -52,8 +52,8 @@ const Recommend = () => {
           <FirstRowItem
             key={`${item.name}+${idx}`}
             src={item.img_url}
-            isSelected={selected === item.id - 1 ? true : false}
-            onClick={() => updateImg(item.id)}
+            isSelected={selected === item.idx - 1 ? true : false}
+            onClick={() => updateImg(item.idx)}
           ></FirstRowItem>
         ))}
         <ImgWrapper>

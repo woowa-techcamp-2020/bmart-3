@@ -44,4 +44,17 @@ const GET_RAND_ITEMS = gql`
   }
 `;
 
-export { PRODUCTS_BY_CATEGORY_ID, GET_NEW_RELEASE, GET_POPULAR_ITEMS, GET_RAND_ITEMS };
+const GET_TIMESALE_ITEMS = gql`
+  query {
+    GetTimeSaleItems {
+      id
+      name
+      img_url
+      liked
+      price
+      discount_percent
+    }
+  }
+`;
+
+export { PRODUCTS_BY_CATEGORY_ID, GET_NEW_RELEASE, GET_POPULAR_ITEMS, GET_RAND_ITEMS, GET_TIMESALE_ITEMS };

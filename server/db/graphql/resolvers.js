@@ -7,6 +7,7 @@ import {
   getNewRelease,
   getPopularItems,
   getRandItems,
+  getTimeSaleItems,
 } from '../product';
 import { getCategoriesParent, getCategoriesChild } from '../category';
 export default async function () {
@@ -21,6 +22,7 @@ export default async function () {
       GetNewRelease: async (_, { limit }) => await getNewRelease(limit),
       GetPopularItems: async (_, { limit }) => await getPopularItems(limit),
       GetRandItems: async (_, { limit }) => await getRandItems(limit),
+      GetTimeSaleItems: async () => await getTimeSaleItems(),
     },
   };
 }

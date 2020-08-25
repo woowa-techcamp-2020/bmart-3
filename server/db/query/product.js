@@ -30,6 +30,13 @@ const getRandItemsQuery = (limit) => {
   return mysql2.format(getRandItemsFormat, [limit]);
 };
 
+const getTimesaleItemsQuery = () => {
+  const getTimesaleItemsFormat = `select p.id,p.name,p.price,s.discount_percent, p.img_url, if(l.product_id,'true','false') as liked from sale s left outer join liked l
+  on s.product_id=l.product_id and s.is_timesale=1
+  left outer join product p on p.id=s.product_id;`;
+  return mysql2.format(getTimesaleItemsFormat, []);
+};
+
 export {
   getProductsQuery,
   getProductByIdQuery,
@@ -37,4 +44,5 @@ export {
   getNewReleaseQuery,
   getPopularItemsQuery,
   getRandItemsQuery,
+  getTimesaleItemsQuery,
 };
