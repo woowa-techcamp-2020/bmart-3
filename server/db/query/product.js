@@ -12,7 +12,7 @@ const getProductByIdQuery = (id) => {
 
 const getProductsByCategoryIdQuery = (categoryId, limit) => {
   const getProductsByCategoryIdFormat = `select p.id,p.name,p.price,p.img_url,ifnull(s.discount_percent, 0) as discount_percent,if(l.product_id,'true','false') as liked
-  from product p left outer join sale s on p.id=s.product_id left outer join liked l on l.product_id=s.product_id
+  from product p left outer join sale s on p.id=s.product_id left outer join liked l on l.product_id=p.id
   where category_id in (select id from category where parent_name=(select name from category where id=?)) limit ?`;
 
   return mysql2.format(getProductsByCategoryIdFormat, [categoryId, limit]);
@@ -32,16 +32,22 @@ const getProductsByChildCategoryIdQuery = (categoryId, id, cursor, ordertype, li
 };
 
 const getNewReleaseQuery = (limit) => {
-  const getNewReleaseFormat = `select * from product order by registered_date desc limit ?`;
+  const getNewReleaseFormat = `select p.id,p.name,p.price,p.img_url,if(l.product_id,'true','false') as liked,ifnull(s.discount_percent,0) as discount_percent 
+  from product p left outer join sale s on p.id=s.product_id left outer join liked l
+  on p.id=l.product_id order by registered_date desc limit ?`;
   return mysql2.format(getNewReleaseFormat, [limit]);
 };
 
 const getPopularItemsQuery = (limit) => {
-  const getPopularItemsFormat = `SELECT * FROM product order by saled_count desc limit ?`;
+  const getPopularItemsFormat = `select p.id,p.name,p.price,p.img_url,if(l.product_id,'true','false') as liked,ifnull(s.discount_percent,0) as discount_percent 
+  from product p left outer join sale s on p.id=s.product_id left outer join liked l
+  on p.id=l.product_id order by saled_count desc limit ?`;
   return mysql2.format(getPopularItemsFormat, [limit]);
 };
 const getRandItemsQuery = (limit) => {
-  const getRandItemsFormat = `SELECT * FROM product where category_id<28 order by rand()  limit ?`;
+  const getRandItemsFormat = `select p.id,p.name,p.price,p.img_url,if(l.product_id,'true','false') as liked,ifnull(s.discount_percent,0) as discount_percent 
+  from product p left outer join sale s on p.id=s.product_id left outer join liked l
+  on p.id=l.product_id where category_id<28 order by rand() limit ?`;
   return mysql2.format(getRandItemsFormat, [limit]);
 };
 

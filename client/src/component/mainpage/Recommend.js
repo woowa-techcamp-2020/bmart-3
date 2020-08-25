@@ -32,7 +32,9 @@ const Recommend = () => {
   };
 
   const toggleLike = (idx) => {
-    setRecommendList((prev) => prev.map((item) => (item.idx === idx ? { ...item, liked: !item.liked } : item)));
+    setRecommendList((prev) =>
+      prev.map((item) => (item.idx === idx ? { ...item, liked: item.liked === 'true' ? 'false' : 'true' } : item))
+    );
   };
 
   if (recommendList.length === 0) return <div>loading...</div>;
@@ -59,7 +61,7 @@ const Recommend = () => {
         ))}
         <ImgWrapper>
           <CurrentItem src={selectedItem.img_url}></CurrentItem>
-          {selectedItem.liked ? (
+          {selectedItem.liked === 'true' ? (
             <Liked onClick={() => toggleLike(selected + 1)} />
           ) : (
             <Unlike onClick={() => toggleLike(selected + 1)} />
