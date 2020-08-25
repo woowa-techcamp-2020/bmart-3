@@ -6,17 +6,27 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { CATEGORIES_CHILD } from 'graphql/category';
 import { PRODUCTS_BY_CATEGORY_ID } from 'graphql/product';
+import { Link } from 'react-router-dom';
 
 //--------------------스타일드 컴포넌트 구현 영역
+const categoryBaseUrl = '/category_detail/';
+
 function ChildCategoryList(props) {
   return (
     <CategoryContainer>
       {props.childCategories.map((childCategory, idx) => (
-        <CategoryBox key={idx}>{childCategory.name}</CategoryBox>
+        <CategoryBox key={idx}>
+          <StyledLink to={categoryBaseUrl + childCategory.id}>{childCategory.name}</StyledLink>
+        </CategoryBox>
       ))}
     </CategoryContainer>
   );
 }
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const CategoryContainer = styled.div`
   display: flex;

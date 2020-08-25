@@ -3,6 +3,7 @@ import {
   getProductsQuery,
   getProductByIdQuery,
   getProductsByCategoryIdQuery,
+  getProductsByChildCategoryIdQuery,
   getNewReleaseQuery,
   getPopularItemsQuery,
   getRandItemsQuery,
@@ -35,6 +36,18 @@ const getProductsByCategoryId = async (categoryId) => {
   }
 };
 
+
+const getProductsByChildCategoryId = async (categoryId, id, cursor, ordertype, limit, direction) => {
+  try {
+    const rows = await executeQuery(
+      getProductsByChildCategoryIdQuery(categoryId, id, cursor, ordertype, limit, direction)
+    );
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const getNewRelease = async (limit) => {
   try {
     const rows = await executeQuery(getNewReleaseQuery(limit));
@@ -43,11 +56,12 @@ const getNewRelease = async (limit) => {
     throw err;
   }
 };
+
 const getPopularItems = async (limit) => {
   try {
     const rows = await executeQuery(getPopularItemsQuery(limit));
     return rows;
-  } catch (err) {
+  catch (err) {
     throw err;
   }
 };
@@ -60,4 +74,4 @@ const getRandItems = async (limit) => {
     throw err;
   }
 };
-export { getProducts, getProductById, getProductsByCategoryId, getNewRelease, getPopularItems, getRandItems };
+export { getProducts, getProductById, getProductsByCategoryId, getNewRelease, getPopularItems, getRandItems, getProductsByChildCategoryId };
