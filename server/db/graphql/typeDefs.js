@@ -23,6 +23,11 @@ type Product{
     liked:String,
     discount_percent:Int!
 }
+
+type Message{
+    message:String
+}
+
 type Query{
     Users: [User],
     Products: [Product],
@@ -36,4 +41,10 @@ type Query{
     GetRandItems(limit:Int):[Product],
     GetTimeSaleItems(limit:Int):[Product]
 
-}`;
+}
+
+type Mutation{
+    ToggleLiked(id:Int,liked:String):Message
+}
+
+`;

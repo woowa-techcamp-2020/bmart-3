@@ -87,6 +87,14 @@ const GET_TIMESALE_ITEMS = gql`
   }
 `;
 
+const TOGGLE_LIKED = gql`
+  mutation($id: Int, $liked: String) {
+    ToggleLiked(id: $id, liked: $liked) {
+      message
+    }
+  }
+`;
+
 export {
   PRODUCTS_BY_CATEGORY_ID,
   PRODUCTS_BY_CHILD_CATEGORY_ID,
@@ -94,4 +102,5 @@ export {
   GET_POPULAR_ITEMS,
   GET_RAND_ITEMS,
   GET_TIMESALE_ITEMS,
+  TOGGLE_LIKED,
 };

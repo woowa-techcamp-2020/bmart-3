@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { IMG_URL } from 'component/share/constant';
 import { addCommaToNumber } from 'component/share/util';
 import { Unlike, Liked } from 'component/mainpage/RecommendStyle';
+import { useMutation } from '@apollo/client';
+import { TOGGLE_LIKED } from 'graphql/product';
+
 import {
   DiscountInfoSection,
   DiscountPercent,
@@ -69,15 +72,18 @@ const ProductContentRow = styled.div`
 
 const ProductItem = ({ content, row }) => {
   const [liked, setLiked] = useState(content.liked);
+  const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
 
   const discountedPrice = parseInt((content.price * (1 - content.discount_percent / 100)) / 10) * 10;
 
   const toggleLike = (id) => {
-    console.log(id);
     setLiked((prev) => (prev === 'true' ? 'false' : 'true'));
+    toggleLikedMutation({ variables: { id, liked } });
   };
 
   useEffect(() => {}, [liked]);
+
+  if (error) return <div>error...</div>;
 
   return (
     <>

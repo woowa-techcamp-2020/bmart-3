@@ -8,6 +8,7 @@ import {
   getPopularItemsQuery,
   getRandItemsQuery,
   getTimesaleItemsQuery,
+  toggleLikedQuery,
 } from './query/product';
 
 const getProducts = async () => {
@@ -82,6 +83,15 @@ const getTimeSaleItems = async (limit) => {
     throw err;
   }
 };
+
+const toggleLiked = async (id, liked) => {
+  try {
+    await executeQuery(toggleLikedQuery(id, liked));
+    return { message: '찜하기 토글 성공' };
+  } catch (err) {
+    throw err;
+  }
+};
 export {
   getProducts,
   getProductById,
@@ -91,4 +101,5 @@ export {
   getRandItems,
   getTimeSaleItems,
   getProductsByChildCategoryId,
+  toggleLiked,
 };
