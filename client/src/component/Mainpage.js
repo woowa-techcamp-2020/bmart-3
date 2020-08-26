@@ -17,8 +17,6 @@ const Section = styled.section`
   border-top: 1px solid #eee;
 `;
 
-const RecommendSection = styled(Section)``;
-
 const AdvertiseSection = styled(Section)``;
 
 const ProductSection = styled(Section)``;

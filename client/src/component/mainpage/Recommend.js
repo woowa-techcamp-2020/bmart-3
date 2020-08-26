@@ -29,8 +29,7 @@ import {
 
 const Recommend = () => {
   const [recommendList, setRecommendList, selected, setSelected] = useContext(RecommendContext);
-  const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
-  const [data, value, setValue] = useContext(EventScrollContext);
+  const [toggleLikedMutation] = useMutation(TOGGLE_LIKED);
 
   const updateImg = (idx) => {
     setSelected(idx - 1);

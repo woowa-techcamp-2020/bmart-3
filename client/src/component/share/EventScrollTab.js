@@ -1,4 +1,4 @@
-import React, { useContext, createRef, useEffect, useRef } from 'react';
+import React, { useContext, createRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -82,12 +82,6 @@ function EventScrollTab() {
   const classes = useStyles();
   const [data, value, setValue] = useContext(EventScrollContext);
 
-  const one = useRef(null);
-  const two = useRef(null);
-  const three = useRef(null);
-  const four = useRef(null);
-  const five = useRef(null);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -102,6 +96,38 @@ function EventScrollTab() {
     const y = refs[id].current.getBoundingClientRect().top + window.scrollY - 45;
     window.scroll({ top: y });
   };
+
+  const onScroll = () => {
+    const one = document.querySelector('.ref-1').getBoundingClientRect().bottom;
+    const two = document.querySelector('.ref-2').getBoundingClientRect().bottom;
+    const three = document.querySelector('.ref-3').getBoundingClientRect().bottom;
+    const four = document.querySelector('.ref-4').getBoundingClientRect().bottom;
+    if (one > 0 && value === 1) {
+      setValue(0);
+    }
+    if (one + 180 < 0 && value === 0) {
+      setValue(1);
+    } else if (two > 0 && value === 2) {
+      setValue(1);
+    }
+    if (two + 220 < 0 && value === 1) {
+      setValue(2);
+    } else if (three > 0 && value === 3) {
+      setValue(2);
+    }
+    if (three + 190 < 0 && value === 2) {
+      setValue(3);
+    } else if (three + 190 > 0 && value === 4) {
+      setValue(3);
+    }
+    if (four + 190 < 0 && value === 3) {
+      setValue(4);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [value]);
 
   return (
     <>
@@ -125,17 +151,17 @@ function EventScrollTab() {
           </StyledTabs>
         </div>
       </StickyContainer>
-      <div ref={refs[1]}></div>
+      <div ref={refs[1]} className={'ref-1'}></div>
       <ProductForYou />
-      <div ref={refs[2]}></div>
+      <div ref={refs[2]} className={'ref-2'}></div>
       <RecommendContextProvider>
         <Recommend />
       </RecommendContextProvider>
-      <div ref={refs[3]}></div>
+      <div ref={refs[3]} className={'ref-3'}></div>
       <WhatToEat />
-      <div ref={refs[4]}></div>
+      <div ref={refs[4]} className={'ref-4'}></div>
       <NewRelease />
-      <div ref={refs[5]}></div>
+      <div ref={refs[5]} className={'ref-5'}></div>
       <PopularItems />
     </>
   );

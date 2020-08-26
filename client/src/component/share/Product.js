@@ -1,4 +1,4 @@
-import React, { useContext, createRef, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import ProductList from 'component/share/ProductList';
 import LoadingIcon from 'component/share/LoadingIcon';
