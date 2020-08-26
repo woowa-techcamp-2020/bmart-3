@@ -4,6 +4,7 @@ import ProductList from 'component/share/ProductList';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { ProductContext } from 'context/ProductContext';
 import { CategoryContext } from 'context/CategoryContext';
+import { ProductScrollContext } from 'context/ProductScrollContext';
 
 const ProductContainerHeader = styled.div`
   font-family: 'BMDOHYEON';
@@ -30,6 +31,7 @@ const HeaderBtn = styled.button`
 const Product = () => {
   const [productList] = useContext(ProductContext);
   const [categoryList] = useContext(CategoryContext);
+  const [value] = useContext(ProductScrollContext);
 
   return (
     <>

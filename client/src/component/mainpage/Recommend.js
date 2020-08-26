@@ -35,7 +35,6 @@ const Recommend = () => {
   };
 
   const toggleLike = (idx, id, liked) => {
-    console.log(id);
     setRecommendList((prev) =>
       prev.map((item) => (item.idx === idx ? { ...item, liked: item.liked === 'true' ? 'false' : 'true' } : item))
     );

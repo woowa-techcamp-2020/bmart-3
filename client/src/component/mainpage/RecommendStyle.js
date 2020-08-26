@@ -7,6 +7,8 @@ import { Basket } from '@styled-icons/boxicons-regular/Basket';
 const RecommendWrapper = styled.div`
   width: 100%;
   min-height: 100px;
+  padding: 10px;
+  border-bottom: 1px solid ${(props) => props.theme.color.gray};
 `;
 
 const RecommendHeader = styled.div`

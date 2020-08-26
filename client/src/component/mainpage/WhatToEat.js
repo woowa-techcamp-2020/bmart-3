@@ -1,14 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_RAND_ITEMS } from 'graphql/product';
 import { useQuery } from '@apollo/react-hooks';
 import ProductItem from 'component/share/ProductItem';
-
-const Container = styled.div`
-  display: flex;
-  overflow: auto;
-`;
+import { OuterContainer, HeaderContainer, Header } from 'component/share/ShareStyle';
+import { MoreBtn } from 'component/mainpage/RecommendStyle';
 
 const WhatToEat = () => {
   const limit = 20;
@@ -19,13 +15,17 @@ const WhatToEat = () => {
   if (error) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;
   return (
     <>
-      <Container>
+      <HeaderContainer>
+        <Header>지금 뭐 먹지?</Header>
+        <MoreBtn>{'더보기 >'} </MoreBtn>
+      </HeaderContainer>
+      <OuterContainer>
         {loading ? (
           <LoadingIcon />
         ) : (
           products.GetRandItems.map((item, idx) => <ProductItem content={item} key={`what-to-eat-${idx}`} row="one" />)
         )}
-      </Container>
+      </OuterContainer>
     </>
   );
 };

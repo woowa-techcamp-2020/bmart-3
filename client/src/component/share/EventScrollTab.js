@@ -4,25 +4,12 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { EventScrollContext } from 'context/EventScrollContext';
-import { RecommendContextProvider } from 'context/RecommendContext';
-import { MoreBtn } from 'component/mainpage/RecommendStyle';
 
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-`;
-
-const Container = styled.div`
-  width: 100%;
-  min-height: 120px;
-  padding: 10px;
-`;
-
-const Header = styled.div`
-  font-weight: bold;
-  font-size: ${(props) => props.theme.size.mmd};
+const StickyContainer = styled.div`
+  position: sticky;
+  top: -3px;
+  z-index: 1;
+  margin-top: -5px;
 `;
 
 function TabPanel(props) {
@@ -85,7 +72,7 @@ function a11yProps(index) {
   };
 }
 
-function Category() {
+function EventScrollTab() {
   const classes = useStyles();
   const [data, value, setValue] = useContext(EventScrollContext);
 
@@ -94,7 +81,7 @@ function Category() {
   };
 
   return (
-    <>
+    <StickyContainer>
       <div className={classes.demo2}>
         <StyledTabs
           value={value}
@@ -109,7 +96,7 @@ function Category() {
         </StyledTabs>
       </div>
 
-      {data.map((item, idx) => (
+      {/* {data.map((item, idx) => (
         <RecommendContextProvider key={`tabpanel-${idx}`}>
           <TabPanel value={value} index={idx}>
             {idx === 1 ? (
@@ -117,15 +104,15 @@ function Category() {
             ) : (
               <HeaderContainer>
                 <Header>{item.title}</Header>
-                <MoreBtn>더보기 > </MoreBtn>
+                <MoreBtn>{'더보기 >'} </MoreBtn>
               </HeaderContainer>
             )}
             <Container>{item.component || '아직 컴포넌트 없음'}</Container>
           </TabPanel>
         </RecommendContextProvider>
-      ))}
-    </>
+      ))} */}
+    </StickyContainer>
   );
 }
 
-export default Category;
+export default EventScrollTab;

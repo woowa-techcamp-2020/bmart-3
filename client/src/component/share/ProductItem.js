@@ -31,7 +31,7 @@ const OneRowEachItem = styled.div`
   align-items: center;
   padding: 1%;
   min-width: 150px;
-  min-height: 120px;
+  min-height: 90px;
   margin: 0 10px;
 `;
 
