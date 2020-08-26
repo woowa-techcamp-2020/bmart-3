@@ -8,8 +8,13 @@ import { CATEGORIES_CHILD } from 'graphql/category';
 import { PAGED_PRODUCTS_BY_PARENT_CATEGORY_ID } from 'graphql/product';
 import { Link } from 'react-router-dom';
 import LoadingIcon from 'component/share/LoadingIcon';
+import OrderSelector from 'component/share/OrderSelector';
 
 function ParentCategory(props) {
+  // -------------------- 상수 선언 영역
+  const MINCURSOR = 0;
+  const MAXCURSOR = 999999999;
+
   //--------------------스타일드 컴포넌트 구현 영역
   const categoryBaseUrl = '/category_detail/';
 
@@ -59,7 +64,7 @@ function ParentCategory(props) {
   // ------------------ hook 선언 영역
   const splitUrl = props.location.pathname.split('/');
   const categoryId = parseInt(splitUrl[splitUrl.length - 1]);
-  const [cursor, setCursor] = useState(0);
+  const [cursor, setCursor] = useState(MINCURSOR);
   const [ordertype, setOrdertype] = useState('id');
   const [limit, setLimit] = useState(8);
   const [lastProductId, setLastProductId] = useState(0);
@@ -103,9 +108,26 @@ function ParentCategory(props) {
           setLastProductId(
             products.PagedProductsByParentCategoryId[products.PagedProductsByParentCategoryId.length - 1].id
           );
+
+          switch (ordertype) {
+            case 'id':
+              setCursor(
+                products.PagedProductsByParentCategoryId[products.PagedProductsByParentCategoryId.length - 1].id
+              );
+              break;
+            case 'price':
+              setCursor(
+                products.PagedProductsByParentCategoryId[products.PagedProductsByParentCategoryId.length - 1].price
+              );
+              break;
+            case 'saled_count':
+              setCursor(
+                products.PagedProductsByParentCategoryId[products.PagedProductsByParentCategoryId.length - 1]
+                  .saled_count
+              );
+              break;
+          }
           setCursor(products.PagedProductsByParentCategoryId[products.PagedProductsByParentCategoryId.length - 1].id);
-          console.log('cursor : ', cursor);
-          console.log('lastId : ', lastProductId);
         }
       });
     });
@@ -131,13 +153,20 @@ function ParentCategory(props) {
     setIntersectionObserver();
   });
 
-  // ------------- 데이터 로딩 예외처리 영역
-  // if (products !== undefined && products.ProductsByCategoryId.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
-  // if (productsError) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;
-
-  // if (childcategories !== undefined && childcategories.CategoriesChild.length === 0)
-  //   return <div>ㅠㅠ...데이터가 없습니다</div>;
-  // if (childError) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;
+  // ------------------ 내부 함수 영역
+  function changeOrder(value) {
+    const orderValues = value.split('/');
+    setProductList([]);
+    setListDireaction(orderValues[1]);
+    if (orderValues[1] === 'ASC') {
+      setCursor(MINCURSOR);
+      setLastProductId(MINCURSOR);
+    } else {
+      setCursor(MAXCURSOR);
+      setLastProductId(MAXCURSOR);
+    }
+    setOrdertype(orderValues[0]);
+  }
 
   // ------------- 렌더 영역
   return (
@@ -150,6 +179,7 @@ function ParentCategory(props) {
         ) : (
           <div>카테고리 정보를 가져오고 있어요!</div>
         )}
+        <OrderSelector selected={ordertype + '/' + listDireaction} changeOrder={changeOrder} />
         <ProductSection>
           <ListControlBar />
           {productList.map((productItems, index) => (

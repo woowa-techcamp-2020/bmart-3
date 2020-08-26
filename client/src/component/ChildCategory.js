@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID } from 'graphql/product';
 import LoadingIcon from 'component/share/LoadingIcon';
+import OrderSelector from 'component/share/OrderSelector';
 
 function ChildCategory(props) {
   //--------------------스타일드 컴포넌트 구현 영역
@@ -18,10 +19,14 @@ function ChildCategory(props) {
     border-top: 1px solid #eee;
   `;
 
+  // -------------------- 상수 선언 영역
+  const MINCURSOR = 0;
+  const MAXCURSOR = 999999999;
+
   // -------------------- hook 선언 영역
   const splitUrl = props.location.pathname.split('/');
   const categoryId = parseInt(splitUrl[splitUrl.length - 1]);
-  const [cursor, setCursor] = useState(0);
+  const [cursor, setCursor] = useState(MINCURSOR);
   const [ordertype, setOrdertype] = useState('id');
   const [limit, setLimit] = useState(8);
   const [lastProductId, setLastProductId] = useState(0);
@@ -58,9 +63,21 @@ function ChildCategory(props) {
           setLastProductId(
             products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id
           );
-          setCursor(products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id);
-          console.log('cursor : ', cursor);
-          console.log('lastId : ', lastProductId);
+          switch (ordertype) {
+            case 'id':
+              setCursor(products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id);
+              break;
+            case 'price':
+              setCursor(
+                products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].price
+              );
+              break;
+            case 'saled_count':
+              setCursor(
+                products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].saled_count
+              );
+              break;
+          }
         }
       });
     });
@@ -73,6 +90,7 @@ function ChildCategory(props) {
     if (products) {
       if (products.PagedProductsByChildCategoryId.length < limit) {
         setScrollOver(true);
+        console.log('scroll over');
       } else {
         setProductList([...productList, products.PagedProductsByChildCategoryId]);
       }
@@ -84,11 +102,27 @@ function ChildCategory(props) {
     setIntersectionObserver();
   });
 
+  // ------------------ 내부 함수 영역
+  function changeOrder(value) {
+    const orderValues = value.split('/');
+    setProductList([]);
+    setListDireaction(orderValues[1]);
+    if (orderValues[1] === 'ASC') {
+      setCursor(MINCURSOR);
+      setLastProductId(MINCURSOR);
+    } else {
+      setCursor(MAXCURSOR);
+      setLastProductId(MAXCURSOR);
+    }
+    setOrdertype(orderValues[0]);
+  }
+
   // 렌더링 영역
   return (
     <>
       <Header />
       <Article>
+        <OrderSelector selected={ordertype + '/' + listDireaction} changeOrder={changeOrder} />
         <ProductSection>
           <ListControlBar />
           {productList.map((productItems, index) => (
