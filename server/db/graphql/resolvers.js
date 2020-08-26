@@ -1,4 +1,3 @@
-import { getUsers } from '../user';
 import {
   getProducts,
   getProductById,
@@ -10,12 +9,10 @@ import {
   getTimeSaleItems,
   toggleLiked,
 } from '../product';
-
 import { getCategoriesParent, getCategoriesChild } from '../category';
 export default async function () {
   return {
     Query: {
-      Users: async () => await getUsers(),
       Products: async () => await getProducts(),
       Product: async (_, { id }) => await getProductById(id),
       ProductsByCategoryId: async (_, { categoryId, limit }) => await getProductsByCategoryId(categoryId, limit),
