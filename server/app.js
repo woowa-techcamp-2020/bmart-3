@@ -8,11 +8,11 @@ import { graphqlHTTP } from 'express-graphql';
 import bodyParser from 'body-parser';
 import { authTypeDefs, authResolvers } from './db/authGraphql';
 import { typeDefs, resolvers } from './db/graphql';
+import passport from 'passport';
+import passportConfig from './config/passport';
 
 const app = express();
 app.use(cors());
-
-const __dirname = path.resolve();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -47,7 +47,7 @@ passportConfig();
 (async function () {
   app.use(
     '/graphql',
-    // passport.authenticate('jwt', { session: false }), // passport 통과해야 다음 미들웨어로 넘어감
+    passport.authenticate('jwt', { session: false }), // passport 통과해야 다음 미들웨어로 넘어감
     bodyParser.json(),
     graphqlHTTP({
       schema: makeExecutableSchema({
