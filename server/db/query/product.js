@@ -26,7 +26,7 @@ const getPagedProductsByParentCategoryIdQuery = (categoryId, id, cursor, orderty
     select p.id, p.name, p.price, p.img_url, p.remain, p.registered_date, p.saled_count, p.category_id, ifnull(s.discount_percent, 0) as discount_percent
     from product p left outer join sale s
     on p.id=s.product_id
-    where category_id = in
+    where category_id in 
     (select id from category where parent_name=(select name from category where id=?))
     and p.${ordertype} ${direction == 'ASC' ? '>=' : '<='} ? and p.id ${direction == 'ASC' ? '>' : '<'} ?
     order by p.${ordertype} ${direction}, p.id ${direction}

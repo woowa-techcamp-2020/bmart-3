@@ -37,7 +37,7 @@ const PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID = gql`
 
 const PAGED_PRODUCTS_BY_PARENT_CATEGORY_ID = gql`
   query($categoryId: Int, $id: Int, $cursor: Int, $ordertype: String, $limit: Int, $direction: String) {
-    PagedProductsByChildCategoryId(
+    PagedProductsByParentCategoryId(
       categoryId: $categoryId
       id: $id
       cursor: $cursor

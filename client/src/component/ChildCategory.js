@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from 'component/share/Header';
 import ProductList from 'component/share/ProductList';
 import styled from 'styled-components';
@@ -59,8 +59,9 @@ function ChildCategory(props) {
             products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id
           );
           setCursor(products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id);
+          console.log('cursor : ', cursor);
+          console.log('lastId : ', lastProductId);
         }
-        console.log('observer detect!');
       });
     });
     io.observe(document.querySelector('.reload-div'));
@@ -74,10 +75,7 @@ function ChildCategory(props) {
         setScrollOver(true);
       } else {
         setProductList([...productList, products.PagedProductsByChildCategoryId]);
-        setIntersectionObserver();
       }
-
-      console.log('products: ', products.PagedProductsByChildCategoryId);
     }
   }, [products]);
 
