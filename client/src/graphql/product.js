@@ -12,9 +12,9 @@ const PRODUCTS_BY_CATEGORY_ID = gql`
   }
 `;
 
-const PRODUCTS_BY_CHILD_CATEGORY_ID = gql`
+const PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID = gql`
   query($categoryId: Int, $id: Int, $cursor: Int, $ordertype: String, $limit: Int, $direction: String) {
-    ProductsByChildCategoryId(
+    PagedProductsByChildCategoryId(
       categoryId: $categoryId
       id: $id
       cursor: $cursor
@@ -30,6 +30,7 @@ const PRODUCTS_BY_CHILD_CATEGORY_ID = gql`
       saled_count
       category_id
       img_url
+      discount_percent
     }
   }
 `;
@@ -82,7 +83,7 @@ const GET_TIMESALE_ITEMS = gql`
 
 export {
   PRODUCTS_BY_CATEGORY_ID,
-  PRODUCTS_BY_CHILD_CATEGORY_ID,
+  PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID,
   GET_NEW_RELEASE,
   GET_POPULAR_ITEMS,
   GET_RAND_ITEMS,

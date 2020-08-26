@@ -3,7 +3,7 @@ import Header from 'component/share/Header';
 import ProductList from 'component/share/ProductList';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
-import { PRODUCTS_BY_CHILD_CATEGORY_ID } from 'graphql/product';
+import { PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID } from 'graphql/product';
 import LoadingIcon from 'component/share/LoadingIcon';
 
 function ChildCategory(props) {
@@ -32,7 +32,7 @@ function ChildCategory(props) {
   // -------------------- 백엔드 데이터 요청 영역
   const { loading: loadingProducts, error: errorProducts, data: products, refetch: refetchProducts } = useQuery(
     //아래 쿼리 자식 카테고리도 같은 이름으로 써야 하니까 수정해야 할듯
-    PRODUCTS_BY_CHILD_CATEGORY_ID,
+    PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID,
     {
       variables: {
         categoryId,
@@ -54,8 +54,10 @@ function ChildCategory(props) {
         }
 
         if (products) {
-          setLastProductId(products.ProductsByChildCategoryId[products.ProductsByChildCategoryId.length - 1].id);
-          setCursor(products.ProductsByChildCategoryId[products.ProductsByChildCategoryId.length - 1].id);
+          setLastProductId(
+            products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id
+          );
+          setCursor(products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id);
         }
         console.log('observer detect!');
       });
@@ -67,8 +69,9 @@ function ChildCategory(props) {
   // products 갱신될 때마다 실행
   useEffect(() => {
     if (products) {
-      setProductList([...productList, products.ProductsByChildCategoryId]);
+      setProductList([...productList, products.PagedProductsByChildCategoryId]);
       setIntersectionObserver();
+      console.log('products: ', products.PagedProductsByChildCategoryId);
     }
   }, [products]);
 
