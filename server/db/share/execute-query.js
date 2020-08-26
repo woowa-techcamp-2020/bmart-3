@@ -1,14 +1,16 @@
-import { dbConf } from '../share/db.config';
-import mysql2 from 'mysql2/promise';
+import { initPool } from './connection';
 
 export default async function executeQuery(query) {
+  const pool = initPool();
+  const connection = await pool.getConnection();
   try {
-    const pool = mysql2.createPool(dbConf);
-    const connection = await pool.getConnection();
     const [rows] = await connection.query(query);
-    connection.release();
+    await connection.commit();
     return rows;
   } catch (err) {
+    await connection.rollback();
     throw err;
+  } finally {
+    await connection.release();
   }
 }
