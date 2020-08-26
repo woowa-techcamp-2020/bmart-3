@@ -17,6 +17,7 @@ const NewRelease = () => {
 
   if (products !== undefined && products.GetNewRelease.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
   if (error) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;
+
   return (
     <>
       <Container>
