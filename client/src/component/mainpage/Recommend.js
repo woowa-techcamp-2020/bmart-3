@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { addCommaToNumber } from 'component/share/util';
 import { RecommendContext } from 'context/RecommendContext';
 
@@ -27,14 +27,15 @@ import {
 const Recommend = () => {
   const [recommendList, setRecommendList, selected, setSelected] = useContext(RecommendContext);
 
-  const updateImg = (id) => {
-    setSelected(id - 1);
+  const updateImg = (idx) => {
+    setSelected(idx - 1);
   };
 
-  const toggleLike = (id) => {
-    setRecommendList((prev) => prev.map((item) => (item.id === id ? { ...item, liked: !item.liked } : item)));
+  const toggleLike = (idx) => {
+    setRecommendList((prev) => prev.map((item) => (item.idx === idx ? { ...item, liked: !item.liked } : item)));
   };
 
+  if (recommendList.length === 0) return <div>loading...</div>;
   const selectedItem = recommendList[selected];
   const discountedPrice = parseInt((selectedItem.price * (1 - selectedItem.discount_percent / 100)) / 10) * 10;
 
@@ -48,12 +49,12 @@ const Recommend = () => {
         <MoreBtn>더보기 ></MoreBtn>
       </RecommendHeader>
       <RecommenedContent>
-        {recommendList.map((item, idx) => (
+        {recommendList.slice(0, 4).map((item, idx) => (
           <FirstRowItem
             key={`${item.name}+${idx}`}
             src={item.img_url}
-            isSelected={selected === item.id - 1 ? true : false}
-            onClick={() => updateImg(item.id)}
+            isSelected={selected === item.idx - 1 ? true : false}
+            onClick={() => updateImg(item.idx)}
           ></FirstRowItem>
         ))}
         <ImgWrapper>

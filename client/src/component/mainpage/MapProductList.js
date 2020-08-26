@@ -13,7 +13,7 @@ const MapProductList = () => {
 
   const categoryId = start;
   const { loading, error, data: products } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
-    variables: { categoryId },
+    variables: { categoryId, limit: 10 },
   });
 
   // 스크롤 이벤트 핸들
@@ -43,7 +43,6 @@ const MapProductList = () => {
       window.removeEventListener('scroll', handleScroll, { passive: true });
     };
   }, [products, fetching]);
-
   if (productList.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
   if (error) return <div>ㅠㅠ...데이터가 요청에 실패했습니다</div>;
 
