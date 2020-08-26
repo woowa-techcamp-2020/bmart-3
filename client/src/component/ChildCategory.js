@@ -93,8 +93,8 @@ function ChildCategory(props) {
       <Article>
         <ProductSection>
           <ListControlBar />
-          {productList.map((productItems) => (
-            <ProductList productItems={productItems} />
+          {productList.map((productItems, index) => (
+            <ProductList productItems={productItems} key={index} />
           ))}
           {loadingProducts ? <LoadingIcon /> : ''}
           <div ref={reloadRef} className="reload-div"></div>

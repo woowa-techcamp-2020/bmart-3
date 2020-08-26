@@ -5,7 +5,7 @@ import Advertise from 'component/share/Advertise';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { CATEGORIES_CHILD } from 'graphql/category';
-import { PRODUCTS_BY_CATEGORY_ID } from 'graphql/product';
+import { PAGED_PRODUCTS_BY_PARENT_CATEGORY_ID } from 'graphql/product';
 import { Link } from 'react-router-dom';
 
 //--------------------스타일드 컴포넌트 구현 영역
@@ -68,11 +68,14 @@ function ParentCategory(props) {
   });
 
   // 부모 카테고리 제품 데이터 요청
-  const { loading: loadingProducts, data: products, error: productsError } = useQuery(PRODUCTS_BY_CATEGORY_ID, {
-    variables: {
-      categoryId: categoryId,
-    },
-  });
+  const { loading: loadingProducts, data: products, error: productsError } = useQuery(
+    PAGED_PRODUCTS_BY_PARENT_CATEGORY_ID,
+    {
+      variables: {
+        categoryId: categoryId,
+      },
+    }
+  );
 
   if (products !== undefined && products.ProductsByCategoryId.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
   if (productsError) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;

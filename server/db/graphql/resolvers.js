@@ -4,6 +4,7 @@ import {
   getProductById,
   getProductsByCategoryId,
   getPagedProductsByChildCategoryId,
+  getPagedProductsByParentCategoryId,
   getNewRelease,
   getPopularItems,
   getRandItems,
@@ -20,6 +21,8 @@ export default async function () {
       ProductsByCategoryId: async (_, { categoryId, limit }) => await getProductsByCategoryId(categoryId, limit),
       PagedProductsByChildCategoryId: async (_, { categoryId, id, cursor, ordertype, limit, direction }) =>
         await getPagedProductsByChildCategoryId(categoryId, id, cursor, ordertype, limit, direction),
+      PagedProductsByParentCategoryId: async (_, { categoryId, id, cursor, ordertype, limit, direction }) =>
+        await getPagedProductsByParentCategoryId(categoryId, id, cursor, ordertype, limit, direction),
       CategoriesParent: async () => await getCategoriesParent(),
       CategoriesChild: async (_, { parentId }) => await getCategoriesChild(parentId),
       GetNewRelease: async (_, { limit }) => await getNewRelease(limit),
