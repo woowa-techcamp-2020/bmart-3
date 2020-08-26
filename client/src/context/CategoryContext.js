@@ -1,12 +1,12 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { CATEGORIES_PARENT } from 'graphql/category';
 import { IMG_URL } from 'component/share/constant';
 
 export const CategoryContext = createContext();
 
 export const CategoryProvider = (props) => {
-  const { data: categories } = useQuery(CATEGORIES_PARENT);
+  const [getCategoryList, { data: categories }] = useLazyQuery(CATEGORIES_PARENT);
 
   const [categoryList, setCategoryList] = useState([]);
 
@@ -21,5 +21,5 @@ export const CategoryProvider = (props) => {
       setCategoryList(categoryList);
     }
   }, [categories]);
-  return <CategoryContext.Provider value={[categoryList, setCategoryList]}>{props.children}</CategoryContext.Provider>;
+  return <CategoryContext.Provider value={[categoryList, getCategoryList]}>{props.children}</CategoryContext.Provider>;
 };
