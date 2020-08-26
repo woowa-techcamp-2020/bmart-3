@@ -4,15 +4,11 @@ type JWT{
     token: String,
 }
 
-type Message{
-    message:String
-}
-
 type Query{
     Login(googleId: String): JWT,
 }
 
 type Mutation{
-    Signup(name: String, googleId: String):Message,
+    Signup(name: String, googleId: String): JWT,
 }
 `;

@@ -3,7 +3,7 @@ import { getUserByGoogleIdQuery, signupQuery } from './query/user';
 import jwt from 'jsonwebtoken';
 
 const getBearerToken = (id, name, googleId) => {
-  return `Bearer ${jwt.sign({ id, name, googleId }, process.env.JWT_SECRET, { expiresIn: '3m' })}`;
+  return jwt.sign({ id, name, googleId }, process.env.JWT_SECRET, { expiresIn: '3m' });
 };
 
 const getJwtByGoogleId = async (googleId) => {
@@ -45,14 +45,5 @@ const signup = async (name, googleId) => {
   }
   return ret;
 };
-
-// const getUserByGoogleId = async (googleId) => {
-//   try {
-//     const [result] = await executeQuery(getUserByGoogleIdQuery(googleId));
-//     return result;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
 
 export { getJwtByGoogleId, signup };

@@ -3,10 +3,12 @@ import Product from 'component/share/Product';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { FetchingContext } from 'context/FetchingContext';
 import { ProductContext } from 'context/ProductContext';
+import { AuthContext } from 'context/AuthContext';
 
 const MapProductList = () => {
   const [fetching, setFetching] = useContext(FetchingContext);
   const [productList, getProducts, categoryId, loadingProducts, errorProducts] = useContext(ProductContext);
+  const [userInfo] = useContext(AuthContext);
 
   // 스크롤 이벤트 핸들
   const handleScroll = () => {
@@ -20,7 +22,7 @@ const MapProductList = () => {
   };
 
   useEffect(() => {
-    if (fetching) {
+    if (userInfo.id && fetching) {
       getProducts({ variables: { categoryId, limit: 10 } });
       setFetching(false);
     }
