@@ -1,9 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, createRef, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { EventScrollContext } from 'context/EventScrollContext';
+import ProductForYou from 'component/mainpage/ProductForYou';
+import WhatToEat from 'component/mainpage/WhatToEat';
+import NewRelease from 'component/mainpage/NewRelease';
+import PopularItems from 'component/mainpage/PopularItems';
+import Recommend from 'component/mainpage/Recommend';
+import { RecommendContextProvider } from 'context/RecommendContext';
 
 const StickyContainer = styled.div`
   position: sticky;
@@ -76,42 +82,62 @@ function EventScrollTab() {
   const classes = useStyles();
   const [data, value, setValue] = useContext(EventScrollContext);
 
+  const one = useRef(null);
+  const two = useRef(null);
+  const three = useRef(null);
+  const four = useRef(null);
+  const five = useRef(null);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  return (
-    <StickyContainer>
-      <div className={classes.demo2}>
-        <StyledTabs
-          value={value}
-          onChange={handleChange}
-          aria-label="nav tabs example"
-          scrollButtons="off"
-          variant="scrollable"
-        >
-          {data.map((item, idx) => (
-            <StyledTab key={`styled-tab-${idx}`} label={item.title} {...a11yProps({ idx })} />
-          ))}
-        </StyledTabs>
-      </div>
+  const list = [1, 2, 3, 4, 5];
+  const refs = list.reduce((acc, value) => {
+    acc[value] = createRef();
+    return acc;
+  }, {});
 
-      {/* {data.map((item, idx) => (
-        <RecommendContextProvider key={`tabpanel-${idx}`}>
-          <TabPanel value={value} index={idx}>
-            {idx === 1 ? (
-              ''
-            ) : (
-              <HeaderContainer>
-                <Header>{item.title}</Header>
-                <MoreBtn>{'더보기 >'} </MoreBtn>
-              </HeaderContainer>
-            )}
-            <Container>{item.component || '아직 컴포넌트 없음'}</Container>
-          </TabPanel>
-        </RecommendContextProvider>
-      ))} */}
-    </StickyContainer>
+  const moveTo = (id) => {
+    const y = refs[id].current.getBoundingClientRect().top + window.scrollY - 45;
+    window.scroll({ top: y });
+  };
+
+  return (
+    <>
+      <StickyContainer>
+        <div className={classes.demo2}>
+          <StyledTabs
+            value={value}
+            onChange={handleChange}
+            aria-label="nav tabs example"
+            scrollButtons="off"
+            variant="scrollable"
+          >
+            {data.map((item, idx) => (
+              <StyledTab
+                key={`styled-tab-${idx}`}
+                label={item.title}
+                {...a11yProps({ idx })}
+                onClick={() => moveTo(idx + 1)}
+              />
+            ))}
+          </StyledTabs>
+        </div>
+      </StickyContainer>
+      <div ref={refs[1]}></div>
+      <ProductForYou />
+      <div ref={refs[2]}></div>
+      <RecommendContextProvider>
+        <Recommend />
+      </RecommendContextProvider>
+      <div ref={refs[3]}></div>
+      <WhatToEat />
+      <div ref={refs[4]}></div>
+      <NewRelease />
+      <div ref={refs[5]}></div>
+      <PopularItems />
+    </>
   );
 }
 

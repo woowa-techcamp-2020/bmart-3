@@ -8,12 +8,6 @@ import Category from 'component/mainpage/Category';
 import MapProductList from 'component/mainpage/MapProductList';
 import { EventScrollProvider } from 'context/EventScrollContext';
 import { ProductScrollProvider } from 'context/ProductScrollContext';
-import ProductForYou from 'component/mainpage/ProductForYou';
-import WhatToEat from 'component/mainpage/WhatToEat';
-import NewRelease from 'component/mainpage/NewRelease';
-import PopularItems from 'component/mainpage/PopularItems';
-import Recommend from 'component/mainpage/Recommend';
-import { RecommendContextProvider } from 'context/RecommendContext';
 
 const Article = styled.article``;
 
@@ -46,13 +40,6 @@ function Mainpage() {
           <div style={{ position: 'relative' }}></div>
           <EventScrollTab />
         </EventScrollProvider>
-        <ProductForYou />
-        <RecommendContextProvider>
-          <Recommend />
-        </RecommendContextProvider>
-        <WhatToEat />
-        <NewRelease />
-        <PopularItems />
 
         <ProductScrollProvider>
           <div style={{ position: 'relative' }}></div>

@@ -81,6 +81,13 @@ function ProductScrollTab() {
     setValue(newValue);
   };
 
+  const moveTo = (id) => {
+    const elem = document.querySelector(`.product-container-${id}`);
+    if (elem === null || elem === 'undefined') return;
+    const top = elem.offsetTop - 50;
+    window.scrollTo({ top });
+  };
+
   return (
     <StickyContainer>
       <div className={classes.demo2}>
@@ -92,7 +99,12 @@ function ProductScrollTab() {
           variant="scrollable"
         >
           {categoryList.map((item, idx) => (
-            <StyledTab key={`styled-tab-${idx}`} label={item.name} {...a11yProps({ idx })} />
+            <StyledTab
+              key={`styled-tab-${idx}`}
+              label={item.name}
+              {...a11yProps({ idx })}
+              onClick={() => moveTo(idx + 1)}
+            />
           ))}
         </StyledTabs>
       </div>
