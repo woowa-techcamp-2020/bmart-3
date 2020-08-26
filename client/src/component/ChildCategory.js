@@ -27,6 +27,7 @@ function ChildCategory(props) {
   const [lastProductId, setLastProductId] = useState(0);
   const [listDireaction, setListDireaction] = useState('ASC');
   const [productList, setProductList] = useState([]);
+  const [scrollOver, setScrollOver] = useState(false);
   const reloadRef = useRef();
 
   // -------------------- 백엔드 데이터 요청 영역
@@ -53,7 +54,7 @@ function ChildCategory(props) {
           return;
         }
 
-        if (products) {
+        if (products && !scrollOver) {
           setLastProductId(
             products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id
           );
@@ -69,8 +70,13 @@ function ChildCategory(props) {
   // products 갱신될 때마다 실행
   useEffect(() => {
     if (products) {
-      setProductList([...productList, products.PagedProductsByChildCategoryId]);
-      setIntersectionObserver();
+      if (products.PagedProductsByChildCategoryId.length < limit) {
+        setScrollOver(true);
+      } else {
+        setProductList([...productList, products.PagedProductsByChildCategoryId]);
+        setIntersectionObserver();
+      }
+
       console.log('products: ', products.PagedProductsByChildCategoryId);
     }
   }, [products]);
@@ -90,7 +96,7 @@ function ChildCategory(props) {
           {productList.map((productItems) => (
             <ProductList productItems={productItems} />
           ))}
-          {loadingProducts ? <div>제품정보를 가져오고 있어요!</div> : <LoadingIcon />}
+          {loadingProducts ? <LoadingIcon /> : ''}
           <div ref={reloadRef} className="reload-div"></div>
         </ProductSection>
       </Article>
