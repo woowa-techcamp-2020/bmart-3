@@ -102,6 +102,25 @@ const Input = styled.input`
 
 const Header = ({ hasSearchBar, hasHambergerIcon }) => {
   const history = useHistory();
+  const inputText = React.createRef();
+
+  const getSearchHistory = () => {
+    console.log('focused on searchbar');
+    //1. 검색 기록 가져와서 렌더
+  };
+
+  const getCandidate = (e) => {
+    const keyword = e.target.value;
+    console.log('keyword : ', keyword);
+    //1. 검색어
+  };
+
+  const exitSearch = (e) => {
+    const keyword = e.target.value;
+    //1. 검색어
+    inputText.current.value = '';
+  };
+
   const handleArrowBackIconClick = () => {
     history.goBack();
   };
@@ -121,7 +140,13 @@ const Header = ({ hasSearchBar, hasHambergerIcon }) => {
 
       {hasSearchBar && (
         <InputContainer>
-          <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
+          <Input
+            onClick={getSearchHistory}
+            onChange={getCandidate}
+            ref={inputText}
+            placeholder="🔍 B마트 상품을 검색해보세요!"
+          />
+          <button onClick={exitSearch}>x</button>
         </InputContainer>
       )}
     </MainHeader>
