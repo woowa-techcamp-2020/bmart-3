@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { addCommaToNumber } from 'component/share/util';
 import { RecommendContext } from 'context/RecommendContext';
 import { useMutation } from '@apollo/client';
 import { TOGGLE_LIKED } from 'graphql/product';
-import { EventScrollContext } from 'context/EventScrollContext';
+import BuyProduct from 'component/share/BuyProduct';
+import styled from 'styled-components';
 
 import {
   RecommendWrapper,
@@ -21,18 +22,25 @@ import {
   ProductTitle,
   PriceSection,
   DiscountInfoSection,
-  StyledBasket,
   DiscountPercent,
   BeforeDiscountPrice,
   DiscountedPrice,
+  FilledBasket,
 } from 'component/mainpage/RecommendStyle';
+import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
+
+const FilledProductCart = styled(FilledBasket)`
+  color: ${(props) => (props.isFilled ? props.theme.color.orange : props.theme.color.lightYello)};
+  background: ${(props) => props.theme.color.backgroundGray};
+  border: none;
+`;
 
 const Recommend = () => {
-  const [recommendList, setRecommendList, selected, setSelected, getTimesaleItems] = useContext(RecommendContext);
+  const [recommendList, setRecommendList, chosen, setChosen, getTimesaleItems] = useContext(RecommendContext);
   const [toggleLikedMutation] = useMutation(TOGGLE_LIKED);
-
+  const [selected, setSelected, cartItem, setCartItem] = useContext(ToggleProductBuyContext);
   const updateImg = (idx) => {
-    setSelected(idx - 1);
+    setChosen(idx - 1);
   };
 
   useEffect(() => {
@@ -46,8 +54,14 @@ const Recommend = () => {
     toggleLikedMutation({ variables: { id, liked } });
   };
 
+  const toggleCart = () => {
+    const data = [...selected];
+    data[selectedItem.id] = true;
+    setSelected(data);
+  };
+
   if (recommendList.length === 0) return <div>loading...</div>;
-  const selectedItem = recommendList[selected];
+  const selectedItem = recommendList[chosen];
   const discountedPrice = parseInt((selectedItem.price * (1 - selectedItem.discount_percent / 100)) / 10) * 10;
 
   return (
@@ -64,16 +78,16 @@ const Recommend = () => {
           <FirstRowItem
             key={`${item.name}+${idx}`}
             src={item.img_url}
-            isSelected={selected === item.idx - 1 ? true : false}
+            isSelected={chosen === item.idx - 1 ? true : false}
             onClick={() => updateImg(item.idx)}
           ></FirstRowItem>
         ))}
         <ImgWrapper>
           <CurrentItem src={selectedItem.img_url}></CurrentItem>
           {selectedItem.liked === 'true' ? (
-            <Liked onClick={() => toggleLike(selected + 1, selectedItem.id, selectedItem.liked)} />
+            <Liked onClick={() => toggleLike(chosen + 1, selectedItem.id, selectedItem.liked)} />
           ) : (
-            <Unlike onClick={() => toggleLike(selected + 1, selectedItem.id, selectedItem.liked)} />
+            <Unlike onClick={() => toggleLike(chosen + 1, selectedItem.id, selectedItem.liked)} />
           )}
         </ImgWrapper>
         <ProductTitle>{selectedItem.name}</ProductTitle>
@@ -83,9 +97,10 @@ const Recommend = () => {
             <DiscountedPrice>{`${addCommaToNumber(selectedItem.price)}원`}</DiscountedPrice>
             <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
           </DiscountInfoSection>
-          <StyledBasket />
+          <FilledProductCart onClick={() => toggleCart()} isFilled={cartItem[selectedItem.id]} />
         </PriceSection>
       </RecommenedContent>
+      {selected[selectedItem.id] ? <BuyProduct content={selectedItem} /> : ''}
     </RecommendWrapper>
   );
 };

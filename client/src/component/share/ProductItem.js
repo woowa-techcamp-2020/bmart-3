@@ -10,24 +10,12 @@ import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
 
 import {
   PriceSection,
-  StyledBasket,
   FilledBasket,
   DiscountInfoSection,
   DiscountPercent,
   DiscountedPrice,
   BeforeDiscountPrice,
 } from 'component/mainpage/RecommendStyle';
-
-const ProductCart = styled(StyledBasket)`
-  position: absolute;
-  top: 105px;
-  right: 40px;
-  width: 25px;
-  height: 25px;
-  color: ${(props) => props.theme.color.lightYello};
-  background: ${(props) => props.theme.color.backgroundGray};
-  border: none;
-`;
 
 const FilledProductCart = styled(FilledBasket)`
   position: absolute;
