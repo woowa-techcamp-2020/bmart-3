@@ -90,13 +90,14 @@ const StyledHamburger = styled(Hamburger)`
 `;
 
 const StyledExit = styled(Exit)`
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
   color: ${({ theme }) => theme.color.icon};
   &:active {
     animation: ${IconActiveAnimation} 0.2s ease-in-out;
     color: ${({ theme }) => theme.color.orange};
   }
+  margin-bottom: -3px;
 `;
 
 const InputContainer = styled.div`
@@ -120,7 +121,6 @@ const Input = styled.input`
 const Header = ({ hasSearchBar, hasHambergerIcon }) => {
   const history = useHistory();
   const bearerToken = localStorage.getItem('Bearer');
-
 
   const handleArrowBackIconClick = () => {
     history.goBack();
@@ -148,7 +148,7 @@ const Header = ({ hasSearchBar, hasHambergerIcon }) => {
 
       {hasSearchBar && (
         <InputContainer>
-          <StyledLink to="/search">
+          <StyledLink to="/search" style={{ width: '80%' }}>
             <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
           </StyledLink>
         </InputContainer>

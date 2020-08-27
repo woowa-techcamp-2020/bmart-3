@@ -2,9 +2,16 @@ import React, { useContext, useRef, useEffect } from 'react';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_RAND_ITEMS } from 'graphql/product';
 import { useQuery } from '@apollo/react-hooks';
+import styled from 'styled-components';
 import ProductItem from 'component/share/ProductItem';
 import { OuterContainer, HeaderContainer, Header } from 'component/share/ShareStyle';
 import { MoreBtn } from 'component/mainpage/RecommendStyle';
+import { Link } from 'react-router-dom';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const WhatToEat = () => {
   const limit = 20;
@@ -19,7 +26,9 @@ const WhatToEat = () => {
     <>
       <HeaderContainer>
         <Header>지금 뭐 먹지?</Header>
-        <MoreBtn>{'더보기 >'} </MoreBtn>
+        <StyledLink to="/event/what_to_eat">
+          <MoreBtn>{'더보기 >'} </MoreBtn>
+        </StyledLink>
       </HeaderContainer>
       <OuterContainer>
         {loading ? (

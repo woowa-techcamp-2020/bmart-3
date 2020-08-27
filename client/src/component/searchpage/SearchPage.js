@@ -3,11 +3,18 @@ import styled, { keyframes } from 'styled-components';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import { Cancel } from '@styled-icons/material/Cancel';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
 import ProductList from 'component/share/ProductList';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_SEARCH_PRODUCT, GET_SEARCH_LOG } from 'graphql/product';
+import { addCommaToNumber } from 'component/share/util';
+import { Cart, CartContainer } from 'component/share/ShareStyle';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const Wrapper = styled.header`
   width: 100%;
@@ -29,7 +36,6 @@ const Icon = styled(ArrowBack)`
 
   &:active {
     text-shadow: 1px 1px 2px #ff0000;
-    // color: ${(props) => props.theme.color.orange};
     animation: ${arrowMove} 0.2s ease-in-out;
     padding: 2px;
   }
@@ -37,7 +43,7 @@ const Icon = styled(ArrowBack)`
 
 const SearchBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
 `;
@@ -64,6 +70,7 @@ const StyledMagnifyingGlass = styled(MagnifyingGlass)`
 `;
 
 const InputContainer = styled.div`
+  width: 60%;
   display: flex;
   justify-content: center;
 `;
@@ -95,12 +102,12 @@ const ResultBox = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin: 5px 0;
 `;
 
 function ResultItem(props) {
   const ItemWrapper = styled.div`
     display: flex;
-    flex-direction: row;
     width: 100%;
     border: solid 2px #a3d2ca;
     padding: 10px;
@@ -108,6 +115,10 @@ function ResultItem(props) {
     &hover {
       background-color: yellow;
     }
+    margin: 5px 0;
+    font-size: ${(props) => props.theme.size.mmd};
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #9bdeac;
   `;
 
   const ItemNameDiv = styled.div`
@@ -122,7 +133,7 @@ function ResultItem(props) {
   return (
     <ItemWrapper>
       <ItemNameDiv>{props.Item.name}</ItemNameDiv>
-      <ItemPrice>{props.Item.price}원</ItemPrice>
+      <ItemPrice>{`${addCommaToNumber(props.Item.price)}`}원</ItemPrice>
     </ItemWrapper>
   );
 }
@@ -144,7 +155,9 @@ function SearchPage() {
     setIsSearched(false);
   };
 
-  const handleInputClick = () => {};
+  const handleInputClick = () => {
+    // 검색 기록 출력
+  };
 
   const handleInputChange = () => {
     if (inputText.current.value === '') {
@@ -165,11 +178,6 @@ function SearchPage() {
   const [getSearchProduct, { loading: loadingSearch, data: searchResult }] = useLazyQuery(GET_SEARCH_PRODUCT);
   const [getSearchLog, { data: searchLog }] = useLazyQuery(GET_SEARCH_LOG);
 
-  useEffect(() => {
-    if (searchResult) {
-    }
-  }, [searchResult]);
-
   // ----------------렌더 영역
   return (
     <Wrapper>
@@ -186,6 +194,7 @@ function SearchPage() {
         <StyledMagnifyingGlass onClick={handleSearchClick} />
         {hasKeyword || isSearched ? <StyledCancel onClick={handleCancelIconClick} /> : ''}
       </SearchBox>
+
       {searchResult && hasKeyword ? (
         <ResultBox>
           {searchResult.GetSearchProducts.map((result, index) => (
@@ -198,12 +207,19 @@ function SearchPage() {
       {isSearched ? (
         loadingSearch ? (
           <LoadingIcon />
-        ) : (
+        ) : searchResult ? (
           <ProductList productItems={searchResult.GetSearchProducts} />
+        ) : (
+          ''
         )
       ) : (
         ''
       )}
+      <StyledLink to={'/cart'}>
+        <CartContainer>
+          <Cart />
+        </CartContainer>
+      </StyledLink>
     </Wrapper>
   );
 }
