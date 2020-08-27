@@ -15,7 +15,7 @@ export default function LoginCheck() {
     if (bearerToken) {
       const { id, name, googleId } = jwt.decode(bearerToken);
       setUserInfo({ id, name, googleId });
-      history.push('/main');
+      history.push('/mainpage');
     } else if (!googleLoginIdToken) {
       history.push('/login');
     }
