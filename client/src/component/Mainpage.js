@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import EventScrollTab from 'component/share/EventScrollTab';
 import ProductScrollTab from 'component/share/ProductScrollTab';
@@ -9,9 +9,6 @@ import MapProductList from 'component/mainpage/MapProductList';
 import { EventScrollProvider } from 'context/EventScrollContext';
 import { ProductScrollProvider } from 'context/ProductScrollContext';
 import { RecommendContextProvider } from 'context/RecommendContext';
-import { AuthContext } from 'context/AuthContext';
-import { useHistory } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 
 const Article = styled.article``;
 
@@ -26,22 +23,10 @@ const AdvertiseSection = styled(Section)``;
 const ProductSection = styled(Section)``;
 
 function Mainpage() {
-  const [userInfo, setUserInfo] = useContext(AuthContext);
-
-  const history = useHistory();
-  const bearerToken = localStorage.getItem('Bearer');
-  useEffect(() => {
-    if (bearerToken) {
-      const { id, name, googleId } = jwt.decode(bearerToken);
-      setUserInfo({ id, name, googleId });
-    } else {
-      history.push('/login');
-    }
-  }, []);
   return (
     <>
       {/* 헤더 */}
-      <Header hasSearchBar />
+      <Header hasSearchBar hasHambergerIcon />
       {/* 배너 */}
       <Banner />
       {/* 카테고리 */}

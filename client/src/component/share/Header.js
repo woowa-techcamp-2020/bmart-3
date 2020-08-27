@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import { Hamburger } from '@styled-icons/fa-solid/Hamburger';
+import { useHistory } from 'react-router-dom';
 import bmartLogo from 'image/bmart-logo.png';
 
 const MainHeader = styled.header`
@@ -99,24 +100,29 @@ const Input = styled.input`
   }
 `;
 
-const Header = ({ hasSearchBar }) => {
+const Header = ({ hasSearchBar, hasHambergerIcon }) => {
+  const history = useHistory();
+  const handleArrowBackIconClick = () => {
+    history.goBack();
+  };
+  const handleHambergerIconClick = () => {
+    history.push('/total_menu');
+  };
   return (
     <MainHeader>
       <HeaderRowOne>
-        <Icon src={ArrowBack} />
+        <Icon src={ArrowBack} onClick={handleArrowBackIconClick} />
         <BmartLogo src={bmartLogo} />
         <HeaderRowOneRightBox>
           <StyledMagnifyingGlass />
-          <StyledHamburger />
+          {hasHambergerIcon && <StyledHamburger onClick={handleHambergerIconClick} />}
         </HeaderRowOneRightBox>
       </HeaderRowOne>
 
-      {hasSearchBar ? (
+      {hasSearchBar && (
         <InputContainer>
           <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
         </InputContainer>
-      ) : (
-        ''
       )}
     </MainHeader>
   );

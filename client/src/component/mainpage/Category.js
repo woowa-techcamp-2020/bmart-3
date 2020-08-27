@@ -94,14 +94,23 @@ const Category = () => {
       </NavTitle>
       <CategoryContainer onClick={preventRightClick}>
         {categoryList.length > 0 &&
-          categoryList.map((item, idx) => (
-            <StyledLink to={categoryBaseUrl + item.id} key={`category-item-${idx}`}>
-              <CategoryItem>
-                <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
-                <CategoryTitle>{item.name}</CategoryTitle>
-              </CategoryItem>
-            </StyledLink>
-          ))}
+          categoryList.map((item, idx) =>
+            idx < 9 ? (
+              <StyledLink to={categoryBaseUrl + item.id} key={`category-item-${idx}`}>
+                <CategoryItem>
+                  <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
+                  <CategoryTitle>{item.name}</CategoryTitle>
+                </CategoryItem>
+              </StyledLink>
+            ) : (
+              <StyledLink to="/total_menu" key={`category-item-${idx}`}>
+                <CategoryItem>
+                  <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
+                  <CategoryTitle>{item.name}</CategoryTitle>
+                </CategoryItem>
+              </StyledLink>
+            )
+          )}
       </CategoryContainer>
     </Nav>
   );
