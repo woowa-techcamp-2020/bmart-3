@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import GoogleLogin from 'react-google-login';
 import jwt from 'jsonwebtoken';
 import { AuthContext } from 'context/AuthContext';

@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { LightningFill } from '@styled-icons/bootstrap/LightningFill';
 import { HeartOutline } from '@styled-icons/typicons/HeartOutline';
 import { Heart } from '@styled-icons/typicons/Heart';
-import { Basket } from '@styled-icons/boxicons-regular/Basket';
+import { Basket } from '@styled-icons/ionicons-outline/Basket';
 
 const RecommendWrapper = styled.div`
   width: 100%;
@@ -111,7 +111,6 @@ const PriceSection = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 0 5px;
   align-items: center;
 `;
 
@@ -130,6 +129,7 @@ const StyledBasket = styled(Basket)`
   border: 1px solid ${(props) => props.theme.color.lightBrown};
   border-radius: 50%;
   padding: 1%;
+  opacity: 0.7;
   background: ${(props) => props.theme.color.lightBrown};
   border: 1px solid ${(props) => props.theme.color.brown};
 `;

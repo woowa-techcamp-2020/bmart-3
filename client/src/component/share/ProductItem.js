@@ -7,11 +7,24 @@ import { useMutation } from '@apollo/client';
 import { TOGGLE_LIKED } from 'graphql/product';
 
 import {
+  PriceSection,
+  StyledBasket,
   DiscountInfoSection,
   DiscountPercent,
   DiscountedPrice,
   BeforeDiscountPrice,
 } from 'component/mainpage/RecommendStyle';
+
+const ProductCart = styled(StyledBasket)`
+  position: absolute;
+  top: 105px;
+  right: 40px;
+  width: 25px;
+  height: 25px;
+  color: ${(props) => props.theme.color.lightYello};
+  background: ${(props) => props.theme.color.backgroundGray};
+  border: none;
+`;
 
 const EachItem = styled.div`
   position: relative;
@@ -21,6 +34,7 @@ const EachItem = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 1%;
+  margin: 5px 0;
 `;
 
 const OneRowEachItem = styled.div`
@@ -93,19 +107,23 @@ const ProductItem = ({ content, row }) => {
           <ProductContent>
             <ProductContentRow>{content.name}</ProductContentRow>
             <ProductContentRow>
-              <DiscountInfoSection>
-                {content.discount_percent ? (
-                  <>
-                    <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
-                    <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
-                  </>
-                ) : (
-                  ''
-                )}
-                <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
-              </DiscountInfoSection>
+              <PriceSection>
+                <DiscountInfoSection>
+                  {content.discount_percent ? (
+                    <>
+                      <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
+                      <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
+                    </>
+                  ) : (
+                    ''
+                  )}
+
+                  <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
+                </DiscountInfoSection>
+              </PriceSection>
             </ProductContentRow>
           </ProductContent>
+          <ProductCart />
           {liked === 'true' ? (
             <StyledLiked onClick={() => toggleLike(content.id)} />
           ) : (
@@ -118,17 +136,20 @@ const ProductItem = ({ content, row }) => {
           <ProductContent>
             <ProductContentRow>{content.name}</ProductContentRow>
             <ProductContentRow>
-              <DiscountInfoSection>
-                {content.discount_percent ? (
-                  <>
-                    <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
-                    <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
-                  </>
-                ) : (
-                  ''
-                )}
-                <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
-              </DiscountInfoSection>
+              <PriceSection>
+                <DiscountInfoSection>
+                  {content.discount_percent ? (
+                    <>
+                      <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
+                      <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
+                    </>
+                  ) : (
+                    ''
+                  )}
+                  <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
+                </DiscountInfoSection>
+                <ProductCart />
+              </PriceSection>
             </ProductContentRow>
           </ProductContent>
           {liked === 'true' ? (

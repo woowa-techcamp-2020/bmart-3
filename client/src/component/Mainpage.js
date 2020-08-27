@@ -8,12 +8,14 @@ import Category from 'component/mainpage/Category';
 import MapProductList from 'component/mainpage/MapProductList';
 import { EventScrollProvider } from 'context/EventScrollContext';
 import { ProductScrollProvider } from 'context/ProductScrollContext';
-import { RecommendContextProvider } from 'context/RecommendContext';
 import { AuthContext } from 'context/AuthContext';
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import { Cart, CartContainer } from 'component/share/ShareStyle';
 
-const Article = styled.article``;
+const Article = styled.article`
+  padding: 0;
+`;
 
 const Section = styled.section`
   padding: 15px;
@@ -23,7 +25,9 @@ const Section = styled.section`
 
 const AdvertiseSection = styled(Section)``;
 
-const ProductSection = styled(Section)``;
+const ProductSection = styled(Section)`
+  padding: 0;
+`;
 
 function Mainpage() {
   const [userInfo, setUserInfo] = useContext(AuthContext);
@@ -48,8 +52,10 @@ function Mainpage() {
       <Category />
 
       <Article>
+        <CartContainer>
+          <Cart />
+        </CartContainer>
         {/* 이벤트 스크롤 탭 */}
-
         <EventScrollProvider>
           <div style={{ position: 'relative' }}></div>
           <EventScrollTab />
