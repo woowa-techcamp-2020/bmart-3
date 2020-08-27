@@ -65,20 +65,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function a11yProps(index) {
-  return {
-    id: `nav-tab-${index}`,
-    'aria-controls': `nav-tabpanel-${index}`,
-  };
-}
-
 function ProductScrollTab() {
   const classes = useStyles();
   const [categoryList] = useContext(CategoryContext);
-  const [value, setValue] = useContext(ProductScrollContext);
+  const [curVal, setCurVal] = useContext(ProductScrollContext);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setCurVal(newValue);
   };
 
   const moveTo = (id) => {
@@ -92,26 +85,17 @@ function ProductScrollTab() {
     <StickyContainer>
       <div className={classes.demo2}>
         <StyledTabs
-          value={value}
+          value={curVal}
           onChange={handleChange}
           aria-label="nav tabs example"
           scrollButtons="off"
           variant="scrollable"
         >
           {categoryList.map((item, idx) => (
-            <StyledTab
-              key={`styled-tab-${idx}`}
-              label={item.name}
-              {...a11yProps({ idx })}
-              onClick={() => moveTo(idx + 1)}
-            />
+            <StyledTab key={`product-styled-tab-${idx}`} label={item.name} onClick={() => moveTo(idx + 1)} />
           ))}
         </StyledTabs>
       </div>
-
-      {categoryList.map((item, idx) => (
-        <TabPanel value={value} index={idx} key={`product-scroll-tabpanel-${idx}`}></TabPanel>
-      ))}
     </StickyContainer>
   );
 }
