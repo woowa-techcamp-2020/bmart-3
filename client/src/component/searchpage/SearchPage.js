@@ -155,7 +155,9 @@ function SearchPage() {
     setIsSearched(false);
   };
 
-  const handleInputClick = () => {};
+  const handleInputClick = () => {
+    // 검색 기록 출력
+  };
 
   const handleInputChange = () => {
     if (inputText.current.value === '') {
@@ -175,11 +177,6 @@ function SearchPage() {
   // ---------------- lasy query 영역
   const [getSearchProduct, { loading: loadingSearch, data: searchResult }] = useLazyQuery(GET_SEARCH_PRODUCT);
   const [getSearchLog, { data: searchLog }] = useLazyQuery(GET_SEARCH_LOG);
-
-  useEffect(() => {
-    if (searchResult) {
-    }
-  }, [searchResult]);
 
   // ----------------렌더 영역
   return (

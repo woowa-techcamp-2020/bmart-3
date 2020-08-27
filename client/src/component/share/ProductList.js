@@ -8,12 +8,20 @@ const ProductContainer = styled.div`
   justify-content: space-between;
 `;
 
+const EmptyProduct = styled.div`
+  height: 300px;
+  padding: 90px;
+  color: #81b214;
+`;
+
 const ProductList = ({ productItems }) => {
   return (
     <ProductContainer>
-      {productItems.map((item, idx) => (
-        <ProductItem content={item} key={idx} />
-      ))}
+      {productItems.length !== 0 ? (
+        productItems.map((item, idx) => <ProductItem content={item} key={idx} />)
+      ) : (
+        <EmptyProduct>검색 결과가 없어요! ㅠㅠ</EmptyProduct>
+      )}
     </ProductContainer>
   );
 };
