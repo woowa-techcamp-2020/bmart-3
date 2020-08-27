@@ -1,4 +1,22 @@
 import styled from 'styled-components';
+import { ShoppingCart } from '@styled-icons/typicons/ShoppingCart';
+
+const CartContainer = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 50px;
+  right: 15px;
+  z-index: 100;
+  padding: 5px;
+  background: ${(props) => props.theme.color.middlePink};
+  box-shadow: 0px 0px 5px ${(props) => props.theme.color.shadowPink};
+`;
+
+const Cart = styled(ShoppingCart)`
+  color: #fff;
+`;
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -25,4 +43,4 @@ const OuterContainer = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.color.gray};
 `;
 
-export { HeaderContainer, Container, Header, OuterContainer };
+export { HeaderContainer, Container, Header, OuterContainer, Cart, CartContainer };

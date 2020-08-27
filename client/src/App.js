@@ -13,6 +13,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FetchingProvider } from 'context/FetchingContext';
 import { CategoryProvider } from 'context/CategoryContext';
 import { ProductProvider } from 'context/ProductContext';
+import { ToggleProductBuyProvider } from 'context/ToggleProductBuyContext';
+import CartPage from 'component/cartpage/CartPage';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -47,17 +49,30 @@ function App() {
         <Switch>
           <Route path="/login" component={Loginpage} />
           <Route path="/mainpage" exact>
-            <ProductProvider>
-              <CategoryProvider>
-                <FetchingProvider>
-                  <Mainpage />
-                </FetchingProvider>
-              </CategoryProvider>
-            </ProductProvider>
+            <ToggleProductBuyProvider>
+              <ProductProvider>
+                <CategoryProvider>
+                  <FetchingProvider>
+                    <Mainpage />
+                  </FetchingProvider>
+                </CategoryProvider>
+              </ProductProvider>
+            </ToggleProductBuyProvider>
           </Route>
-          <Route path="/cart">장바구니페이지</Route>
-          <Route path="/category/:category_id" component={ParentCategory} />
-          <Route path="/category_detail/:category_id" component={ChildCategory} />
+          <Route path="/cart" exact>
+            <CartPage />
+          </Route>
+          <Route path="/category/:category_id">
+            <ToggleProductBuyProvider>
+              <ParentCategory />
+            </ToggleProductBuyProvider>
+          </Route>
+
+          <Route path="/category_detail/:category_id">
+            <ToggleProductBuyProvider>
+              <ChildCategory />
+            </ToggleProductBuyProvider>
+          </Route>
           <Route path="/total_menu" component={TotalMenupage}></Route>
           <Route path="/liked">찜 페이지</Route>
           <Route path="/ordered_list">주문 내역 페이지</Route>

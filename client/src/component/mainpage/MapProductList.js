@@ -12,10 +12,12 @@ const MapProductList = () => {
 
   // 스크롤 이벤트 핸들
   const handleScroll = () => {
+    console.log('handle scroll');
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
+
+    if (scrollTop + clientHeight >= scrollHeight - 100) {
       // 페이지 끝에 도달하면 추가 데이터를 받아온다
       setFetching(true);
     }

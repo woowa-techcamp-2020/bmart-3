@@ -8,6 +8,8 @@ const theme = {
     orange: '#ffaf40',
     lightYello: '#FCF6E4',
     pink: '#ffcccc',
+    middlePink: '#ffa5b0',
+    shadowPink: '#ff0000',
     darkGreen: '#448E9E',
     activeIcon: '#3d3d3d',
     gray: '#dfe4ea',
@@ -21,7 +23,7 @@ const theme = {
   size: {
     sm: '10px',
     smd: '12px',
-    mmd: '16px',
+    mmd: '14px',
     md: '20px',
     lg: '32px',
   },
