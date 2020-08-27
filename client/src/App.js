@@ -76,7 +76,9 @@ function App() {
           <Route path="/total_menu" component={TotalMenupage}></Route>
           <Route path="/liked">찜 페이지</Route>
           <Route path="/ordered_list">주문 내역 페이지</Route>
-          <Route path="/search" component={SearchPage}></Route>
+          <ToggleProductBuyProvider>
+            <Route path="/search" component={SearchPage}></Route>
+          </ToggleProductBuyProvider>
           <Route path="/">not found</Route>
         </Switch>
       </Router>

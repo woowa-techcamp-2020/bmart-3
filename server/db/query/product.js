@@ -74,7 +74,6 @@ const getSearchProductsQuery = (keyword, limit) => {
     from product p left outer join sale s
     on p.id=s.product_id
     where name like '%${keyword}%' order by name limit ?`;
-  console.log(mysql2.format(getSearchProductsFormat, [limit]));
   return mysql2.format(getSearchProductsFormat, [limit]);
 };
 
