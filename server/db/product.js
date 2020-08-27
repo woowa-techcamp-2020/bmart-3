@@ -114,6 +114,6 @@ export {
   getTimeSaleItems,
   getPagedProductsByChildCategoryId,
   getPagedProductsByParentCategoryId,
-  getProductsByChildCategoryId,
+  // getProductsByChildCategoryId,
   toggleLiked,
 };
