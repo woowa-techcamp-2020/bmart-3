@@ -47,7 +47,7 @@ passportConfig();
 (async function () {
   app.use(
     '/graphql',
-    passport.authenticate('jwt', { session: false }), // passport 통과해야 다음 미들웨어로 넘어감
+    // passport.authenticate('jwt', { session: false }), // passport 통과해야 다음 미들웨어로 넘어감
     bodyParser.json(),
     graphqlHTTP({
       schema: makeExecutableSchema({
