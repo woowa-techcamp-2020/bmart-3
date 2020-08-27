@@ -5,6 +5,8 @@ import { Cancel } from '@styled-icons/material/Cancel';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { useHistory } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
+import ProductList from 'component/share/ProductList';
+import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_SEARCH_PRODUCT, GET_SEARCH_LOG } from 'graphql/product';
 
 const Wrapper = styled.header`
@@ -128,6 +130,7 @@ function ResultItem(props) {
 function SearchPage() {
   const history = useHistory();
   const [hasKeyword, setHasKeyword] = useState(false);
+  const [isSearched, setIsSearched] = useState(false);
   const inputText = React.createRef();
 
   // ------------ 스타일드 컴포넌트 영역
@@ -152,8 +155,14 @@ function SearchPage() {
     }
   };
 
+  const handleSearchClick = () => {
+    setHasKeyword(false);
+    setIsSearched(true);
+    getSearchProduct({ variables: { keyword: inputText.current.value, limit: 50 } });
+  };
+
   // ---------------- lasy query 영역
-  const [getSearchProduct, { data: searchResult }] = useLazyQuery(GET_SEARCH_PRODUCT);
+  const [getSearchProduct, { loading: loadingSearch, data: searchResult }] = useLazyQuery(GET_SEARCH_PRODUCT);
   const [getSearchLog, { data: searchLog }] = useLazyQuery(GET_SEARCH_LOG);
 
   useEffect(() => {
@@ -175,7 +184,7 @@ function SearchPage() {
             placeholder="🔍 B마트 상품을 검색해보세요!"
           />
         </InputContainer>
-        <StyledMagnifyingGlass />
+        <StyledMagnifyingGlass onClick={handleSearchClick} />
         {hasKeyword ? <StyledCancel onClick={handleCancelIconClick} /> : ''}
       </SearchBox>
       {searchResult && hasKeyword ? (
@@ -184,6 +193,15 @@ function SearchPage() {
             <ResultItem key={index} Item={result} />
           ))}
         </ResultBox>
+      ) : (
+        ''
+      )}
+      {isSearched ? (
+        loadingSearch ? (
+          <LoadingIcon />
+        ) : (
+          <ProductList productItems={searchResult.GetSearchProducts} />
+        )
       ) : (
         ''
       )}
