@@ -24,6 +24,36 @@ const showpane = keyframes`
     }
 `;
 
+const AlertContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+`;
+
+const AlertOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+`;
+
+const AlertFlex = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  border-radius: 5px;
+  color: #fff;
+  width: 200px;
+  height: 40px;
+  text-align: center;
+`;
+
 const ModalContainer = styled.div`
   z-index: 999;
   position: fixed;
@@ -35,6 +65,7 @@ const ModalContainer = styled.div`
   justify-content: center;
   align-items: flex-end;
   color: black;
+  transition: 0.5s;
 `;
 const ModalOverlay = styled.div`
   background: rgba(0, 0, 0, 0.4);
@@ -55,7 +86,7 @@ const ModalContent = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  animation: ${showpane} 0.5s cubic-bezier(0, 0, 0, 1);
+  animation: ${showpane} 0.2s cubic-bezier(0, 0, 0, 1);
 `;
 const Header = styled.div`
   position: relative;
@@ -90,14 +121,14 @@ const Section = styled.section`
 `;
 
 const ContentBox = styled.div`
-  width: 100%;
+  width: 95%;
   min-height: 70px;
   display: flex;
   justify-content: space-around;
   align-items: center;
 
   & > * {
-    margin: 10px 0;
+    margin: 10px 4px;
   }
 `;
 const Img = styled.img`
@@ -113,8 +144,11 @@ const TextBox = styled.div`
 `;
 const Text = styled.div`
   text-align: left;
+  font-size: ${(props) => props.theme.size.mmd};
 `;
-const Price = styled.div``;
+const Price = styled.div`
+  font-size: ${(props) => props.theme.size.mmd};
+`;
 const AmountBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -138,43 +172,74 @@ const TotalPrice = styled.div`
   color: #fff;
   position: absolute;
   bottom: 53px;
-  right: 15px;
+  right: 20px;
+  font-size: ${(props) => props.theme.size.mmd};
 `;
 
 const BuyProduct = ({ content }) => {
   const [amount, setAmount] = useState(1);
+  const [result, setResult] = useState(false);
   const [selected, setSelected] = useContext(ToggleProductBuyContext);
 
-  const toggleSelected = () => {
-    selected[content.id] = !selected[content.id];
-    setSelected(selected);
+  const close = () => {
+    setResult(true);
+    setTimeout(() => {
+      setResult(false);
+      const data = [...selected];
+      data[content.id] = false;
+      setSelected(data);
+    }, 1000);
   };
+
+  const up = () => {
+    setAmount(amount + 1);
+  };
+
+  const down = () => {
+    if (amount == 1) return;
+    setAmount(amount - 1);
+  };
+
   return (
-    <ModalContainer>
-      <ModalOverlay></ModalOverlay>
-      <ModalContent>
-        <Header>
-          <Title>{content.name}</Title>
-          <Closebtn>닫기</Closebtn>
-        </Header>
-        <Section>
-          <ContentBox>
-            <Img src={content.img_url}></Img>
-            <TextBox>
-              <Text>{content.name}</Text>
-              <Price>{`${addCommaToNumber(content.price)}원`}</Price>
-            </TextBox>
-            <AmountBox>
-              <StyledMinus isOne={amount === 1 ? true : false} />
-              {amount}
-              <StyledPlus />
-            </AmountBox>
-          </ContentBox>
-          <AddBtn>{amount}개 담기</AddBtn>
-          <TotalPrice>{`${addCommaToNumber(amount * content.price)}원`}</TotalPrice>
-        </Section>
-      </ModalContent>
-    </ModalContainer>
+    <>
+      {!result ? (
+        <ModalContainer>
+          <ModalOverlay></ModalOverlay>
+          <ModalContent>
+            <Header>
+              <Title>{content.name}</Title>
+              <Closebtn onClick={() => close()}>닫기</Closebtn>
+            </Header>
+            <Section>
+              <ContentBox>
+                <Img src={content.img_url}></Img>
+                <TextBox>
+                  <Text>{content.name}</Text>
+                  <Price>{`${addCommaToNumber(content.price)}원`}</Price>
+                </TextBox>
+                <AmountBox>
+                  <StyledMinus isOne={amount === 1 ? true : false} onClick={() => down()} />
+                  {amount}
+                  <StyledPlus onClick={() => up()} />
+                </AmountBox>
+              </ContentBox>
+              <AddBtn onClick={() => close()}>{amount}개 담기</AddBtn>
+              <TotalPrice>{`${addCommaToNumber(amount * content.price)}원`}</TotalPrice>
+            </Section>
+          </ModalContent>
+        </ModalContainer>
+      ) : (
+        ''
+      )}
+      {result ? (
+        <AlertContainer>
+          <AlertOverlay />
+          <AlertFlex>장바구니에 상품이 담겼습니다</AlertFlex>
+        </AlertContainer>
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 
