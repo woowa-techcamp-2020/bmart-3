@@ -1,4 +1,5 @@
 cd ../../../client
+npm install
 npm run build
 cd ../docker/deploy/public
 docker-compose down

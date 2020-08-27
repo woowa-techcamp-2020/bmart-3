@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 import GoogleLogin from 'react-google-login';
-import jwt from 'jsonwebtoken';
+import styled from 'styled-components';
 import { AuthContext } from 'context/AuthContext';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import { LOGIN, SIGNUP } from 'graphql/auth';
-import styled from 'styled-components';
+import jwt from 'jsonwebtoken';
 import { useHistory } from 'react-router-dom';
 
 const Section = styled.section`
@@ -13,7 +13,7 @@ const Section = styled.section`
   margin-top: 150px;
 `;
 
-const getGoogleLoginIdToken = () => {
+export const getGoogleLoginIdToken = () => {
   let idToken = '';
   const hash = window.location.hash;
   if (hash.length > 0) {
@@ -27,18 +27,11 @@ const getGoogleLoginIdToken = () => {
 
 export default function Loginpags() {
   const [userInfo, setUserInfo] = useContext(AuthContext);
-  const history = useHistory();
-
   const [login, { loading: loadingLogin, data: loginResult, error: errorLogin }] = useLazyQuery(LOGIN);
   const [signupMutation, { data: signupResult, error: errorSignup, stopPolling }] = useMutation(SIGNUP);
+  const history = useHistory();
 
   useEffect(() => {
-    const bearerToken = localStorage.getItem('Bearer');
-    if (bearerToken) {
-      const { id, name, googleId } = jwt.decode(bearerToken);
-      setUserInfo({ id, name, googleId });
-      history.push('/');
-    }
     const googleIdToken = getGoogleLoginIdToken();
     if (googleIdToken) {
       const { sub: googleId, email } = jwt.decode(googleIdToken);
@@ -54,7 +47,7 @@ export default function Loginpags() {
         localStorage.setItem('Bearer', token);
         const { id, name, googleId } = jwt.decode(token);
         setUserInfo({ id, name, googleId });
-        history.push('/');
+        history.push('/mainpage');
       } else {
         const googleIdToken = getGoogleLoginIdToken();
         if (googleIdToken) {
@@ -64,7 +57,6 @@ export default function Loginpags() {
         }
       }
     }
-    return stopPolling;
   }, [loginResult]);
 
   useEffect(() => {
@@ -74,10 +66,9 @@ export default function Loginpags() {
         localStorage.setItem('Bearer', token);
         const { id, name, googleId } = jwt.decode(token);
         setUserInfo({ id, name, googleId });
-        history.push('/');
+        history.push('/mainpage');
       }
     }
-    return stopPolling;
   }, [signupResult]);
 
   return (
@@ -85,7 +76,6 @@ export default function Loginpags() {
       <GoogleLogin
         icon={true}
         clientId={process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID}
-        onFailure={(error) => console.log(error)}
         cookiePolicy={'single_host_origin'}
         responseType="id_token"
         buttonText="구글 계정으로 로그인"

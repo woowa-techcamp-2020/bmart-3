@@ -6,6 +6,9 @@ import { ProductContext } from 'context/ProductContext';
 import { CategoryContext } from 'context/CategoryContext';
 import { ProductScrollContext } from 'context/ProductScrollContext';
 import { $ } from 'component/share/util';
+import { Link } from 'react-router-dom';
+
+const categoryBaseUrl = '/category/';
 
 const ProductContainerHeader = styled.div`
   font-family: 'BMDOHYEON';
@@ -26,6 +29,11 @@ const HeaderBtn = styled.button`
   background: none;
   color: ${(props) => props.theme.color.buttonGreen};
   border: none;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #cdb30c;
 `;
 
 //부모한테 category_id를 받아서 본인이 api를 통해 데이터를 가져옴 >
@@ -69,7 +77,20 @@ const Product = () => {
               <div key={`product-container-header-${idx}`} className={`product-container-${idx}`}>
                 <ProductContainerHeader>
                   <h1>{categoryList.length ? categoryList[idx - 1].name : ''}</h1>
-                  <HeaderBtn>더보기</HeaderBtn>
+                  <HeaderBtn>
+                    {categoryList.length ? (
+                      <StyledLink
+                        onClick={() => {
+                          window.scrollTo(0, 0);
+                        }}
+                        to={categoryBaseUrl + categoryList[idx - 1].id}
+                      >
+                        더보기
+                      </StyledLink>
+                    ) : (
+                      ''
+                    )}
+                  </HeaderBtn>
                 </ProductContainerHeader>
                 <ProductContainer>
                   <ProductList productItems={item} />

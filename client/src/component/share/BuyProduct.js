@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Plus } from '@styled-icons/boxicons-regular/Plus';
 import { Minus } from '@styled-icons/boxicons-regular/Minus';
-
+import { addCommaToNumber } from 'component/share/util';
 const StyledPlus = styled(Plus)`
   height: 14px;
   width: 15px;
@@ -11,6 +11,15 @@ const StyledMinus = styled(Minus)`
   height: 14px;
   width: 15px;
   color: ${(props) => (props.isOne ? '#ddd' : 'black')};
+`;
+
+const showpane = keyframes`
+    0% {
+        transform: translateY(390px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 `;
 
 const ModalContainer = styled.div`
@@ -38,19 +47,20 @@ const ModalContent = styled.div`
   border-radius: 10px;
   text-align: center;
   width: 100%;
-  height: 220px;
+  height: 210px;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  animation: ${showpane} 0.5s cubic-bezier(0, 0, 0, 1);
 `;
 const Header = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 50px;
+  height: 40px;
   align-items: center;
   border-radius: 10px 10px 0 0;
   border-bottom: 2px solid ${(props) => props.theme.color.darkGray};
@@ -62,7 +72,7 @@ const Title = styled.h1`
 
 const Closebtn = styled.button`
   position: absolute;
-  top: 15px;
+  top: 10px;
   right: 10px;
   border: none;
   background: none;
@@ -125,6 +135,8 @@ const AddBtn = styled.button`
 const TotalPrice = styled.div`
   color: #fff;
   position: absolute;
+  bottom: 53px;
+  right: 15px;
 `;
 
 const BuyProduct = ({ content }) => {
@@ -142,7 +154,7 @@ const BuyProduct = ({ content }) => {
             <Img src={content.img_url}></Img>
             <TextBox>
               <Text>{content.name}</Text>
-              <Price>{`${content.price}원`}</Price>
+              <Price>{`${addCommaToNumber(content.price)}원`}</Price>
             </TextBox>
             <AmountBox>
               <StyledMinus isOne={amount === 1 ? true : false} />
@@ -151,7 +163,7 @@ const BuyProduct = ({ content }) => {
             </AmountBox>
           </ContentBox>
           <AddBtn>{amount}개 담기</AddBtn>
-          <TotalPrice>{amount * content.price}원</TotalPrice>
+          <TotalPrice>{`${addCommaToNumber(amount * content.price)}원`}</TotalPrice>
         </Section>
       </ModalContent>
     </ModalContainer>

@@ -3,6 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import { Hamburger } from '@styled-icons/fa-solid/Hamburger';
+import { Exit } from '@styled-icons/icomoon';
+import { useHistory } from 'react-router-dom';
 import bmartLogo from 'image/bmart-logo.png';
 
 const MainHeader = styled.header`
@@ -75,9 +77,20 @@ const StyledHamburger = styled(Hamburger)`
   width: 25px;
   height: 25px;
   color: ${(props) => props.theme.color.icon};
+  margin-right: 10px;
   &:active {
     animation: ${IconActiveAnimation} 0.2s ease-in-out;
     color: ${(props) => props.theme.color.orange};
+  }
+`;
+
+const StyledExit = styled(Exit)`
+  width: 25px;
+  height: 25px;
+  color: ${({ theme }) => theme.color.icon};
+  &:active {
+    animation: ${IconActiveAnimation} 0.2s ease-in-out;
+    color: ${({ theme }) => theme.color.orange};
   }
 `;
 
@@ -99,24 +112,36 @@ const Input = styled.input`
   }
 `;
 
-const Header = ({ hasSearchBar }) => {
+const Header = ({ hasSearchBar, hasHambergerIcon }) => {
+  const history = useHistory();
+  const bearerToken = localStorage.getItem('Bearer');
+
+  const handleArrowBackIconClick = () => {
+    history.goBack();
+  };
+  const handleHambergerIconClick = () => {
+    history.push('/total_menu');
+  };
+  const handleLogoutClick = () => {
+    localStorage.removeItem('Bearer');
+    history.push('/login');
+  };
   return (
     <MainHeader>
       <HeaderRowOne>
-        <Icon src={ArrowBack} />
+        <Icon src={ArrowBack} onClick={handleArrowBackIconClick} />
         <BmartLogo src={bmartLogo} />
         <HeaderRowOneRightBox>
           <StyledMagnifyingGlass />
-          <StyledHamburger />
+          {hasHambergerIcon && <StyledHamburger onClick={handleHambergerIconClick} />}
+          {bearerToken && <StyledExit onClick={handleLogoutClick}>로그아웃</StyledExit>}
         </HeaderRowOneRightBox>
       </HeaderRowOne>
 
-      {hasSearchBar ? (
+      {hasSearchBar && (
         <InputContainer>
           <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
         </InputContainer>
-      ) : (
-        ''
       )}
     </MainHeader>
   );
