@@ -6,8 +6,8 @@ const CartContainer = styled.div`
   height: 50px;
   border-radius: 50%;
   position: fixed;
-  bottom: 40px;
-  right: 10px;
+  bottom: 50px;
+  right: 15px;
   z-index: 100;
   padding: 5px;
   background: ${(props) => props.theme.color.middlePink};

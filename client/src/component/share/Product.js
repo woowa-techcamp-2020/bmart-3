@@ -15,14 +15,14 @@ const ProductContainerHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 10px 8px;
 `;
 
 const ProductContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0;
+  padding: 0 8px;
 `;
 
 const HeaderBtn = styled.button`
