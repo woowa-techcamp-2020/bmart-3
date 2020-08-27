@@ -182,12 +182,18 @@ const BuyProduct = ({ content }) => {
   const [selected, setSelected] = useContext(ToggleProductBuyContext);
 
   const close = () => {
+    const data = [...selected];
+    data[content.id] = false;
+    setSelected(data);
+  };
+
+  const AddToCart = () => {
     setResult(true);
+
+    const ItemData = [];
     setTimeout(() => {
       setResult(false);
-      const data = [...selected];
-      data[content.id] = false;
-      setSelected(data);
+      close();
     }, 1000);
   };
 
@@ -223,7 +229,7 @@ const BuyProduct = ({ content }) => {
                   <StyledPlus onClick={() => up()} />
                 </AmountBox>
               </ContentBox>
-              <AddBtn onClick={() => close()}>{amount}개 담기</AddBtn>
+              <AddBtn onClick={() => AddToCart()}>{amount}개 담기</AddBtn>
               <TotalPrice>{`${addCommaToNumber(amount * content.price)}원`}</TotalPrice>
             </Section>
           </ModalContent>
