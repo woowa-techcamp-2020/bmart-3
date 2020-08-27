@@ -1,10 +1,17 @@
 import React from 'react';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_RAND_ITEMS } from 'graphql/product';
+import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import ProductItem from 'component/share/ProductItem';
 import { OuterContainer, HeaderContainer, Header } from 'component/share/ShareStyle';
 import { MoreBtn } from 'component/mainpage/RecommendStyle';
+import { Link } from 'react-router-dom';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const ProductForYou = () => {
   const limit = 15;
@@ -18,7 +25,9 @@ const ProductForYou = () => {
     <>
       <HeaderContainer>
         <Header>너를 위한 상품</Header>
-        <MoreBtn>{'더보기 >'} </MoreBtn>
+        <StyledLink to="/event/foryou">
+          <MoreBtn>{'더보기 >'} </MoreBtn>
+        </StyledLink>
       </HeaderContainer>
       <OuterContainer>
         {loading ? (

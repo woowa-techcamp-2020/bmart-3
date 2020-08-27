@@ -2,9 +2,16 @@ import React, { useContext, useRef, useEffect } from 'react';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_NEW_RELEASE } from 'graphql/product';
 import { useQuery } from '@apollo/react-hooks';
+import styled from 'styled-components';
 import ProductItem from 'component/share/ProductItem';
 import { OuterContainer, HeaderContainer, Header } from 'component/share/ShareStyle';
 import { MoreBtn } from 'component/mainpage/RecommendStyle';
+import { Link } from 'react-router-dom';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const NewRelease = () => {
   const limit = 15;
@@ -18,7 +25,9 @@ const NewRelease = () => {
     <>
       <HeaderContainer>
         <Header>새로 나왔어요</Header>
-        <MoreBtn>{'더보기 >'} </MoreBtn>
+        <StyledLink to="/event/new_release">
+          <MoreBtn>{'더보기 >'} </MoreBtn>
+        </StyledLink>
       </HeaderContainer>
       <OuterContainer>
         {loading ? (

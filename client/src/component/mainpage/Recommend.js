@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { addCommaToNumber } from 'component/share/util';
+import styled from 'styled-components';
 import { RecommendContext } from 'context/RecommendContext';
 import { useMutation } from '@apollo/client';
 import { TOGGLE_LIKED } from 'graphql/product';
@@ -33,6 +34,11 @@ const FilledProductCart = styled(FilledBasket)`
   color: ${(props) => (props.isFilled ? props.theme.color.orange : props.theme.color.lightYello)};
   background: ${(props) => props.theme.color.backgroundGray};
   border: none;
+import { Link } from 'react-router-dom';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
 const Recommend = () => {
@@ -71,7 +77,9 @@ const Recommend = () => {
           지금 사면 <StyledLight />
           <Emphasize>번쩍할인</Emphasize>
         </RecommendTitle>
-        <MoreBtn>더보기 ></MoreBtn>
+        <StyledLink to="/event/recommend">
+          <MoreBtn>{'더보기 >'} </MoreBtn>
+        </StyledLink>
       </RecommendHeader>
       <RecommenedContent>
         {recommendList.slice(0, 4).map((item, idx) => (
