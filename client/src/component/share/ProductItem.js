@@ -5,10 +5,12 @@ import { addCommaToNumber } from 'component/share/util';
 import { Unlike, Liked } from 'component/mainpage/RecommendStyle';
 import { useMutation } from '@apollo/client';
 import { TOGGLE_LIKED } from 'graphql/product';
+import BuyProduct from 'component/share/BuyProduct';
 
 import {
   PriceSection,
   StyledBasket,
+  FilledBasket,
   DiscountInfoSection,
   DiscountPercent,
   DiscountedPrice,
@@ -16,6 +18,17 @@ import {
 } from 'component/mainpage/RecommendStyle';
 
 const ProductCart = styled(StyledBasket)`
+  position: absolute;
+  top: 105px;
+  right: 40px;
+  width: 25px;
+  height: 25px;
+  color: ${(props) => props.theme.color.lightYello};
+  background: ${(props) => props.theme.color.backgroundGray};
+  border: none;
+`;
+
+const FilledProductCart = styled(FilledBasket)`
   position: absolute;
   top: 105px;
   right: 40px;
@@ -87,77 +100,88 @@ const ProductContentRow = styled.div`
 const ProductItem = ({ content, row }) => {
   const [liked, setLiked] = useState(content.liked);
   const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
+  const [selected, setSelected] = useState(false);
 
   const discountedPrice = parseInt((content.price * (1 - content.discount_percent / 100)) / 10) * 10;
+
+  const toggleCart = () => {
+    setSelected((prev) => !prev);
+  };
 
   const toggleLike = (id) => {
     setLiked((prev) => (prev === 'true' ? 'false' : 'true'));
     toggleLikedMutation({ variables: { id, liked } });
   };
 
-  useEffect(() => {}, [liked]);
+  useEffect(() => {}, [liked, selected]);
 
   if (error) return <div>error...</div>;
 
   return (
     <>
       {row !== 'one' ? (
-        <EachItem>
-          <ProductImg img={content.img_url} />
-          <ProductContent>
-            <ProductContentRow>{content.name}</ProductContentRow>
-            <ProductContentRow>
-              <PriceSection>
-                <DiscountInfoSection>
-                  {content.discount_percent ? (
-                    <>
-                      <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
-                      <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
-                    </>
-                  ) : (
-                    ''
-                  )}
+        <>
+          <EachItem>
+            <ProductImg img={content.img_url} />
+            <ProductContent>
+              <ProductContentRow>{content.name}</ProductContentRow>
+              <ProductContentRow>
+                <PriceSection>
+                  <DiscountInfoSection>
+                    {content.discount_percent ? (
+                      <>
+                        <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
+                        <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
+                      </>
+                    ) : (
+                      ''
+                    )}
 
-                  <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
-                </DiscountInfoSection>
-              </PriceSection>
-            </ProductContentRow>
-          </ProductContent>
-          <ProductCart />
-          {liked === 'true' ? (
-            <StyledLiked onClick={() => toggleLike(content.id)} />
-          ) : (
-            <StyledUnliked onClick={() => toggleLike(content.id)} />
-          )}
-        </EachItem>
+                    <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
+                  </DiscountInfoSection>
+                </PriceSection>
+              </ProductContentRow>
+            </ProductContent>
+            <ProductCart onClick={() => toggleCart()} />
+            {liked === 'true' ? (
+              <StyledLiked onClick={() => toggleLike(content.id)} />
+            ) : (
+              <StyledUnliked onClick={() => toggleLike(content.id)} />
+            )}
+          </EachItem>
+          {selected ? <BuyProduct content={content} /> : ''}
+        </>
       ) : (
-        <OneRowEachItem>
-          <ProductImg img={content.img_url} />
-          <ProductContent>
-            <ProductContentRow>{content.name}</ProductContentRow>
-            <ProductContentRow>
-              <PriceSection>
-                <DiscountInfoSection>
-                  {content.discount_percent ? (
-                    <>
-                      <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
-                      <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
-                    </>
-                  ) : (
-                    ''
-                  )}
-                  <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
-                </DiscountInfoSection>
-                <ProductCart />
-              </PriceSection>
-            </ProductContentRow>
-          </ProductContent>
-          {liked === 'true' ? (
-            <StyledLiked onClick={() => toggleLike(content.id)} />
-          ) : (
-            <StyledUnliked onClick={() => toggleLike(content.id)} />
-          )}
-        </OneRowEachItem>
+        <>
+          <OneRowEachItem>
+            <ProductImg img={content.img_url} />
+            <ProductContent>
+              <ProductContentRow>{content.name}</ProductContentRow>
+              <ProductContentRow>
+                <PriceSection>
+                  <DiscountInfoSection>
+                    {content.discount_percent ? (
+                      <>
+                        <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
+                        <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
+                  </DiscountInfoSection>
+                  <ProductCart onClick={() => toggleCart()} />
+                </PriceSection>
+              </ProductContentRow>
+            </ProductContent>
+            {liked === 'true' ? (
+              <StyledLiked onClick={() => toggleLike(content.id)} />
+            ) : (
+              <StyledUnliked onClick={() => toggleLike(content.id)} />
+            )}
+          </OneRowEachItem>
+          {selected ? <BuyProduct content={content} /> : ''}
+        </>
       )}
     </>
   );

@@ -3,6 +3,7 @@ import { LightningFill } from '@styled-icons/bootstrap/LightningFill';
 import { HeartOutline } from '@styled-icons/typicons/HeartOutline';
 import { Heart } from '@styled-icons/typicons/Heart';
 import { Basket } from '@styled-icons/ionicons-outline/Basket';
+import { ShoppingBasket } from '@styled-icons/material/ShoppingBasket';
 
 const RecommendWrapper = styled.div`
   width: 100%;
@@ -134,6 +135,18 @@ const StyledBasket = styled(Basket)`
   border: 1px solid ${(props) => props.theme.color.brown};
 `;
 
+const FilledBasket = styled(ShoppingBasket)`
+  width: 25px;
+  height: 25px;
+  color: ${(props) => props.theme.color.brown};
+  border: 1px solid ${(props) => props.theme.color.lightBrown};
+  border-radius: 50%;
+  padding: 1%;
+  opacity: 0.7;
+  background: ${(props) => props.theme.color.lightBrown};
+  border: 1px solid ${(props) => props.theme.color.brown};
+`;
+
 const DiscountPercent = styled.div`
   color: ${(props) => props.theme.color.lightRed};
   font-size: ${(props) => props.theme.size.mmd};
@@ -165,4 +178,5 @@ export {
   DiscountPercent,
   BeforeDiscountPrice,
   DiscountedPrice,
+  FilledBasket,
 };

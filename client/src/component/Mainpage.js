@@ -12,6 +12,7 @@ import { AuthContext } from 'context/AuthContext';
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import { Cart, CartContainer } from 'component/share/ShareStyle';
+import BuyProduct from 'component/share/BuyProduct';
 
 const Article = styled.article`
   padding: 0;
