@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { IMG_URL } from 'component/share/constant';
 import { addCommaToNumber } from 'component/share/util';
@@ -6,6 +6,7 @@ import { Unlike, Liked } from 'component/mainpage/RecommendStyle';
 import { useMutation } from '@apollo/client';
 import { TOGGLE_LIKED } from 'graphql/product';
 import BuyProduct from 'component/share/BuyProduct';
+import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
 
 import {
   PriceSection,
@@ -100,20 +101,25 @@ const ProductContentRow = styled.div`
 const ProductItem = ({ content, row }) => {
   const [liked, setLiked] = useState(content.liked);
   const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useContext(ToggleProductBuyContext);
+
+  if (selected[content.id] === 'undefined') {
+    selected[content.id] = false;
+    setSelected(selected);
+  }
 
   const discountedPrice = parseInt((content.price * (1 - content.discount_percent / 100)) / 10) * 10;
 
   const toggleCart = () => {
-    setSelected((prev) => !prev);
+    const data = [...selected];
+    data[content.id] = true;
+    setSelected(data);
   };
 
   const toggleLike = (id) => {
     setLiked((prev) => (prev === 'true' ? 'false' : 'true'));
     toggleLikedMutation({ variables: { id, liked } });
   };
-
-  useEffect(() => {}, [liked, selected]);
 
   if (error) return <div>error...</div>;
 
@@ -149,7 +155,7 @@ const ProductItem = ({ content, row }) => {
               <StyledUnliked onClick={() => toggleLike(content.id)} />
             )}
           </EachItem>
-          {selected ? <BuyProduct content={content} /> : ''}
+          {selected[content.id] ? <BuyProduct content={content} /> : ''}
         </>
       ) : (
         <>
@@ -180,7 +186,7 @@ const ProductItem = ({ content, row }) => {
               <StyledUnliked onClick={() => toggleLike(content.id)} />
             )}
           </OneRowEachItem>
-          {selected ? <BuyProduct content={content} /> : ''}
+          {selected[content.id] ? <BuyProduct content={content} /> : ''}
         </>
       )}
     </>

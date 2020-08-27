@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Plus } from '@styled-icons/boxicons-regular/Plus';
 import { Minus } from '@styled-icons/boxicons-regular/Minus';
 import { addCommaToNumber } from 'component/share/util';
+import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
+
 const StyledPlus = styled(Plus)`
   height: 14px;
   width: 15px;
@@ -141,6 +143,12 @@ const TotalPrice = styled.div`
 
 const BuyProduct = ({ content }) => {
   const [amount, setAmount] = useState(1);
+  const [selected, setSelected] = useContext(ToggleProductBuyContext);
+
+  const toggleSelected = () => {
+    selected[content.id] = !selected[content.id];
+    setSelected(selected);
+  };
   return (
     <ModalContainer>
       <ModalOverlay></ModalOverlay>

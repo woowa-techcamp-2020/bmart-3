@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FetchingProvider } from 'context/FetchingContext';
 import { CategoryProvider } from 'context/CategoryContext';
 import { ProductProvider } from 'context/ProductContext';
+import { ToggleProductBuyProvider } from 'context/ToggleProductBuyContext';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -46,13 +47,15 @@ function App() {
         <Switch>
           <Route path="/login" component={Loginpage} />
           <Route path="/mainpage" exact>
-            <ProductProvider>
-              <CategoryProvider>
-                <FetchingProvider>
-                  <Mainpage />
-                </FetchingProvider>
-              </CategoryProvider>
-            </ProductProvider>
+            <ToggleProductBuyProvider>
+              <ProductProvider>
+                <CategoryProvider>
+                  <FetchingProvider>
+                    <Mainpage />
+                  </FetchingProvider>
+                </CategoryProvider>
+              </ProductProvider>
+            </ToggleProductBuyProvider>
           </Route>
           <Route path="/cart">장바구니페이지</Route>
           <Route path="/category/:category_id" component={ParentCategory} />
