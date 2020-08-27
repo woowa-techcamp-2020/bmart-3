@@ -2,9 +2,16 @@ import React from 'react';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_POPULAR_ITEMS } from 'graphql/product';
 import { useQuery } from '@apollo/react-hooks';
+import styled from 'styled-components';
 import ProductItem from 'component/share/ProductItem';
 import { OuterContainer, HeaderContainer, Header } from 'component/share/ShareStyle';
 import { MoreBtn } from 'component/mainpage/RecommendStyle';
+import { Link } from 'react-router-dom';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const PopularItems = () => {
   const limit = 15;
@@ -18,7 +25,9 @@ const PopularItems = () => {
     <>
       <HeaderContainer>
         <Header>요즘 잘 팔려요</Header>
-        <MoreBtn>{'더보기 >'} </MoreBtn>
+        <StyledLink to="/event/popular">
+          <MoreBtn>{'더보기 >'} </MoreBtn>
+        </StyledLink>
       </HeaderContainer>
       <OuterContainer>
         {loading ? (
