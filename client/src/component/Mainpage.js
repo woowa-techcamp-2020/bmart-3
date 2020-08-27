@@ -43,7 +43,7 @@ function Mainpage() {
   return (
     <>
       {/* 헤더 */}
-      <Header hasSearchBar />
+      <Header hasSearchBar hasHambergerIcon />
       {/* 배너 */}
       <Banner />
       {/* 카테고리 */}

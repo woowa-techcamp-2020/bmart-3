@@ -37,7 +37,7 @@ const Icon = styled(ArrowBack)`
   color: ${(props) => props.theme.color.icon};
 
   &:active {
-    text-Shadow: 1px 1px 2px #ff0000;
+    text-shadow: 1px 1px 2px #ff0000;
     // color: ${(props) => props.theme.color.orange};
     animation: ${arrowMove} 0.2s ease-in-out;
     padding: 2px;
@@ -105,7 +105,7 @@ const Input = styled.input`
   }
 `;
 
-const Header = ({ hasSearchBar }) => {
+const Header = ({ hasSearchBar, hasHambergerIcon }) => {
   return (
     <MainHeader>
       <HeaderRowOne>
@@ -113,16 +113,14 @@ const Header = ({ hasSearchBar }) => {
         <BmartLogo src={bmartLogo} />
         <HeaderRowOneRightBox>
           <StyledMagnifyingGlass />
-          <StyledHamburger />
+          {hasHambergerIcon && <StyledHamburger />}
         </HeaderRowOneRightBox>
       </HeaderRowOne>
 
-      {hasSearchBar ? (
+      {hasSearchBar && (
         <InputContainer>
           <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
         </InputContainer>
-      ) : (
-        ''
       )}
     </MainHeader>
   );
