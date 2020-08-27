@@ -18,21 +18,37 @@ npm install
 
 ### 2. 디비 설정
 .env 파일 접근
+프론트엔드  
 ```bash
-cd bmart-3/server
+cd bmart-3/client
 ```
-.env 파일 열어서 DB정보 입력
+sample.env 파일을 현재 경로에 복사하고 .env 파일로 이름 변경 후 환경변수 설정
 ```
-DB_HOST= 디비 호스트IP
-DB_USER= 디비 유저아이디
-DB_PASSWORD= 디비 유저비밀번호
-DB_NAME= 디비 이름
+REACT_APP_API_HOST=http://localhost
+REACT_APP_API_PORT= API 포트번호
+REACT_APP_PUBLIC_URI= http://'퍼블릭 ec2 주소' 
+REACT_APP_GOOGLE_LOGIN_CLIENT_ID= 구글 Oauth client ID
+```
+백엔드
+```bash
+cd bmart-3/docker/development
+```
+sample.env 파일을 현재 경로에 복사하고 .env 파일로 이름 변경 후 DB정보 입력
+```
+#DB_HOST 수정 금지
+DB_HOST=db
+DB_ROOT_PASSWORD= mysql root 계정 비밀번호
+DB_PORT= mysql 포트
+DB_USER= mysql 계정
+DB_PASSWORD= mysql 비밀번호
+DB_DATABASE= 데이터베이스 이름
+PORT=80
 ```
 
-### 3. npm 명령어
-서버 실행(server, client 디렉토리에서 각각 실행, 아래 명령어들도 동일)
+### 3. 서버(백엔드, 프론트엔드) 실행 명령어
 ```bash
-npm start
+cd bmart-3/docker/development
+./start.sh
 ```
 
 # 🐶 사용 기술 스택(추가 중)

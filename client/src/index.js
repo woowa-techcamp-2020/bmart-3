@@ -4,22 +4,46 @@ import App from './App';
 import './index.css';
 
 import ApolloClient from 'apollo-client';
+import { RetryLink } from 'apollo-link-retry';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { AuthProvider } from 'context/AuthContext';
+import { setContext } from '@apollo/client/link/context';
 
 const baseUrl = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`;
 
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('Bearer');
+  return {
+    headers: {
+      ...headers,
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const httpLink = new RetryLink().split(
+  () => {
+    const bearerToken = localStorage.getItem('Bearer');
+    return !bearerToken; // true면 두번째 파라미터 link가 실행, false면 세번째 파라미터 link가 실행
+  },
+  new createHttpLink({ uri: `${baseUrl}/auth` }),
+  new createHttpLink({ uri: `${baseUrl}/graphql` })
+);
+
 const client = new ApolloClient({
-  link: createHttpLink({ uri: `${baseUrl}/graphql` }),
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <ApolloProvider client={client}>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </ApolloProvider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );

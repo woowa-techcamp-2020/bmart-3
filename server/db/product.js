@@ -9,6 +9,7 @@ import {
   getPopularItemsQuery,
   getRandItemsQuery,
   getTimesaleItemsQuery,
+  toggleLikedQuery,
 } from './query/product';
 
 const getProducts = async () => {
@@ -32,7 +33,6 @@ const getProductById = async (id) => {
 const getProductsByCategoryId = async (categoryId, limit) => {
   try {
     const rows = await executeQuery(getProductsByCategoryIdQuery(categoryId, limit));
-
     return rows;
   } catch (err) {
     throw err;
@@ -95,6 +95,15 @@ const getTimeSaleItems = async (limit) => {
     throw err;
   }
 };
+
+const toggleLiked = async (id, liked) => {
+  try {
+    await executeQuery(toggleLikedQuery(id, liked));
+    return { message: '찜하기 토글 성공' };
+  } catch (err) {
+    throw err;
+  }
+};
 export {
   getProducts,
   getProductById,
@@ -105,4 +114,6 @@ export {
   getTimeSaleItems,
   getPagedProductsByChildCategoryId,
   getPagedProductsByParentCategoryId,
+  getProductsByChildCategoryId,
+  toggleLiked,
 };

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IMG_URL } from 'component/share/constant';
 import { addCommaToNumber } from 'component/share/util';
 import { Unlike, Liked } from 'component/mainpage/RecommendStyle';
+import { useMutation } from '@apollo/client';
+import { TOGGLE_LIKED } from 'graphql/product';
+
 import {
   DiscountInfoSection,
   DiscountPercent,
@@ -27,22 +30,30 @@ const OneRowEachItem = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 1%;
-  min-width: 130px;
+  min-width: 150px;
   min-height: 120px;
   margin: 0 10px;
 `;
 
 const StyledLiked = styled(Liked)`
   position: absolute;
-  top: 95px;
-  right: 15px;
+  top: 105px;
+  right: 12px;
+  width: 25px;
+  height: 25px;
+`;
+
+const StyledUnliked = styled(Unlike)`
+  position: absolute;
+  top: 105px;
+  right: 12px;
   width: 25px;
   height: 25px;
 `;
 
 const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
-  width: 100%;
-  height: 130px;
+  min-width: 150px;
+  height: 140px;
   border: 2vw solid rgba(0, 0, 0, 0.5);
   border-image: url(${IMG_URL}/border1.png) 170 round;
   border-image-width: 4.5;
@@ -52,15 +63,28 @@ const ProductImg = styled.img.attrs((props) => ({ src: props.img }))`
 
 const ProductContent = styled.div`
   width: 110%;
-  padding: 5px 0;
+  padding: 5px;
 `;
 
 const ProductContentRow = styled.div`
-  padding: 2px 0 2px 10px;
+  padding: 2px 0 2px 5px;
 `;
 
 const ProductItem = ({ content, row }) => {
+  const [liked, setLiked] = useState(content.liked);
+  const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
+
   const discountedPrice = parseInt((content.price * (1 - content.discount_percent / 100)) / 10) * 10;
+
+  const toggleLike = (id) => {
+    setLiked((prev) => (prev === 'true' ? 'false' : 'true'));
+    toggleLikedMutation({ variables: { id, liked } });
+  };
+
+  useEffect(() => {}, [liked]);
+
+  if (error) return <div>error...</div>;
+
   return (
     <>
       {row !== 'one' ? (
@@ -81,18 +105,37 @@ const ProductItem = ({ content, row }) => {
                 <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
               </DiscountInfoSection>
             </ProductContentRow>
-            {/* <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow> */}
           </ProductContent>
-          <StyledLiked></StyledLiked>
+          {liked === 'true' ? (
+            <StyledLiked onClick={() => toggleLike(content.id)} />
+          ) : (
+            <StyledUnliked onClick={() => toggleLike(content.id)} />
+          )}
         </EachItem>
       ) : (
         <OneRowEachItem>
           <ProductImg img={content.img_url} />
           <ProductContent>
             <ProductContentRow>{content.name}</ProductContentRow>
-            <ProductContentRow>{addCommaToNumber(content.price)}원</ProductContentRow>
+            <ProductContentRow>
+              <DiscountInfoSection>
+                {content.discount_percent ? (
+                  <>
+                    <DiscountPercent>{`${content.discount_percent}%`}</DiscountPercent>
+                    <DiscountedPrice>{`${addCommaToNumber(content.price)}원`}</DiscountedPrice>
+                  </>
+                ) : (
+                  ''
+                )}
+                <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
+              </DiscountInfoSection>
+            </ProductContentRow>
           </ProductContent>
-          <StyledLiked></StyledLiked>
+          {liked === 'true' ? (
+            <StyledLiked onClick={() => toggleLike(content.id)} />
+          ) : (
+            <StyledUnliked onClick={() => toggleLike(content.id)} />
+          )}
         </OneRowEachItem>
       )}
     </>

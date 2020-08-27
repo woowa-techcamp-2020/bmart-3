@@ -68,7 +68,11 @@ const CategoryTitle = styled.p`
   font-size: ${(props) => props.theme.size.sm};
 `;
 const Category = () => {
-  const [categoryList] = useContext(CategoryContext);
+  const [categoryList, getCategoryList] = useContext(CategoryContext);
+
+  useEffect(() => {
+    getCategoryList();
+  }, []);
 
   //오른쪽 클릭시 이미지 복사 기타 등등 이벤트 막아놓기
   const preventRightClick = useCallback((e) => {
@@ -81,6 +85,7 @@ const Category = () => {
       document.removeEventListener('contextmenu', preventRightClick);
     };
   });
+
   return (
     <Nav className="main-category">
       <NavTitle>
@@ -88,14 +93,15 @@ const Category = () => {
         <DeliveryExpirationTime>| 24시까지 주문 예상</DeliveryExpirationTime>
       </NavTitle>
       <CategoryContainer onClick={preventRightClick}>
-        {categoryList.map((item, idx) => (
-          <StyledLink to={categoryBaseUrl + item.id} key={`category-item-${idx}`}>
-            <CategoryItem>
-              <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
-              <CategoryTitle>{item.name}</CategoryTitle>
-            </CategoryItem>
-          </StyledLink>
-        ))}
+        {categoryList.length > 0 &&
+          categoryList.map((item, idx) => (
+            <StyledLink to={categoryBaseUrl + item.id} key={`category-item-${idx}`}>
+              <CategoryItem>
+                <CategoryImg src={`${item.src}`} alt={`${item.name}`} />
+                <CategoryTitle>{item.name}</CategoryTitle>
+              </CategoryItem>
+            </StyledLink>
+          ))}
       </CategoryContainer>
     </Nav>
   );

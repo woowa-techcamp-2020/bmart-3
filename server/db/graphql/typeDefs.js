@@ -1,16 +1,13 @@
 export default `
 scalar DateTime
-type User{
-    id: Int!,
-    name: String!,
-    google_id: String!,
-}
+
 type Category{
     id: Int!,
     name: String!,
     is_parent: Boolean!,
     parent_name: String!,    
 }
+
 type Product{
     id: Int!,
     name: String!,
@@ -23,8 +20,12 @@ type Product{
     liked:String,
     discount_percent:Int!
 }
+
+type Message{
+    message:String
+}
+
 type Query{
-    Users: [User],
     Products: [Product],
     Product(id: Int): Product,
     ProductsByCategoryId(categoryId: Int,limit:Int): [Product],
@@ -37,4 +38,10 @@ type Query{
     GetRandItems(limit:Int):[Product],
     GetTimeSaleItems(limit:Int):[Product]
 
-}`;
+}
+
+type Mutation{
+    Signup(name: String, googleId: String):Message,
+    ToggleLiked(id:Int,liked:String):Message
+}
+`;

@@ -8,6 +8,7 @@ const PRODUCTS_BY_CATEGORY_ID = gql`
       price
       img_url
       discount_percent
+      liked
     }
   }
 `;
@@ -61,10 +62,12 @@ const PAGED_PRODUCTS_BY_PARENT_CATEGORY_ID = gql`
 const GET_NEW_RELEASE = gql`
   query($limit: Int) {
     GetNewRelease(limit: $limit) {
+      id
       name
       price
-      category_id
       img_url
+      discount_percent
+      liked
     }
   }
 `;
@@ -72,10 +75,12 @@ const GET_NEW_RELEASE = gql`
 const GET_POPULAR_ITEMS = gql`
   query($limit: Int) {
     GetPopularItems(limit: $limit) {
+      id
       name
       price
-      category_id
       img_url
+      discount_percent
+      liked
     }
   }
 `;
@@ -83,10 +88,12 @@ const GET_POPULAR_ITEMS = gql`
 const GET_RAND_ITEMS = gql`
   query($limit: Int) {
     GetRandItems(limit: $limit) {
+      id
       name
       price
-      category_id
       img_url
+      discount_percent
+      liked
     }
   }
 `;
@@ -104,6 +111,14 @@ const GET_TIMESALE_ITEMS = gql`
   }
 `;
 
+const TOGGLE_LIKED = gql`
+  mutation($id: Int, $liked: String) {
+    ToggleLiked(id: $id, liked: $liked) {
+      message
+    }
+  }
+`;
+
 export {
   PRODUCTS_BY_CATEGORY_ID,
   PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID,
@@ -112,4 +127,5 @@ export {
   GET_POPULAR_ITEMS,
   GET_RAND_ITEMS,
   GET_TIMESALE_ITEMS,
+  TOGGLE_LIKED,
 };
