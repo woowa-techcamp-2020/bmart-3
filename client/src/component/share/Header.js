@@ -45,12 +45,6 @@ const Icon = styled(ArrowBack)`
   }
 `;
 
-// 로고 이미지 쓸지 커스텀 로고 쓸지 고민 중
-// const Logo = styled.div`
-//   font-family: 'BMDOHYEON';
-//   color: ${(props) => props.theme.color.icon};
-// `;
-
 const BmartLogo = styled.img`
   height: 30px;
   position: absolute;

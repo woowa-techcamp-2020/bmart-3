@@ -1,14 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext, useRef, useEffect } from 'react';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_NEW_RELEASE } from 'graphql/product';
 import { useQuery } from '@apollo/react-hooks';
 import ProductItem from 'component/share/ProductItem';
-
-const Container = styled.div`
-  display: flex;
-  overflow: auto;
-`;
+import { OuterContainer, HeaderContainer, Header } from 'component/share/ShareStyle';
+import { MoreBtn } from 'component/mainpage/RecommendStyle';
 
 const NewRelease = () => {
   const limit = 15;
@@ -20,13 +16,17 @@ const NewRelease = () => {
 
   return (
     <>
-      <Container>
+      <HeaderContainer>
+        <Header>새로 나왔어요</Header>
+        <MoreBtn>{'더보기 >'} </MoreBtn>
+      </HeaderContainer>
+      <OuterContainer>
         {loading ? (
           <LoadingIcon />
         ) : (
           products.GetNewRelease.map((item, idx) => <ProductItem content={item} key={`new-release-${idx}`} row="one" />)
         )}
-      </Container>
+      </OuterContainer>
     </>
   );
 };

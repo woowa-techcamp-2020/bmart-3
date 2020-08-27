@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import ScrollTab from 'component/share/EventScrollTab';
+import EventScrollTab from 'component/share/EventScrollTab';
+import ProductScrollTab from 'component/share/ProductScrollTab';
 import Header from 'component/share/Header';
 import Banner from 'component/mainpage/Banner';
 import Category from 'component/mainpage/Category';
-import Recommend from 'component/mainpage/Recommend';
-import ProductForYou from 'component/mainpage/ProductForYou';
 import MapProductList from 'component/mainpage/MapProductList';
 import { EventScrollProvider } from 'context/EventScrollContext';
+import { ProductScrollProvider } from 'context/ProductScrollContext';
 import { RecommendContextProvider } from 'context/RecommendContext';
 
 const Article = styled.article``;
@@ -17,8 +17,6 @@ const Section = styled.section`
   border-bottom: 1px solid #eee;
   border-top: 1px solid #eee;
 `;
-
-const RecommendSection = styled(Section)``;
 
 const AdvertiseSection = styled(Section)``;
 
@@ -36,20 +34,20 @@ function Mainpage() {
 
       <Article>
         {/* 이벤트 스크롤 탭 */}
+
         <EventScrollProvider>
-          <ScrollTab />
+          <div style={{ position: 'relative' }}></div>
+          <EventScrollTab />
         </EventScrollProvider>
 
-        {/* 반짝할인 */}
-        <RecommendContextProvider>
-          <RecommendSection>
-            <Recommend />
-          </RecommendSection>
-        </RecommendContextProvider>
-        {/* 제품 영역 */}
-        <ProductSection>
-          <MapProductList />
-        </ProductSection>
+        <ProductScrollProvider>
+          <div style={{ position: 'relative' }}></div>
+          <ProductScrollTab />
+          {/* 제품 영역 */}
+          <ProductSection>
+            <MapProductList />
+          </ProductSection>
+        </ProductScrollProvider>
         {/* 광고영역 */}
         <AdvertiseSection>광고</AdvertiseSection>
       </Article>
