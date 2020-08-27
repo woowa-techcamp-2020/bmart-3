@@ -5,7 +5,6 @@ import { RecommendContext } from 'context/RecommendContext';
 import { useMutation } from '@apollo/client';
 import { TOGGLE_LIKED } from 'graphql/product';
 import BuyProduct from 'component/share/BuyProduct';
-import styled from 'styled-components';
 
 import {
   RecommendWrapper,
@@ -29,12 +28,13 @@ import {
   FilledBasket,
 } from 'component/mainpage/RecommendStyle';
 import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
+import { Link } from 'react-router-dom';
 
 const FilledProductCart = styled(FilledBasket)`
   color: ${(props) => (props.isFilled ? props.theme.color.orange : props.theme.color.lightYello)};
   background: ${(props) => props.theme.color.backgroundGray};
   border: none;
-import { Link } from 'react-router-dom';
+`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
