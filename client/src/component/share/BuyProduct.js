@@ -179,18 +179,21 @@ const TotalPrice = styled.div`
 const BuyProduct = ({ content }) => {
   const [amount, setAmount] = useState(1);
   const [result, setResult] = useState(false);
-  const [selected, setSelected] = useContext(ToggleProductBuyContext);
+  const [selected, setSelected, cartItem, setCartItem] = useContext(ToggleProductBuyContext);
 
   const close = () => {
     const data = [...selected];
     data[content.id] = false;
     setSelected(data);
   };
-
+  console.log(cartItem);
   const AddToCart = () => {
     setResult(true);
+    content['amount'] = amount;
+    const data = [];
+    data[content.id] = content;
+    setCartItem(data);
 
-    const ItemData = [];
     setTimeout(() => {
       setResult(false);
       close();

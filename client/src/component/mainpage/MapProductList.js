@@ -12,7 +12,6 @@ const MapProductList = () => {
 
   // 스크롤 이벤트 핸들
   const handleScroll = () => {
-    console.log('handle scroll');
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
