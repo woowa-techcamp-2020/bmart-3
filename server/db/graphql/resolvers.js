@@ -21,7 +21,13 @@ export default async function () {
         await getPagedProductsByChildCategoryId(categoryId, id, cursor, ordertype, limit, direction),
       PagedProductsByParentCategoryId: async (_, { categoryId, id, cursor, ordertype, limit, direction }) =>
         await getPagedProductsByParentCategoryId(categoryId, id, cursor, ordertype, limit, direction),
-      CategoriesParent: async () => await getCategoriesParent(),
+      CategoriesParent: async () => {
+        const categoriesParent = await getCategoriesParent();
+        return categoriesParent.map(async (categoryParent) => {
+          categoryParent.categoriesChild = await getCategoriesChild(categoryParent.id);
+          return categoryParent;
+        });
+      },
       CategoriesChild: async (_, { parentId }) => await getCategoriesChild(parentId),
       GetNewRelease: async (_, { limit }) => await getNewRelease(limit),
       GetPopularItems: async (_, { limit }) => await getPopularItems(limit),

@@ -5,6 +5,10 @@ const CATEGORIES_PARENT = gql`
     CategoriesParent {
       id
       name
+      categoriesChild {
+        id
+        name
+      }
     }
   }
 `;
