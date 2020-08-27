@@ -5,6 +5,7 @@ import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import { Hamburger } from '@styled-icons/fa-solid/Hamburger';
 import { Exit } from '@styled-icons/icomoon';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import bmartLogo from 'image/bmart-logo.png';
 
 const MainHeader = styled.header`
@@ -33,6 +34,11 @@ const arrowMove = keyframes`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
 const Icon = styled(ArrowBack)`
   width: 30px;
   height: 30px;
@@ -40,7 +46,6 @@ const Icon = styled(ArrowBack)`
 
   &:active {
     text-shadow: 1px 1px 2px #ff0000;
-    // color: ${(props) => props.theme.color.orange};
     animation: ${arrowMove} 0.2s ease-in-out;
     padding: 2px;
   }
@@ -116,6 +121,7 @@ const Header = ({ hasSearchBar, hasHambergerIcon }) => {
   const history = useHistory();
   const bearerToken = localStorage.getItem('Bearer');
 
+
   const handleArrowBackIconClick = () => {
     history.goBack();
   };
@@ -132,7 +138,9 @@ const Header = ({ hasSearchBar, hasHambergerIcon }) => {
         <Icon src={ArrowBack} onClick={handleArrowBackIconClick} />
         <BmartLogo src={bmartLogo} />
         <HeaderRowOneRightBox>
-          <StyledMagnifyingGlass />
+          <StyledLink to="/search">
+            <StyledMagnifyingGlass />
+          </StyledLink>
           {hasHambergerIcon && <StyledHamburger onClick={handleHambergerIconClick} />}
           {bearerToken && <StyledExit onClick={handleLogoutClick}>로그아웃</StyledExit>}
         </HeaderRowOneRightBox>
@@ -140,7 +148,9 @@ const Header = ({ hasSearchBar, hasHambergerIcon }) => {
 
       {hasSearchBar && (
         <InputContainer>
-          <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
+          <StyledLink to="/search">
+            <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
+          </StyledLink>
         </InputContainer>
       )}
     </MainHeader>

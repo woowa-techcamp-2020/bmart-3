@@ -8,10 +8,13 @@ import ChildCategory from 'component/ChildCategory';
 import Loginpage from 'component/Loginpage';
 import TotalMenupage from 'component/TotalMenupage';
 import LoginCheck from 'component/LoginCheck';
+import SearchPage from 'component/SearchPage';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FetchingProvider } from 'context/FetchingContext';
 import { CategoryProvider } from 'context/CategoryContext';
 import { ProductProvider } from 'context/ProductContext';
+import { ToggleProductBuyProvider } from 'context/ToggleProductBuyContext';
+import CartPage from 'component/cartpage/CartPage';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -44,23 +47,28 @@ function App() {
       <Router>
         <Route path="/" component={LoginCheck} />
         <CategoryProvider>
-          <Switch>
-            <Route path="/login" component={Loginpage} />
-            <Route path="/mainpage" exact>
-              <ProductProvider>
-                <FetchingProvider>
-                  <Mainpage />
-                </FetchingProvider>
-              </ProductProvider>
-            </Route>
-            <Route path="/total_menu" exact component={TotalMenupage} />
-            <Route path="/cart">장바구니페이지</Route>
-            <Route path="/category/:category_id" component={ParentCategory} />
-            <Route path="/category_detail/:category_id" component={ChildCategory} />
-            <Route path="/liked">찜 페이지</Route>
-            <Route path="/ordered_list">주문 내역 페이지</Route>
-            <Route path="/">not found</Route>
-          </Switch>
+          <ToggleProductBuyProvider>
+            <Switch>
+              <Route path="/login" component={Loginpage} />
+              <Route path="/mainpage" exact>
+                <ProductProvider>
+                  <FetchingProvider>
+                    <Mainpage />
+                  </FetchingProvider>
+                </ProductProvider>
+              </Route>
+              <Route path="/cart" exact>
+                <CartPage />
+              </Route>
+              <Route path="/category/:category_id" component={ParentCategory} />
+              <Route path="/category_detail/:category_id" component={ChildCategory} />
+              <Route path="/total_menu" component={TotalMenupage}></Route>
+              <Route path="/liked">찜 페이지</Route>
+              <Route path="/ordered_list">주문 내역 페이지</Route>
+              <Route path="/search" component={SearchPage}></Route>
+              <Route path="/">not found</Route>
+            </Switch>
+          </ToggleProductBuyProvider>
         </CategoryProvider>
       </Router>
     </ThemeProvider>

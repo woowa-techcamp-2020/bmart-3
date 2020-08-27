@@ -9,6 +9,7 @@ import {
   getRandItems,
   getTimeSaleItems,
   toggleLiked,
+  getSearchProducts,
 } from '../product';
 import { getCategoriesParent, getCategoriesChild } from '../category';
 export default async function () {
@@ -33,6 +34,7 @@ export default async function () {
       GetPopularItems: async (_, { limit }) => await getPopularItems(limit),
       GetRandItems: async (_, { limit }) => await getRandItems(limit),
       GetTimeSaleItems: async (_, { limit }) => await getTimeSaleItems(limit),
+      GetSearchProducts: async (_, { keyword, limit }) => await getSearchProducts(keyword, limit),
     },
     Mutation: {
       ToggleLiked: async (_, { id, liked }) => await toggleLiked(id, liked),
