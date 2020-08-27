@@ -186,7 +186,7 @@ const BuyProduct = ({ content }) => {
     data[content.id] = false;
     setSelected(data);
   };
-  console.log(cartItem);
+ 
   const AddToCart = () => {
     setResult(true);
     content['amount'] = amount;
