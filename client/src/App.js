@@ -9,6 +9,7 @@ import Loginpage from 'component/Loginpage';
 import TotalMenupage from 'component/TotalMenupage';
 import LoginCheck from 'component/loginpage/LoginCheck';
 import SearchPage from 'component/searchpage/SearchPage';
+import EventPage from 'component/eventpage/EventPage';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FetchingProvider } from 'context/FetchingContext';
 import { CategoryProvider } from 'context/CategoryContext';
@@ -66,6 +67,7 @@ function App() {
               <Route path="/liked">찜 페이지</Route>
               <Route path="/ordered_list">주문 내역 페이지</Route>
               <Route path="/search" component={SearchPage}></Route>
+              <Route path="/event/:event_name" component={EventPage}></Route>
               <Route path="/">not found</Route>
             </Switch>
           </ToggleProductBuyProvider>

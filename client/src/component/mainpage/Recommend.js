@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { addCommaToNumber } from 'component/share/util';
+import styled from 'styled-components';
 import { RecommendContext } from 'context/RecommendContext';
 import { useMutation } from '@apollo/client';
 import { TOGGLE_LIKED } from 'graphql/product';
@@ -26,6 +27,12 @@ import {
   BeforeDiscountPrice,
   DiscountedPrice,
 } from 'component/mainpage/RecommendStyle';
+import { Link } from 'react-router-dom';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const Recommend = () => {
   const [recommendList, setRecommendList, selected, setSelected, getTimesaleItems] = useContext(RecommendContext);
@@ -57,7 +64,9 @@ const Recommend = () => {
           지금 사면 <StyledLight />
           <Emphasize>번쩍할인</Emphasize>
         </RecommendTitle>
-        <MoreBtn>더보기 ></MoreBtn>
+        <StyledLink to="/event/recommend">
+          <MoreBtn>{'더보기 >'} </MoreBtn>
+        </StyledLink>
       </RecommendHeader>
       <RecommenedContent>
         {recommendList.slice(0, 4).map((item, idx) => (
