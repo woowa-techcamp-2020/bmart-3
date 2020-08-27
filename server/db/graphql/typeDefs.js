@@ -36,8 +36,8 @@ type Query{
     GetNewRelease(limit:Int):[Product],
     GetPopularItems(limit:Int):[Product],
     GetRandItems(limit:Int):[Product],
-    GetTimeSaleItems(limit:Int):[Product]
-
+    GetTimeSaleItems(limit:Int):[Product],
+    GetSearchProducts(keyword:String, limit: Int):[Product]
 }
 
 type Mutation{
