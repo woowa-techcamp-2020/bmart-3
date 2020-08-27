@@ -179,15 +179,24 @@ const TotalPrice = styled.div`
 const BuyProduct = ({ content }) => {
   const [amount, setAmount] = useState(1);
   const [result, setResult] = useState(false);
-  const [selected, setSelected] = useContext(ToggleProductBuyContext);
+  const [selected, setSelected, cartItem, setCartItem] = useContext(ToggleProductBuyContext);
 
   const close = () => {
+    const data = [...selected];
+    data[content.id] = false;
+    setSelected(data);
+  };
+
+  const AddToCart = () => {
     setResult(true);
+    content['amount'] = amount;
+    const data = [];
+    data[content.id] = content;
+    setCartItem(data);
+
     setTimeout(() => {
       setResult(false);
-      const data = [...selected];
-      data[content.id] = false;
-      setSelected(data);
+      close();
     }, 1000);
   };
 
@@ -223,7 +232,7 @@ const BuyProduct = ({ content }) => {
                   <StyledPlus onClick={() => up()} />
                 </AmountBox>
               </ContentBox>
-              <AddBtn onClick={() => close()}>{amount}개 담기</AddBtn>
+              <AddBtn onClick={() => AddToCart()}>{amount}개 담기</AddBtn>
               <TotalPrice>{`${addCommaToNumber(amount * content.price)}원`}</TotalPrice>
             </Section>
           </ModalContent>

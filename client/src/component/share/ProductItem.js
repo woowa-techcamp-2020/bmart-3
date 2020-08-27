@@ -35,7 +35,7 @@ const FilledProductCart = styled(FilledBasket)`
   right: 40px;
   width: 25px;
   height: 25px;
-  color: ${(props) => props.theme.color.lightYello};
+  color: ${(props) => (props.isFilled ? props.theme.color.orange : props.theme.color.lightYello)};
   background: ${(props) => props.theme.color.backgroundGray};
   border: none;
 `;
@@ -101,7 +101,7 @@ const ProductContentRow = styled.div`
 const ProductItem = ({ content, row }) => {
   const [liked, setLiked] = useState(content.liked);
   const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
-  const [selected, setSelected] = useContext(ToggleProductBuyContext);
+  const [selected, setSelected, cartItem, setCartItem] = useContext(ToggleProductBuyContext);
 
   if (selected[content.id] === 'undefined') {
     selected[content.id] = false;
@@ -148,7 +148,8 @@ const ProductItem = ({ content, row }) => {
                 </PriceSection>
               </ProductContentRow>
             </ProductContent>
-            <ProductCart onClick={() => toggleCart()} />
+            <FilledProductCart onClick={() => toggleCart()} isFilled={cartItem[content.id]} />
+
             {liked === 'true' ? (
               <StyledLiked onClick={() => toggleLike(content.id)} />
             ) : (
@@ -176,7 +177,7 @@ const ProductItem = ({ content, row }) => {
                     )}
                     <BeforeDiscountPrice>{`${addCommaToNumber(discountedPrice)}원`}</BeforeDiscountPrice>
                   </DiscountInfoSection>
-                  <ProductCart onClick={() => toggleCart()} />
+                  <FilledProductCart onClick={() => toggleCart()} isFilled={cartItem[content.id]} />
                 </PriceSection>
               </ProductContentRow>
             </ProductContent>
