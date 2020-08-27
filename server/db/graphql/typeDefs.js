@@ -5,7 +5,8 @@ type Category{
     id: Int!,
     name: String!,
     is_parent: Boolean!,
-    parent_name: String!,    
+    parent_name: String!,
+    categoriesChild: [Category],  
 }
 
 type Product{

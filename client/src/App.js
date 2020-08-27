@@ -46,41 +46,30 @@ function App() {
       <GlobalStyle />
       <Router>
         <Route path="/" component={LoginCheck} />
-        <Switch>
-          <Route path="/login" component={Loginpage} />
-          <Route path="/mainpage" exact>
-            <ToggleProductBuyProvider>
-              <ProductProvider>
-                <CategoryProvider>
+        <CategoryProvider>
+          <ToggleProductBuyProvider>
+            <Switch>
+              <Route path="/login" component={Loginpage} />
+              <Route path="/mainpage" exact>
+                <ProductProvider>
                   <FetchingProvider>
                     <Mainpage />
                   </FetchingProvider>
-                </CategoryProvider>
-              </ProductProvider>
-            </ToggleProductBuyProvider>
-          </Route>
-          <Route path="/cart" exact>
-            <CartPage />
-          </Route>
-          <Route path="/category/:category_id">
-            <ToggleProductBuyProvider>
-              <ParentCategory />
-            </ToggleProductBuyProvider>
-          </Route>
-
-          <Route path="/category_detail/:category_id">
-            <ToggleProductBuyProvider>
-              <ChildCategory />
-            </ToggleProductBuyProvider>
-          </Route>
-          <Route path="/total_menu" component={TotalMenupage}></Route>
-          <Route path="/liked">찜 페이지</Route>
-          <Route path="/ordered_list">주문 내역 페이지</Route>
-          <ToggleProductBuyProvider>
-            <Route path="/search" component={SearchPage}></Route>
+                </ProductProvider>
+              </Route>
+              <Route path="/cart" exact>
+                <CartPage />
+              </Route>
+              <Route path="/category/:category_id" component={ParentCategory} />
+              <Route path="/category_detail/:category_id" component={ChildCategory} />
+              <Route path="/total_menu" component={TotalMenupage}></Route>
+              <Route path="/liked">찜 페이지</Route>
+              <Route path="/ordered_list">주문 내역 페이지</Route>
+              <Route path="/search" component={SearchPage}></Route>
+              <Route path="/">not found</Route>
+            </Switch>
           </ToggleProductBuyProvider>
-          <Route path="/">not found</Route>
-        </Switch>
+        </CategoryProvider>
       </Router>
     </ThemeProvider>
   );
