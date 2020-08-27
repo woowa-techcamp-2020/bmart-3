@@ -199,6 +199,7 @@ const Cart = ({ content }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedAll, setSelectedAll] = useState(false);
   const selectedRef = {};
+
   const handleMinusClick = (productId) => {
     if (cartItem[productId].count > 1) {
       cartItem[productId].count -= 1;
@@ -253,7 +254,10 @@ const Cart = ({ content }) => {
                   <TotalPrice>합계 {`${addCommaToNumber(product.price * product.count)}`}원</TotalPrice>
                 </div>
                 <AmountBox>
-                  <StyledMinus onClick={() => handleMinusClick(product.id)} />
+                  <StyledMinus
+                    onClick={() => handleMinusClick(product.id)}
+                    isOne={product.count === 1 ? true : false}
+                  />
                   {product.count}
                   <StyledPlus onClick={() => handlePlusClick(product.id)} />
                 </AmountBox>
