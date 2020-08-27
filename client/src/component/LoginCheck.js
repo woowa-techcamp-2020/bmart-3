@@ -71,5 +71,5 @@ export default function LoginCheck() {
     return stopPolling;
   }, [signupResult]);
 
-  return <>쳌</>;
+  return <></>;
 }
