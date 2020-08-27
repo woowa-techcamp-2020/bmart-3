@@ -3,7 +3,8 @@ import {
   getProductsQuery,
   getProductByIdQuery,
   getProductsByCategoryIdQuery,
-  getProductsByChildCategoryIdQuery,
+  getPagedProductsByChildCategoryIdQuery,
+  getPagedProductsByParentCategoryIdQuery,
   getNewReleaseQuery,
   getPopularItemsQuery,
   getRandItemsQuery,
@@ -38,10 +39,21 @@ const getProductsByCategoryId = async (categoryId, limit) => {
   }
 };
 
-const getProductsByChildCategoryId = async (categoryId, id, cursor, ordertype, limit, direction) => {
+const getPagedProductsByChildCategoryId = async (categoryId, id, cursor, ordertype, limit, direction) => {
   try {
     const rows = await executeQuery(
-      getProductsByChildCategoryIdQuery(categoryId, id, cursor, ordertype, limit, direction)
+      getPagedProductsByChildCategoryIdQuery(categoryId, id, cursor, ordertype, limit, direction)
+    );
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getPagedProductsByParentCategoryId = async (categoryId, id, cursor, ordertype, limit, direction) => {
+  try {
+    const rows = await executeQuery(
+      getPagedProductsByParentCategoryIdQuery(categoryId, id, cursor, ordertype, limit, direction)
     );
     return rows;
   } catch (err) {
@@ -100,6 +112,8 @@ export {
   getPopularItems,
   getRandItems,
   getTimeSaleItems,
+  getPagedProductsByChildCategoryId,
+  getPagedProductsByParentCategoryId,
   getProductsByChildCategoryId,
   toggleLiked,
 };

@@ -11,24 +11,41 @@ const getProductByIdQuery = (id) => {
 };
 
 const getProductsByCategoryIdQuery = (categoryId, limit) => {
-  const getProductsByCategoryIdFormat = `select p.id,p.name,p.price,p.img_url,ifnull(s.discount_percent, 0) as discount_percent,if(l.product_id,'true','false') as liked
-  from product p left outer join sale s on p.id=s.product_id left outer join liked l on l.product_id=p.id
-  where category_id in (select id from category where parent_name=(select name from category where id=?)) limit ?`;
-
+  const getProductsByCategoryIdFormat = `
+  select p.id,p.name,p.price,p.img_url,ifnull(s.discount_percent, 0) as discount_percent,if(l.product_id,'true','false') as liked
+  from product p left outer join sale s 
+  on p.id=s.product_id 
+  left outer join liked l on l.product_id=p.id
+  where category_id in 
+  (select id from category where parent_name=(select name from category where id=?)) limit ?`;
   return mysql2.format(getProductsByCategoryIdFormat, [categoryId, limit]);
 };
 
-const getProductsByChildCategoryIdQuery = (categoryId, id, cursor, ordertype, limit, direction) => {
-  const getProductsByChildCategoryIdFormat = `
-    select *
-    from product
-    where category_id = ? and ${ordertype} ${direction == 'ASC' ? '>=' : '<='} ? and id ${
-    direction == 'ASC' ? '>' : '<'
-  } ?
-    order by ${ordertype} ${direction}, id ${direction}
+const getPagedProductsByParentCategoryIdQuery = (categoryId, id, cursor, ordertype, limit, direction) => {
+  const getPagedProductsByParentCategoryIdFormat = `
+    select p.id, p.name, p.price, p.img_url, p.remain, p.registered_date, p.saled_count, p.category_id, ifnull(s.discount_percent, 0) as discount_percent
+    from product p left outer join sale s
+    on p.id=s.product_id
+    where category_id in 
+    (select id from category where parent_name=(select name from category where id=?))
+    and p.${ordertype} ${direction == 'ASC' ? '>=' : '<='} ? and p.id != ?
+    order by p.${ordertype} ${direction}, p.id ${direction}
     LIMIT ?;
   `;
-  return mysql2.format(getProductsByChildCategoryIdFormat, [categoryId, cursor, id, limit]);
+  return mysql2.format(getPagedProductsByParentCategoryIdFormat, [categoryId, cursor, id, limit]);
+};
+
+// ${direction == 'ASC' ? '>' : '<'}
+const getPagedProductsByChildCategoryIdQuery = (categoryId, id, cursor, ordertype, limit, direction) => {
+  const getPagedProductsByChildCategoryIdFormat = `
+    select p.id, p.name, p.price, p.img_url, p.remain, p.registered_date, p.saled_count, p.category_id, ifnull(s.discount_percent, 0) as discount_percent
+    from product p left outer join sale s
+    on p.id=s.product_id
+    where category_id = ? and p.${ordertype} ${direction == 'ASC' ? '>=' : '<='} ? and p.id != ?
+    order by p.${ordertype} ${direction}, p.id ${direction}
+    LIMIT ?;
+  `;
+  return mysql2.format(getPagedProductsByChildCategoryIdFormat, [categoryId, cursor, id, limit]);
 };
 
 const getNewReleaseQuery = (limit) => {
@@ -76,6 +93,8 @@ export {
   getPopularItemsQuery,
   getRandItemsQuery,
   getTimesaleItemsQuery,
+  getPagedProductsByChildCategoryIdQuery,
+  getPagedProductsByParentCategoryIdQuery,
   getProductsByChildCategoryIdQuery,
   toggleLikedQuery,
 };
