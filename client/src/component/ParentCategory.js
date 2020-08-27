@@ -127,7 +127,6 @@ function ParentCategory(props) {
               );
               break;
           }
-          setCursor(products.PagedProductsByParentCategoryId[products.PagedProductsByParentCategoryId.length - 1].id);
         }
       });
     });
@@ -139,7 +138,6 @@ function ParentCategory(props) {
 
   useEffect(() => {
     if (products) {
-      // console.log('products: ', products.PagedProductsByParentCategoryId);
       if (products.PagedProductsByParentCategoryId.length < limit) {
         setScrollOver(true);
       } else {

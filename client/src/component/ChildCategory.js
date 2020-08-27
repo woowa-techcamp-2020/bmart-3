@@ -90,7 +90,6 @@ function ChildCategory(props) {
     if (products) {
       if (products.PagedProductsByChildCategoryId.length < limit) {
         setScrollOver(true);
-        console.log('scroll over');
       } else {
         setProductList([...productList, products.PagedProductsByChildCategoryId]);
       }

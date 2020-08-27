@@ -32,11 +32,13 @@ function OrderSelector(props) {
       <StyledSelect value={selectedOption} onChange={changeOrder}>
         {optionValueList.map((optionValue, index) =>
           optionValue === selectedOption ? (
-            <option selected value={optionValue}>
+            <option key={index} defaultValue value={optionValue}>
               {optionLabelList[index]}
             </option>
           ) : (
-            <option value={optionValue}>{optionLabelList[index]}</option>
+            <option key={index} value={optionValue}>
+              {optionLabelList[index]}
+            </option>
           )
         )}
       </StyledSelect>
