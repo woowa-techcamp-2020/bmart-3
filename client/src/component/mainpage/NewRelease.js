@@ -5,14 +5,11 @@ import { useQuery } from '@apollo/react-hooks';
 import ProductItem from 'component/share/ProductItem';
 import { OuterContainer, HeaderContainer, Header } from 'component/share/ShareStyle';
 import { MoreBtn } from 'component/mainpage/RecommendStyle';
-import { EventScrollContext } from 'context/EventScrollContext';
 
 const NewRelease = () => {
   const limit = 15;
 
   const { loading, error, data: products } = useQuery(GET_NEW_RELEASE, { variables: { limit } });
-
-  const [data, value, setValue] = useContext(EventScrollContext);
 
   if (products !== undefined && products.GetNewRelease.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
   if (error) return <div>ㅠㅠ...데이터 요청에 실패했습니다</div>;

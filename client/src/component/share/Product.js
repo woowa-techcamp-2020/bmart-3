@@ -6,7 +6,6 @@ import { ProductContext } from 'context/ProductContext';
 import { CategoryContext } from 'context/CategoryContext';
 import { ProductScrollContext } from 'context/ProductScrollContext';
 import { $ } from 'component/share/util';
-import { ExpandRight } from 'styled-icons/open-iconic';
 
 const ProductContainerHeader = styled.div`
   font-family: 'BMDOHYEON';
@@ -36,25 +35,6 @@ const Product = () => {
   const [curVal, setCurVal] = useContext(ProductScrollContext);
 
   const onScroll = () => {
-    // let x1 = $('.ref-1');
-    // if (x1 !== null) x1 = x1.getBoundingClientRect().bottom;
-    // let x2 = $('.ref-2');
-    // if (x2 !== null) x2 = x2.getBoundingClientRect().bottom;
-    // let x3 = $('.ref-3');
-    // if (x3 !== null) x3 = x3.getBoundingClientRect().bottom;
-    // let x4 = $('.ref-4');
-    // if (x4 !== null) x4 = x4.getBoundingClientRect().bottom;
-    // let x5 = $('.ref-5');
-    // if (x5 !== null) x5 = x5.getBoundingClientRect().bottom;
-    // let x6 = $('.ref-6');
-    // if (x6 !== null) x6 = x6.getBoundingClientRect().bottom;
-    // let x7 = $('.ref-7');
-    // if (x7 !== null) x7 = x7.getBoundingClientRect().bottom;
-    // let x8 = $('.ref-8');
-    // if (x8 !== null) x8 = x8.getBoundingClientRect().bottom;
-    // let x9 = $('.ref-9');
-    // if (x9 !== null) x9 = x9.getBoundingClientRect().bottom;
-
     for (let i = 2; i <= 9; i++) {
       if ($(`.product-container-${i}`) !== null) {
         if (curVal === i - 2 && $(`.product-container-${i}`).getBoundingClientRect().top - 200 < 0) {
