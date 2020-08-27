@@ -4,6 +4,7 @@ import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import { Hamburger } from '@styled-icons/fa-solid/Hamburger';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import bmartLogo from 'image/bmart-logo.png';
 
 const MainHeader = styled.header`
@@ -30,6 +31,11 @@ const arrowMove = keyframes`
     transform:translateX(-10px);
     
   }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
 const Icon = styled(ArrowBack)`
@@ -102,24 +108,6 @@ const Input = styled.input`
 
 const Header = ({ hasSearchBar, hasHambergerIcon }) => {
   const history = useHistory();
-  const inputText = React.createRef();
-
-  const getSearchHistory = () => {
-    console.log('focused on searchbar');
-    //1. 검색 기록 가져와서 렌더
-  };
-
-  const getCandidate = (e) => {
-    const keyword = e.target.value;
-    console.log('keyword : ', keyword);
-    //1. 검색어
-  };
-
-  const exitSearch = (e) => {
-    const keyword = e.target.value;
-    //1. 검색어
-    inputText.current.value = '';
-  };
 
   const handleArrowBackIconClick = () => {
     history.goBack();
@@ -133,20 +121,18 @@ const Header = ({ hasSearchBar, hasHambergerIcon }) => {
         <Icon src={ArrowBack} onClick={handleArrowBackIconClick} />
         <BmartLogo src={bmartLogo} />
         <HeaderRowOneRightBox>
-          <StyledMagnifyingGlass />
+          <StyledLink to="/search">
+            <StyledMagnifyingGlass />
+          </StyledLink>
           {hasHambergerIcon && <StyledHamburger onClick={handleHambergerIconClick} />}
         </HeaderRowOneRightBox>
       </HeaderRowOne>
 
       {hasSearchBar && (
         <InputContainer>
-          <Input
-            onClick={getSearchHistory}
-            onChange={getCandidate}
-            ref={inputText}
-            placeholder="🔍 B마트 상품을 검색해보세요!"
-          />
-          <button onClick={exitSearch}>x</button>
+          <StyledLink to="/search">
+            <Input placeholder="🔍 B마트 상품을 검색해보세요!" />
+          </StyledLink>
         </InputContainer>
       )}
     </MainHeader>
