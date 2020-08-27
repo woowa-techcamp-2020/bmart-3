@@ -92,14 +92,38 @@ const StyledCancel = styled(Cancel)`
 const ResultBox = styled.div`
   display: flex;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
-const ResultItem = styled.div`
-  width: 80%;
-  border: solid 2px #a3d2ca;
-  padding: 3px;
-`;
+function ResultItem(props) {
+  const ItemWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: solid 2px #a3d2ca;
+    padding: 10px;
+    min-height: 40px;
+    &hover {
+      background-color: yellow;
+    }
+  `;
+
+  const ItemNameDiv = styled.div`
+    color: #f09ae9;
+  `;
+
+  const ItemPrice = styled.div`
+    margin-left: auto;
+    color: #440047;
+  `;
+
+  return (
+    <ItemWrapper>
+      <ItemNameDiv>{props.Item.name}</ItemNameDiv>
+      <ItemPrice>{props.Item.price}원</ItemPrice>
+    </ItemWrapper>
+  );
+}
 
 function SearchPage() {
   const history = useHistory();
@@ -116,9 +140,7 @@ function SearchPage() {
     setHasKeyword(false);
   };
 
-  const handleInputClick = () => {
-    console.log('input focused ');
-  };
+  const handleInputClick = () => {};
 
   const handleInputChange = () => {
     console.log('keyword :', inputText.current.value);
@@ -156,7 +178,15 @@ function SearchPage() {
         <StyledMagnifyingGlass />
         {hasKeyword ? <StyledCancel onClick={handleCancelIconClick} /> : ''}
       </SearchBox>
-      {searchResult.GetSearchProducts ? <ResultBox></ResultBox> : ''}
+      {searchResult && hasKeyword ? (
+        <ResultBox>
+          {searchResult.GetSearchProducts.map((result, index) => (
+            <ResultItem key={index} Item={result} />
+          ))}
+        </ResultBox>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 }
