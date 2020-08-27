@@ -100,7 +100,7 @@ const ProductItem = ({ content, row }) => {
 
   const toggleCart = () => {
     const data = [...selected];
-    data[content.id] = true;
+    data[content.id] = !data[content.id];
     setSelected(data);
   };
 

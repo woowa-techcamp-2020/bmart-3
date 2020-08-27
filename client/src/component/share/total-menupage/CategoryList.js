@@ -1,5 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { Article, Title, ItemList, ItemRow, Item, StyledLink } from 'component/total-menupage/TotalMenupageStyle';
+import { Article, Title, ItemList, ItemRow, Item, StyledLink } from 'component/share/total-menupage/TotalMenupageStyle';
 import { Link } from 'react-router-dom';
 
 export default function CategoryList({ title, categories }) {

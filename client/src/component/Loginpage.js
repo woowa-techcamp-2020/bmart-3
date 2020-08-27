@@ -6,11 +6,22 @@ import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import { LOGIN, SIGNUP } from 'graphql/auth';
 import jwt from 'jsonwebtoken';
 import { useHistory } from 'react-router-dom';
+import LoadingIcon from 'component/share/LoadingIcon';
 
 const Section = styled.section`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin-top: 150px;
+  width: 100vw;
+  height: 100vh;
+  background: #000839;
+`;
+
+const Header = styled.header`
+  font-size: ${(props) => props.theme.size.lg};
+  text-shadow: 2px 2px 2px ${(props) => props.theme.color.shadowPink};
+  color: #fff;
 `;
 
 export const getGoogleLoginIdToken = () => {
@@ -73,6 +84,8 @@ export default function Loginpags() {
 
   return (
     <Section>
+      <Header>B Mart</Header>
+      <LoadingIcon loader />
       <GoogleLogin
         icon={true}
         clientId={process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID}

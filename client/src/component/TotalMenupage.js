@@ -9,8 +9,8 @@ import {
   ButtonContainer,
   StyledDetail,
   StyledHeart,
-} from 'component/total-menupage/TotalMenupageStyle';
-import { CategoryList } from 'component/total-menupage';
+} from 'component/share/total-menupage/TotalMenupageStyle';
+import { CategoryList } from 'component/share/total-menupage';
 export default function TotalMenupage() {
   const [categoryList, getCategoryList] = useContext(CategoryContext);
   const [categoryDelicious, setCategoryDelicious] = useState([]);
