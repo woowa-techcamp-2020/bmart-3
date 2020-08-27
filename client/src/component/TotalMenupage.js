@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Header from 'component/share/Header';
 import { CategoryContext, showMoreId } from 'context/CategoryContext';
-import { SectionTop, ArticleMyInfo, ButtonMyInfo, SectionBottom } from 'component/total-menupage/TotalMenupageStyle';
+import {
+  SectionTop,
+  ArticleMyInfo,
+  ButtonMyInfo,
+  SectionBottom,
+  ButtonContainer,
+  StyledDetail,
+  StyledHeart,
+} from 'component/total-menupage/TotalMenupageStyle';
 import { CategoryList } from 'component/total-menupage';
 export default function TotalMenupage() {
   const [categoryList, getCategoryList] = useContext(CategoryContext);
@@ -30,8 +38,14 @@ export default function TotalMenupage() {
       <Header />
       <SectionTop>
         <ArticleMyInfo>
-          <ButtonMyInfo>주문내역</ButtonMyInfo>
-          <ButtonMyInfo>찜한상품</ButtonMyInfo>
+          <ButtonContainer>
+            <StyledDetail />
+            <ButtonMyInfo>주문내역</ButtonMyInfo>
+          </ButtonContainer>
+          <ButtonContainer>
+            <StyledHeart />
+            <ButtonMyInfo>찜한상품</ButtonMyInfo>
+          </ButtonContainer>
         </ArticleMyInfo>
       </SectionTop>
       <SectionBottom>
