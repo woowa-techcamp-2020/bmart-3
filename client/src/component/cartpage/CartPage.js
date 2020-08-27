@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { Plus } from '@styled-icons/boxicons-regular/Plus';
 import { Minus } from '@styled-icons/boxicons-regular/Minus';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { handleArrowBackIconClick } from 'component/share/util';
+
 const CartContainer = styled.div`
   background: ${(props) => props.theme.color.gray};
   display: flex;
@@ -189,13 +191,16 @@ const StyledLink = styled(Link)`
 `;
 
 const Cart = ({ content }) => {
+  const history = useHistory();
+  const handleArrowBackIconClick = () => {
+    history.goBack();
+  };
   return (
     <CartContainer>
       <Header>
         <HeaderRow>
-          <StyledLink to={'/mainpage'}>
-            <BackIcon />
-          </StyledLink>
+          <BackIcon onClick={handleArrowBackIconClick} />
+
           <HeaderTitle>장바구니</HeaderTitle>
           <BackIcon style={{ visibility: 'hidden' }} />
         </HeaderRow>
