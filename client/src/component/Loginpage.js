@@ -47,7 +47,7 @@ export default function Loginpags() {
         localStorage.setItem('Bearer', token);
         const { id, name, googleId } = jwt.decode(token);
         setUserInfo({ id, name, googleId });
-        history.push('/main');
+        history.push('/mainpage');
       } else {
         const googleIdToken = getGoogleLoginIdToken();
         if (googleIdToken) {
@@ -66,7 +66,7 @@ export default function Loginpags() {
         localStorage.setItem('Bearer', token);
         const { id, name, googleId } = jwt.decode(token);
         setUserInfo({ id, name, googleId });
-        history.push('/main');
+        history.push('/mainpage');
       }
     }
   }, [signupResult]);

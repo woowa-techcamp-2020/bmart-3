@@ -45,7 +45,7 @@ function App() {
         <Route path="/" component={LoginCheck} />
         <Switch>
           <Route path="/login" component={Loginpage} />
-          <Route path="/main" exact>
+          <Route path="/mainpage" exact>
             <ProductProvider>
               <CategoryProvider>
                 <FetchingProvider>
