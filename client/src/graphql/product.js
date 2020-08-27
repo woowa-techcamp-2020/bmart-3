@@ -13,9 +13,9 @@ const PRODUCTS_BY_CATEGORY_ID = gql`
   }
 `;
 
-const PRODUCTS_BY_CHILD_CATEGORY_ID = gql`
+const PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID = gql`
   query($categoryId: Int, $id: Int, $cursor: Int, $ordertype: String, $limit: Int, $direction: String) {
-    ProductsByChildCategoryId(
+    PagedProductsByChildCategoryId(
       categoryId: $categoryId
       id: $id
       cursor: $cursor
@@ -31,6 +31,30 @@ const PRODUCTS_BY_CHILD_CATEGORY_ID = gql`
       saled_count
       category_id
       img_url
+      discount_percent
+    }
+  }
+`;
+
+const PAGED_PRODUCTS_BY_PARENT_CATEGORY_ID = gql`
+  query($categoryId: Int, $id: Int, $cursor: Int, $ordertype: String, $limit: Int, $direction: String) {
+    PagedProductsByParentCategoryId(
+      categoryId: $categoryId
+      id: $id
+      cursor: $cursor
+      ordertype: $ordertype
+      limit: $limit
+      direction: $direction
+    ) {
+      id
+      name
+      price
+      registered_date
+      remain
+      saled_count
+      category_id
+      img_url
+      discount_percent
     }
   }
 `;
@@ -97,7 +121,8 @@ const TOGGLE_LIKED = gql`
 
 export {
   PRODUCTS_BY_CATEGORY_ID,
-  PRODUCTS_BY_CHILD_CATEGORY_ID,
+  PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID,
+  PAGED_PRODUCTS_BY_PARENT_CATEGORY_ID,
   GET_NEW_RELEASE,
   GET_POPULAR_ITEMS,
   GET_RAND_ITEMS,

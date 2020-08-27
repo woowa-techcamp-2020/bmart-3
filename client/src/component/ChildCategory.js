@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from 'component/share/Header';
 import ProductList from 'component/share/ProductList';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
-import { PRODUCTS_BY_CHILD_CATEGORY_ID } from 'graphql/product';
+import { PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID } from 'graphql/product';
 import LoadingIcon from 'component/share/LoadingIcon';
+import OrderSelector from 'component/share/OrderSelector';
 
 function ChildCategory(props) {
   //--------------------스타일드 컴포넌트 구현 영역
@@ -18,21 +19,26 @@ function ChildCategory(props) {
     border-top: 1px solid #eee;
   `;
 
+  // -------------------- 상수 선언 영역
+  const MINCURSOR = 0;
+  const MAXCURSOR = 999999999;
+
   // -------------------- hook 선언 영역
   const splitUrl = props.location.pathname.split('/');
   const categoryId = parseInt(splitUrl[splitUrl.length - 1]);
-  const [cursor, setCursor] = useState(0);
+  const [cursor, setCursor] = useState(MINCURSOR);
   const [ordertype, setOrdertype] = useState('id');
   const [limit, setLimit] = useState(8);
   const [lastProductId, setLastProductId] = useState(0);
   const [listDireaction, setListDireaction] = useState('ASC');
   const [productList, setProductList] = useState([]);
+  const [scrollOver, setScrollOver] = useState(false);
   const reloadRef = useRef();
 
   // -------------------- 백엔드 데이터 요청 영역
   const { loading: loadingProducts, error: errorProducts, data: products, refetch: refetchProducts } = useQuery(
     //아래 쿼리 자식 카테고리도 같은 이름으로 써야 하니까 수정해야 할듯
-    PRODUCTS_BY_CHILD_CATEGORY_ID,
+    PAGED_PRODUCTS_BY_CHILD_CATEGORY_ID,
     {
       variables: {
         categoryId,
@@ -53,11 +59,26 @@ function ChildCategory(props) {
           return;
         }
 
-        if (products) {
-          setLastProductId(products.ProductsByChildCategoryId[products.ProductsByChildCategoryId.length - 1].id);
-          setCursor(products.ProductsByChildCategoryId[products.ProductsByChildCategoryId.length - 1].id);
+        if (products && !scrollOver) {
+          setLastProductId(
+            products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id
+          );
+          switch (ordertype) {
+            case 'id':
+              setCursor(products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].id);
+              break;
+            case 'price':
+              setCursor(
+                products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].price
+              );
+              break;
+            case 'saled_count':
+              setCursor(
+                products.PagedProductsByChildCategoryId[products.PagedProductsByChildCategoryId.length - 1].saled_count
+              );
+              break;
+          }
         }
-        console.log('observer detect!');
       });
     });
     io.observe(document.querySelector('.reload-div'));
@@ -67,8 +88,11 @@ function ChildCategory(props) {
   // products 갱신될 때마다 실행
   useEffect(() => {
     if (products) {
-      setProductList([...productList, products.ProductsByChildCategoryId]);
-      setIntersectionObserver();
+      if (products.PagedProductsByChildCategoryId.length < limit) {
+        setScrollOver(true);
+      } else {
+        setProductList([...productList, products.PagedProductsByChildCategoryId]);
+      }
     }
   }, [products]);
 
@@ -77,17 +101,33 @@ function ChildCategory(props) {
     setIntersectionObserver();
   });
 
+  // ------------------ 내부 함수 영역
+  function changeOrder(value) {
+    const orderValues = value.split('/');
+    setProductList([]);
+    setListDireaction(orderValues[1]);
+    if (orderValues[1] === 'ASC') {
+      setCursor(MINCURSOR);
+      setLastProductId(MINCURSOR);
+    } else {
+      setCursor(MAXCURSOR);
+      setLastProductId(MAXCURSOR);
+    }
+    setOrdertype(orderValues[0]);
+  }
+
   // 렌더링 영역
   return (
     <>
       <Header />
       <Article>
+        <OrderSelector selected={ordertype + '/' + listDireaction} changeOrder={changeOrder} />
         <ProductSection>
           <ListControlBar />
-          {productList.map((productItems) => (
-            <ProductList productItems={productItems} />
+          {productList.map((productItems, index) => (
+            <ProductList productItems={productItems} key={index} />
           ))}
-          {loadingProducts ? <div>제품정보를 가져오고 있어요!</div> : <LoadingIcon />}
+          {loadingProducts ? <LoadingIcon /> : ''}
           <div ref={reloadRef} className="reload-div"></div>
         </ProductSection>
       </Article>

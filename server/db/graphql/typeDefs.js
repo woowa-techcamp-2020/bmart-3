@@ -1,16 +1,13 @@
 export default `
 scalar DateTime
-type User{
-    id: Int!,
-    name: String!,
-    google_id: String!,
-}
+
 type Category{
     id: Int!,
     name: String!,
     is_parent: Boolean!,
     parent_name: String!,    
 }
+
 type Product{
     id: Int!,
     name: String!,
@@ -29,13 +26,13 @@ type Message{
 }
 
 type Query{
-    Users: [User],
     Products: [Product],
     Product(id: Int): Product,
     ProductsByCategoryId(categoryId: Int,limit:Int): [Product],
     CategoriesParent: [Category],
     CategoriesChild(parentId: Int): [Category],
-    ProductsByChildCategoryId(categoryId: Int, id: Int, cursor: Int, ordertype: String, limit: Int, direction: String ): [Product],
+    PagedProductsByChildCategoryId(categoryId: Int, id: Int, cursor: Int, ordertype: String, limit: Int, direction: String ): [Product],
+    PagedProductsByParentCategoryId(categoryId: Int, id: Int, cursor: Int, ordertype: String, limit: Int, direction: String ): [Product],
     GetNewRelease(limit:Int):[Product],
     GetPopularItems(limit:Int):[Product],
     GetRandItems(limit:Int):[Product],
@@ -44,7 +41,7 @@ type Query{
 }
 
 type Mutation{
+    Signup(name: String, googleId: String):Message,
     ToggleLiked(id:Int,liked:String):Message
 }
-
 `;

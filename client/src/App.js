@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './reset.scss';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import theme from './component/share/theme';
 import Mainpage from 'component/Mainpage';
 import ParentCategory from 'component/ParentCategory';
 import ChildCategory from 'component/ChildCategory';
+import Loginpage from 'component/Loginpage';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FetchingProvider } from 'context/FetchingContext';
 import { CategoryProvider } from 'context/CategoryContext';
@@ -40,6 +41,7 @@ function App() {
       <GlobalStyle />
       <Router>
         <Switch>
+          <Route path="/login" component={Loginpage} />
           <Route path="/" exact>
             <ProductProvider>
               <CategoryProvider>
