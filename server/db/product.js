@@ -8,6 +8,7 @@ import {
   getNewReleaseQuery,
   getPopularItemsQuery,
   getRandItemsQuery,
+  getSearchProductsQuery,
   getTimesaleItemsQuery,
   toggleLikedQuery,
 } from './query/product';
@@ -104,6 +105,16 @@ const toggleLiked = async (id, liked) => {
     throw err;
   }
 };
+
+const getSearchProducts = async (keyword, limit) => {
+  try {
+    const rows = await executeQuery(getSearchProductsQuery(keyword, limit));
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   getProducts,
   getProductById,
@@ -111,6 +122,7 @@ export {
   getNewRelease,
   getPopularItems,
   getRandItems,
+  getSearchProducts,
   getTimeSaleItems,
   getPagedProductsByChildCategoryId,
   getPagedProductsByParentCategoryId,
