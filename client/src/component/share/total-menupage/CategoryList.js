@@ -1,5 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { Article, Title, ItemList, ItemRow, Item } from 'component/total-menupage/TotalMenupageStyle';
+import { Article, Title, ItemList, ItemRow, Item, StyledLink } from 'component/share/total-menupage/TotalMenupageStyle';
 import { Link } from 'react-router-dom';
 
 export default function CategoryList({ title, categories }) {
@@ -51,11 +51,12 @@ export default function CategoryList({ title, categories }) {
         categoryChildrenByParentIdRef[categoryParent.id].push(createRef());
         const categoriesChild = [
           <Item
+            isChild={true}
             key={`category-child-show-all`}
             display="none"
             ref={categoryChildrenByParentIdRef[categoryParent.id][0]}
           >
-            <Link to={`/category/${categoryParent.id}`}>전체 보기</Link>
+            <StyledLink to={`/category/${categoryParent.id}`}>전체 보기</StyledLink>
           </Item>,
         ];
         categoriesChild.push(
@@ -63,11 +64,12 @@ export default function CategoryList({ title, categories }) {
             categoryChildrenByParentIdRef[categoryParent.id].push(createRef());
             return (
               <Item
+                isChild={true}
                 key={`category-child-${categoryChild.id}`}
                 display="none"
                 ref={categoryChildrenByParentIdRef[categoryParent.id][idx + 1]}
               >
-                <Link to={`category_detail/${categoryChild.id}`}>{categoryChild.name}</Link>
+                <StyledLink to={`category_detail/${categoryChild.id}`}>{categoryChild.name}</StyledLink>
               </Item>
             );
           })
@@ -77,6 +79,7 @@ export default function CategoryList({ title, categories }) {
           const lastIdx = categoryChildrenByParentIdRef[categoryParent.id].length - 1;
           categoriesChild.push(
             <Item
+              isChild={true}
               key={`category-child-temp`}
               display="none"
               ref={categoryChildrenByParentIdRef[categoryParent.id][lastIdx]}

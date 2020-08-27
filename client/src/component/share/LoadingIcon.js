@@ -32,7 +32,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 200px;
+  height: 150px;
   position: relative;
 
   & > div {
@@ -59,22 +59,22 @@ const InnerOne = styled(Inner)`
   left: 0%;
   top: 0%;
   animation: ${rotateOne} 1s linear infinite;
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid pink;
 `;
 const InnerTwo = styled(Inner)`
   right: 0%;
   top: 0%;
   animation: ${rotateTwo} 1s linear infinite;
-  border-right: 3px solid black;
+  border-right: 3px solid pink;
 `;
 const InnerThree = styled(Inner)`
   right: 0%;
   bottom: 0%;
   animation: ${rotateThree} 1s linear infinite;
-  border-top: 3px solid black;
+  border-top: 3px solid pink;
 `;
 
-const LoadingIcon = () => {
+const LoadingIcon = (props) => {
   return (
     <LoadingContainer>
       <Loader>
@@ -82,7 +82,7 @@ const LoadingIcon = () => {
         <InnerTwo />
         <InnerThree />
       </Loader>
-      <div>데이터 불러오는 중...</div>
+      {props.loader ? '' : <div>데이터 불러오는 중...</div>}
     </LoadingContainer>
   );
 };

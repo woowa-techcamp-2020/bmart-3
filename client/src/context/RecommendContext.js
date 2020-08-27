@@ -9,11 +9,11 @@ export const RecommendContextProvider = ({ children }) => {
   const [getTimesaleItems, { loading, data: items }] = useLazyQuery(GET_TIMESALE_ITEMS);
   const [recommendList, setRecommendList] = useState([]);
 
-  const [selected, setSelected] = useState(0);
+  const [chosen, setChosen] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSelected((selected + 1) % 4);
+      setChosen((chosen + 1) % 4);
     }, RECOMMEND_INTERVAL_TIME);
     return () => clearInterval(interval);
   });
@@ -34,7 +34,7 @@ export const RecommendContextProvider = ({ children }) => {
   }, [items]);
 
   return (
-    <RecommendContext.Provider value={[recommendList, setRecommendList, selected, setSelected, getTimesaleItems]}>
+    <RecommendContext.Provider value={[recommendList, setRecommendList, chosen, setChosen, getTimesaleItems]}>
       {children}
     </RecommendContext.Provider>
   );
