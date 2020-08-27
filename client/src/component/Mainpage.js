@@ -9,7 +9,7 @@ import MapProductList from 'component/mainpage/MapProductList';
 import { EventScrollProvider } from 'context/EventScrollContext';
 import { ProductScrollProvider } from 'context/ProductScrollContext';
 import { Cart, CartContainer } from 'component/share/ShareStyle';
-
+import { Link } from 'react-router-dom';
 const Article = styled.article`
   padding: 0;
 `;
@@ -26,6 +26,11 @@ const ProductSection = styled(Section)`
   padding: 0;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
 function Mainpage() {
   return (
     <>
@@ -35,17 +40,17 @@ function Mainpage() {
       <Banner />
       {/* 카테고리 */}
       <Category />
-
       <Article>
-        <CartContainer>
-          <Cart />
-        </CartContainer>
+        <StyledLink to={'/cart'}>
+          <CartContainer>
+            <Cart />
+          </CartContainer>
+        </StyledLink>
         {/* 이벤트 스크롤 탭 */}
         <EventScrollProvider>
           <div style={{ position: 'relative' }}></div>
           <EventScrollTab />
         </EventScrollProvider>
-
         <ProductScrollProvider>
           <div style={{ position: 'relative' }}></div>
           <ProductScrollTab />

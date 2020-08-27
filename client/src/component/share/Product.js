@@ -5,7 +5,6 @@ import LoadingIcon from 'component/share/LoadingIcon';
 import { ProductContext } from 'context/ProductContext';
 import { CategoryContext } from 'context/CategoryContext';
 import { ProductScrollContext } from 'context/ProductScrollContext';
-import { ToggleProductBuyProvider } from 'context/ToggleProductBuyContext';
 import { $ } from 'component/share/util';
 import { Link } from 'react-router-dom';
 

@@ -13,6 +13,7 @@ import { FetchingProvider } from 'context/FetchingContext';
 import { CategoryProvider } from 'context/CategoryContext';
 import { ProductProvider } from 'context/ProductContext';
 import { ToggleProductBuyProvider } from 'context/ToggleProductBuyContext';
+import CartPage from 'component/cartpage/CartPage';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -57,7 +58,9 @@ function App() {
               </ProductProvider>
             </ToggleProductBuyProvider>
           </Route>
-          <Route path="/cart">장바구니페이지</Route>
+          <Route path="/cart" exact>
+            <CartPage />
+          </Route>
           <Route path="/category/:category_id" component={ParentCategory} />
           <Route path="/category_detail/:category_id" component={ChildCategory} />
           <Route path="/total_menu" component={TotalMenupage}></Route>
