@@ -197,6 +197,7 @@ function SearchPage() {
         <StyledMagnifyingGlass onClick={handleSearchClick} />
         {hasKeyword || isSearched ? <StyledCancel onClick={handleCancelIconClick} /> : ''}
       </SearchBox>
+
       {searchResult && hasKeyword ? (
         <ResultBox>
           {searchResult.GetSearchProducts.map((result, index) => (
