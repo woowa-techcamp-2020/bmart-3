@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import './reset.scss';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import theme from './component/share/theme';
@@ -7,6 +7,7 @@ import ParentCategory from 'component/ParentCategory';
 import ChildCategory from 'component/ChildCategory';
 import Loginpage from 'component/Loginpage';
 import TotalMenupage from 'component/TotalMenupage';
+import LoginCheck from 'component/LoginCheck';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FetchingProvider } from 'context/FetchingContext';
 import { CategoryProvider } from 'context/CategoryContext';
@@ -41,6 +42,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Router>
+        <Route path="/" component={LoginCheck} />
         <Switch>
           <Route path="/login" component={Loginpage} />
           <Route path="/" exact>
