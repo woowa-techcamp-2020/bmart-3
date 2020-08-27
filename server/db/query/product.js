@@ -95,6 +95,5 @@ export {
   getTimesaleItemsQuery,
   getPagedProductsByChildCategoryIdQuery,
   getPagedProductsByParentCategoryIdQuery,
-  // getProductsByChildCategoryIdQuery,
   toggleLikedQuery,
 };
