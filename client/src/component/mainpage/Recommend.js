@@ -28,12 +28,16 @@ import {
 } from 'component/mainpage/RecommendStyle';
 
 const Recommend = () => {
-  const [recommendList, setRecommendList, selected, setSelected] = useContext(RecommendContext);
+  const [recommendList, setRecommendList, selected, setSelected, getTimesaleItems] = useContext(RecommendContext);
   const [toggleLikedMutation] = useMutation(TOGGLE_LIKED);
 
   const updateImg = (idx) => {
     setSelected(idx - 1);
   };
+
+  useEffect(() => {
+    getTimesaleItems({ variables: { limit: 4 } });
+  }, []);
 
   const toggleLike = (idx, id, liked) => {
     setRecommendList((prev) =>

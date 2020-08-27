@@ -1,13 +1,12 @@
 import React, { useState, createContext, useEffect } from 'react';
 import { RECOMMEND_INTERVAL_TIME } from 'component/share/constant';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { GET_TIMESALE_ITEMS } from 'graphql/product';
 
 export const RecommendContext = createContext();
 
 export const RecommendContextProvider = ({ children }) => {
-  const { loading, data: items } = useQuery(GET_TIMESALE_ITEMS, { variables: { limit: 4 } });
-
+  const [getTimesaleItems, { loading, data: items }] = useLazyQuery(GET_TIMESALE_ITEMS);
   const [recommendList, setRecommendList] = useState([]);
 
   const [selected, setSelected] = useState(0);
@@ -35,7 +34,7 @@ export const RecommendContextProvider = ({ children }) => {
   }, [items]);
 
   return (
-    <RecommendContext.Provider value={[recommendList, setRecommendList, selected, setSelected]}>
+    <RecommendContext.Provider value={[recommendList, setRecommendList, selected, setSelected, getTimesaleItems]}>
       {children}
     </RecommendContext.Provider>
   );

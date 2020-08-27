@@ -24,8 +24,8 @@ const MapProductList = () => {
   useEffect(() => {
     if (userInfo.id && fetching) {
       getProducts({ variables: { categoryId, limit: 10 } });
-      setFetching(false);
     }
+    setFetching(false);
   }, [fetching]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const MapProductList = () => {
       // scroll event listener 해제
       window.removeEventListener('scroll', handleScroll, { passive: true });
     };
-  }, []);
+  }, [userInfo]);
   if (productList.length === 0) return <div>ㅠㅠ...데이터가 없습니다</div>;
   if (errorProducts) return <div>ㅠㅠ...데이터가 요청에 실패했습니다</div>;
 

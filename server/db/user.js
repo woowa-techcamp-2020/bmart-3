@@ -3,7 +3,7 @@ import { getUserByGoogleIdQuery, signupQuery } from './query/user';
 import jwt from 'jsonwebtoken';
 
 const getBearerToken = (id, name, googleId) => {
-  return jwt.sign({ id, name, googleId }, process.env.JWT_SECRET, { expiresIn: '3m' });
+  return jwt.sign({ id, name, googleId }, process.env.JWT_SECRET, { expiresIn: '3h' });
 };
 
 const getJwtByGoogleId = async (googleId) => {
