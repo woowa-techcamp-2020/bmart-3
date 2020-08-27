@@ -147,7 +147,6 @@ function SearchPage() {
   const handleInputClick = () => {};
 
   const handleInputChange = () => {
-    console.log('keyword :', inputText.current.value);
     if (inputText.current.value === '') {
       setHasKeyword(false);
     } else {
@@ -168,7 +167,6 @@ function SearchPage() {
 
   useEffect(() => {
     if (searchResult) {
-      console.log('searchResult : ', searchResult);
     }
   }, [searchResult]);
 

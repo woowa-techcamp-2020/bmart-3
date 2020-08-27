@@ -62,8 +62,8 @@ function ParentCategory(props) {
   `;
 
   // ------------------ hook 선언 영역
+  const splitUrl = window.location.href.split('/');
 
-  const splitUrl = props.location.pathname.split('/');
   const categoryId = parseInt(splitUrl[splitUrl.length - 1]);
   const [cursor, setCursor] = useState(MINCURSOR);
   const [ordertype, setOrdertype] = useState('id');
