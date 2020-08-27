@@ -3,12 +3,18 @@ import styled, { keyframes } from 'styled-components';
 import { MagnifyingGlass } from '@styled-icons/entypo/MagnifyingGlass';
 import { Cancel } from '@styled-icons/material/Cancel';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
 import ProductList from 'component/share/ProductList';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_SEARCH_PRODUCT, GET_SEARCH_LOG } from 'graphql/product';
 import { addCommaToNumber } from 'component/share/util';
+import { Cart, CartContainer } from 'component/share/ShareStyle';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const Wrapper = styled.header`
   width: 100%;
@@ -209,6 +215,11 @@ function SearchPage() {
       ) : (
         ''
       )}
+      <StyledLink to={'/cart'}>
+        <CartContainer>
+          <Cart />
+        </CartContainer>
+      </StyledLink>
     </Wrapper>
   );
 }
