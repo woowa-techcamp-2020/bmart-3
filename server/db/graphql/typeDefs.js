@@ -18,11 +18,13 @@ type Product{
     saled_count: Int!,
     category_id: Int!,
     img_url: String,
-    liked:String,
-    discount_percent:Int!
+    liked: String,
+    discount_percent: Int!,
+    count: Int,
 }
 
 type Message{
+    success: Boolean,
     message:String
 }
 
@@ -38,11 +40,14 @@ type Query{
     GetPopularItems(limit:Int):[Product],
     GetRandItems(limit:Int):[Product],
     GetTimeSaleItems(limit:Int):[Product],
-    GetSearchProducts(keyword:String, limit: Int):[Product]
+    GetSearchProducts(keyword:String, limit: Int):[Product],
+    GetCart(userId: Int): [Product]
 }
 
 type Mutation{
-    Signup(name: String, googleId: String):Message,
-    ToggleLiked(id:Int,liked:String):Message
+    ToggleLiked(id:Int,liked:String):Message,
+    AddCart(userId: Int, productId: Int, count: Int): Message,
+    RemoveCart(userId: Int, productId: Int): Message,
+    UpdateCart(userId: Int, productId: Int, count: Int): Message,
 }
 `;

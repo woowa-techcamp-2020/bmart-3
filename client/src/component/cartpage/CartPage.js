@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect, useContext, forwardRef, createRef } from 'react';
 import styled from 'styled-components';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { Plus } from '@styled-icons/boxicons-regular/Plus';
 import { Minus } from '@styled-icons/boxicons-regular/Minus';
 import { Link } from 'react-router-dom';
+import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
+
 const CartContainer = styled.div`
   background: ${(props) => props.theme.color.gray};
   display: flex;
@@ -189,6 +191,79 @@ const StyledLink = styled(Link)`
 `;
 
 const Cart = ({ content }) => {
+  const [, , cartItem, setCartItem, getCartQuery, addCartQuery] = useContext(ToggleProductBuyContext);
+  const [cartProducts, setCartProducts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedAll, setSelectedAll] = useState(false);
+  const selectedRef = {};
+  const handleMinusClick = (productId) => {
+    if (cartItem[productId].count > 1) {
+      cartItem[productId].count -= 1;
+      setCartItem({ ...cartItem });
+    }
+  };
+
+  const handlePlusClick = (productId) => {
+    cartItem[productId].count += 1;
+    setCartItem({ ...cartItem });
+  };
+
+  const handleSelectAll = () => {
+    console.log(selectedRef);
+    if (selectedAll) {
+      for (const [key, value] of Object.entries(selectedRef)) {
+        console.log(value);
+      }
+      setSelectedAll(false);
+    } else {
+      for (const [key, value] of Object.entries(selectedRef)) {
+        console.log(value);
+      }
+      setSelectedAll(true);
+    }
+  };
+
+  useEffect(() => {
+    if (cartItem) {
+      const cartItems = [];
+      for (const [_, value] of Object.entries(cartItem)) {
+        cartItems.push(value);
+      }
+      let totalPrice = 0;
+      const cartProducts = cartItems.map((product) => {
+        totalPrice += product.price * product.count;
+        selectedRef[product.id] = createRef();
+        return (
+          <EachCartItem key={`cart-product-${product.id}`}>
+            <ItemHeaderRow>
+              <LabelContainer>
+                <StyledInput name="authorization" value="쓰기권한" />
+                <BigTitle>{product.name}</BigTitle>
+              </LabelContainer>
+              <DeleteBtn>삭제</DeleteBtn>
+            </ItemHeaderRow>
+            <ItemContainer>
+              <Img src={product.img_url} />
+              <PriceBox>
+                <div>
+                  <Price>{product.price}원</Price>
+                  <TotalPrice>합계 {product.price * product.count}원</TotalPrice>
+                </div>
+                <AmountBox>
+                  <StyledMinus onClick={() => handleMinusClick(product.id)} />
+                  {product.count}
+                  <StyledPlus onClick={() => handlePlusClick(product.id)} />
+                </AmountBox>
+              </PriceBox>
+            </ItemContainer>
+          </EachCartItem>
+        );
+      });
+      setTotalPrice(totalPrice);
+      setCartProducts(cartProducts);
+    }
+  }, [cartItem]);
+
   return (
     <CartContainer>
       <Header>
@@ -201,39 +276,14 @@ const Cart = ({ content }) => {
         </HeaderRow>
         <HeaderRow>
           <LabelContainer>
-            <StyledInput name="authorization" value="쓰기권한" />
+            <StyledInput name="authorization" value="쓰기권한" onClick={handleSelectAll} />
             <Label htmlFor="authorization">선택 해제</Label>
           </LabelContainer>
           <EmptyBtn>선택 비우기</EmptyBtn>
         </HeaderRow>
       </Header>
-      <Section>
-        <EachCartItem>
-          <BigTitle>이름</BigTitle>
-          <ItemHeaderRow>
-            <LabelContainer>
-              <StyledInput name="authorization" value="쓰기권한" />
-              <Label htmlFor="authorization">선택 해제</Label>
-            </LabelContainer>
-            <DeleteBtn>삭제</DeleteBtn>
-          </ItemHeaderRow>
-          <ItemContainer>
-            <Img />
-            <PriceBox>
-              <div>
-                <Price>(990원)</Price>
-                <TotalPrice>990원</TotalPrice>
-              </div>
-              <AmountBox>
-                <StyledMinus />
-                1
-                <StyledPlus />
-              </AmountBox>
-            </PriceBox>
-          </ItemContainer>
-        </EachCartItem>
-      </Section>
-      <OrderBtn>22300원 배달 주문하기</OrderBtn>
+      <Section>{cartProducts}</Section>
+      <OrderBtn>{totalPrice}원 배달 주문하기</OrderBtn>
     </CartContainer>
   );
 };
