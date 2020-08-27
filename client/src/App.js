@@ -62,8 +62,17 @@ function App() {
           <Route path="/cart" exact>
             <CartPage />
           </Route>
-          <Route path="/category/:category_id" component={ParentCategory} />
-          <Route path="/category_detail/:category_id" component={ChildCategory} />
+          <Route path="/category/:category_id">
+            <ToggleProductBuyProvider>
+              <ParentCategory />
+            </ToggleProductBuyProvider>
+          </Route>
+
+          <Route path="/category_detail/:category_id">
+            <ToggleProductBuyProvider>
+              <ChildCategory />
+            </ToggleProductBuyProvider>
+          </Route>
           <Route path="/total_menu" component={TotalMenupage}></Route>
           <Route path="/liked">찜 페이지</Route>
           <Route path="/ordered_list">주문 내역 페이지</Route>
