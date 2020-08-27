@@ -210,8 +210,10 @@ function SearchPage() {
       {isSearched ? (
         loadingSearch ? (
           <LoadingIcon />
-        ) : (
+        ) : searchResult ? (
           <ProductList productItems={searchResult.GetSearchProducts} />
+        ) : (
+          ''
         )
       ) : (
         ''
