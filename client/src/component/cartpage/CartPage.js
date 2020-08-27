@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ArrowBack } from '@styled-icons/boxicons-regular/ArrowBack';
 import { Plus } from '@styled-icons/boxicons-regular/Plus';
 import { Minus } from '@styled-icons/boxicons-regular/Minus';
-
+import { Link } from 'react-router-dom';
 const CartContainer = styled.div`
   background: ${(props) => props.theme.color.gray};
   display: flex;
@@ -183,12 +183,19 @@ const OrderBtn = styled.button`
   border-radius: 5px;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
 const Cart = ({ content }) => {
   return (
     <CartContainer>
       <Header>
         <HeaderRow>
-          <BackIcon />
+          <StyledLink to={'/mainpage'}>
+            <BackIcon />
+          </StyledLink>
           <HeaderTitle>장바구니</HeaderTitle>
           <BackIcon style={{ visibility: 'hidden' }} />
         </HeaderRow>
