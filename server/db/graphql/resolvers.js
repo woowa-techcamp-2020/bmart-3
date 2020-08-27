@@ -12,6 +12,8 @@ import {
   getSearchProducts,
 } from '../product';
 import { getCategoriesParent, getCategoriesChild } from '../category';
+import { addCart, getCart, removeCart, updateCart } from '../cart';
+
 export default async function () {
   return {
     Query: {
@@ -35,9 +37,13 @@ export default async function () {
       GetRandItems: async (_, { limit }) => await getRandItems(limit),
       GetTimeSaleItems: async (_, { limit }) => await getTimeSaleItems(limit),
       GetSearchProducts: async (_, { keyword, limit }) => await getSearchProducts(keyword, limit),
+      GetCart: async (_, { userId }) => await getCart(userId),
     },
     Mutation: {
       ToggleLiked: async (_, { id, liked }) => await toggleLiked(id, liked),
+      AddCart: async (_, { userId, productId, count }) => await addCart(userId, productId, count),
+      RemoveCart: async (_, { userId, productId }) => await removeCart(userId, productId),
+      UpdateCart: async (_, { userId, productId, count }) => await updateCart(userId, productId, count),
     },
   };
 }

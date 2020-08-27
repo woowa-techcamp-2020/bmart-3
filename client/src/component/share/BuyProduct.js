@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Plus } from '@styled-icons/boxicons-regular/Plus';
 import { Minus } from '@styled-icons/boxicons-regular/Minus';
 import { addCommaToNumber } from 'component/share/util';
 import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
+import { AuthContext } from 'context/AuthContext';
 
 const StyledPlus = styled(Plus)`
   height: 14px;
@@ -179,7 +180,10 @@ const TotalPrice = styled.div`
 const BuyProduct = ({ content }) => {
   const [amount, setAmount] = useState(1);
   const [result, setResult] = useState(false);
-  const [selected, setSelected, cartItem, setCartItem] = useContext(ToggleProductBuyContext);
+  const [selected, setSelected, cartItem, setCartItem, getCartQuery, addCartQuery] = useContext(
+    ToggleProductBuyContext
+  );
+  const [userInfo] = useContext(AuthContext);
 
   const close = () => {
     const data = [...selected];
@@ -189,11 +193,7 @@ const BuyProduct = ({ content }) => {
 
   const AddToCart = () => {
     setResult(true);
-    content['amount'] = amount;
-    const data = [];
-    data[content.id] = content;
-    setCartItem(data);
-
+    addCartQuery({ variables: { userId: userInfo.id, productId: content.id, count: amount } });
     setTimeout(() => {
       setResult(false);
       close();
