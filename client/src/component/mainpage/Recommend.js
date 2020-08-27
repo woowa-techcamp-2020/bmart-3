@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { addCommaToNumber } from 'component/share/util';
 import { RecommendContext } from 'context/RecommendContext';
 import { useMutation } from '@apollo/client';
 import { TOGGLE_LIKED } from 'graphql/product';
+import { EventScrollContext } from 'context/EventScrollContext';
 
 import {
   RecommendWrapper,
@@ -28,21 +29,18 @@ import {
 
 const Recommend = () => {
   const [recommendList, setRecommendList, selected, setSelected] = useContext(RecommendContext);
-  const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
+  const [toggleLikedMutation] = useMutation(TOGGLE_LIKED);
 
   const updateImg = (idx) => {
     setSelected(idx - 1);
   };
 
   const toggleLike = (idx, id, liked) => {
-    console.log(id);
     setRecommendList((prev) =>
       prev.map((item) => (item.idx === idx ? { ...item, liked: item.liked === 'true' ? 'false' : 'true' } : item))
     );
     toggleLikedMutation({ variables: { id, liked } });
   };
-
-  useEffect(() => {}, [recommendList]);
 
   if (recommendList.length === 0) return <div>loading...</div>;
   const selectedItem = recommendList[selected];

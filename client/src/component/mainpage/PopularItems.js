@@ -1,14 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { GET_POPULAR_ITEMS } from 'graphql/product';
 import { useQuery } from '@apollo/react-hooks';
 import ProductItem from 'component/share/ProductItem';
-
-const Container = styled.div`
-  display: flex;
-  overflow: auto;
-`;
+import { OuterContainer, HeaderContainer, Header } from 'component/share/ShareStyle';
+import { MoreBtn } from 'component/mainpage/RecommendStyle';
 
 const PopularItems = () => {
   const limit = 15;
@@ -20,7 +16,11 @@ const PopularItems = () => {
 
   return (
     <>
-      <Container>
+      <HeaderContainer>
+        <Header>요즘 잘 팔려요</Header>
+        <MoreBtn>{'더보기 >'} </MoreBtn>
+      </HeaderContainer>
+      <OuterContainer>
         {loading ? (
           <LoadingIcon />
         ) : (
@@ -28,7 +28,7 @@ const PopularItems = () => {
             <ProductItem content={item} key={`popular-items-${idx}`} row="one" />
           ))
         )}
-      </Container>
+      </OuterContainer>
     </>
   );
 };

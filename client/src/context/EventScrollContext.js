@@ -4,6 +4,7 @@ import ProductForYou from 'component/mainpage/ProductForYou';
 import WhatToEat from 'component/mainpage/WhatToEat';
 import NewRelease from 'component/mainpage/NewRelease';
 import PopularItems from 'component/mainpage/PopularItems';
+
 export const EventScrollContext = createContext();
 
 export const EventScrollProvider = ({ children }) => {

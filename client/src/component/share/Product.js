@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductList from 'component/share/ProductList';
 import LoadingIcon from 'component/share/LoadingIcon';
 import { ProductContext } from 'context/ProductContext';
 import { CategoryContext } from 'context/CategoryContext';
+import { ProductScrollContext } from 'context/ProductScrollContext';
+import { $ } from 'component/share/util';
 
 const ProductContainerHeader = styled.div`
   font-family: 'BMDOHYEON';
@@ -30,6 +32,31 @@ const HeaderBtn = styled.button`
 const Product = () => {
   const [productList] = useContext(ProductContext);
   const [categoryList] = useContext(CategoryContext);
+  const [curVal, setCurVal] = useContext(ProductScrollContext);
+
+  const onScroll = () => {
+    for (let i = 2; i <= 9; i++) {
+      if ($(`.product-container-${i}`) !== null) {
+        if (curVal === i - 2 && $(`.product-container-${i}`).getBoundingClientRect().top - 200 < 0) {
+          setCurVal(i - 1);
+          break;
+        }
+        if (curVal === i && $(`.product-container-${i}`).getBoundingClientRect().top > 0) {
+          setCurVal(i - 1);
+          break;
+        }
+
+        if (curVal === 1 && $('.product-container-1').getBoundingClientRect().top > 0) {
+          setCurVal(0);
+          break;
+        }
+      }
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  });
 
   return (
     <>
@@ -38,7 +65,7 @@ const Product = () => {
           if (idx === 0) return null;
           else {
             return (
-              <div key={`product-container-header-${idx}`}>
+              <div key={`product-container-header-${idx}`} className={`product-container-${idx}`}>
                 <ProductContainerHeader>
                   <h1>{categoryList.length ? categoryList[idx - 1].name : ''}</h1>
                   <HeaderBtn>더보기</HeaderBtn>
