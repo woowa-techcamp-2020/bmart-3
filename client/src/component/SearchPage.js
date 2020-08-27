@@ -141,6 +141,7 @@ function SearchPage() {
   const handleCancelIconClick = () => {
     inputText.current.value = '';
     setHasKeyword(false);
+    setIsSearched(false);
   };
 
   const handleInputClick = () => {};
@@ -185,7 +186,7 @@ function SearchPage() {
           />
         </InputContainer>
         <StyledMagnifyingGlass onClick={handleSearchClick} />
-        {hasKeyword ? <StyledCancel onClick={handleCancelIconClick} /> : ''}
+        {hasKeyword || isSearched ? <StyledCancel onClick={handleCancelIconClick} /> : ''}
       </SearchBox>
       {searchResult && hasKeyword ? (
         <ResultBox>
