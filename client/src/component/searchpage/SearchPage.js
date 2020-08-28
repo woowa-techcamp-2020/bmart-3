@@ -164,6 +164,7 @@ function SearchPage() {
       setHasKeyword(false);
     } else {
       setHasKeyword(true);
+      setIsSearched(false);
       getSearchProduct({ variables: { keyword: inputText.current.value, limit: 10 } });
     }
   };
