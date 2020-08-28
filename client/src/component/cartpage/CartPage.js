@@ -7,7 +7,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
 import { addCommaToNumber } from 'component/share/util';
 import { AuthContext } from 'context/AuthContext';
-import { handleArrowBackIconClick } from 'component/share/util';
 
 const CartContainer = styled.div`
   background: ${(props) => props.theme.color.gray};

@@ -16,6 +16,7 @@ import { CategoryProvider } from 'context/CategoryContext';
 import { ProductProvider } from 'context/ProductContext';
 import { ToggleProductBuyProvider } from 'context/ToggleProductBuyContext';
 import CartPage from 'component/cartpage/CartPage';
+import Likedpage from 'component/likedpage/Likedpage';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -64,10 +65,11 @@ function App() {
               <Route path="/category/:category_id" component={ParentCategory} />
               <Route path="/category_detail/:category_id" component={ChildCategory} />
               <Route path="/total_menu" component={TotalMenupage}></Route>
-              <Route path="/liked">찜 페이지</Route>
               <Route path="/ordered_list">주문 내역 페이지</Route>
               <Route path="/search" component={SearchPage}></Route>
               <Route path="/event/:event_name" component={EventPage}></Route>
+              <Route path="/liked" component={Likedpage}></Route>
+
               <Route path="/">not found</Route>
             </Switch>
           </ToggleProductBuyProvider>
