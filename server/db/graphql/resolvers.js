@@ -12,6 +12,7 @@ import {
   getSearchProducts,
   getLiked,
 } from '../product';
+import { getOrderlistByUserId } from '../orderlist';
 import { getCategoriesParent, getCategoriesChild } from '../category';
 import { addCart, getCart, removeCart, updateCart } from '../cart';
 
@@ -32,6 +33,7 @@ export default async function () {
           return categoryParent;
         });
       },
+      GetOrderlistByUserId: async (_, { userId }) => await getOrderlistByUserId(userId),
       CategoriesChild: async (_, { parentId }) => await getCategoriesChild(parentId),
       GetNewRelease: async (_, { limit }) => await getNewRelease(limit),
       GetPopularItems: async (_, { limit }) => await getPopularItems(limit),
