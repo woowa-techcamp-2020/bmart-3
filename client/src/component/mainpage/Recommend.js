@@ -3,7 +3,7 @@ import { addCommaToNumber } from 'component/share/util';
 import styled from 'styled-components';
 import { RecommendContext } from 'context/RecommendContext';
 import { useMutation } from '@apollo/client';
-import { TOGGLE_LIKED } from 'graphql/product';
+import { TOGGLE_LIKED } from 'graphql/liked';
 import BuyProduct from 'component/share/BuyProduct';
 
 import {

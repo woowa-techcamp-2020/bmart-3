@@ -4,9 +4,10 @@ import { IMG_URL } from 'component/share/constant';
 import { addCommaToNumber } from 'component/share/util';
 import { Unlike, Liked } from 'component/mainpage/RecommendStyle';
 import { useMutation } from '@apollo/client';
-import { TOGGLE_LIKED } from 'graphql/product';
+import { TOGGLE_LIKED } from 'graphql/liked';
 import BuyProduct from 'component/share/BuyProduct';
 import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
+import { AuthContext } from 'context/AuthContext';
 
 import {
   PriceSection,
@@ -90,6 +91,7 @@ const ProductItem = ({ content, row }) => {
   const [liked, setLiked] = useState(content.liked);
   const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
   const [selected, setSelected, cartItem, setCartItem] = useContext(ToggleProductBuyContext);
+  const [userInfo] = useContext(AuthContext);
 
   if (selected[content.id] === 'undefined') {
     selected[content.id] = false;
@@ -106,7 +108,7 @@ const ProductItem = ({ content, row }) => {
 
   const toggleLike = (id) => {
     setLiked((prev) => (prev === 'true' ? 'false' : 'true'));
-    toggleLikedMutation({ variables: { id, liked } });
+    toggleLikedMutation({ variables: { userId: userInfo.id, id, liked } });
   };
 
   if (error) return <div>error...</div>;
