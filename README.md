@@ -74,11 +74,11 @@ cd bmart-3/docker/development
 **크롤링**
 - 
 
-# 🐱 디렉토리 구조
-
-
 # 🐹 기능 소개
-
+![scroll](https://user-images.githubusercontent.com/24838124/91518834-092d0680-e92c-11ea-9c0b-18bc5a2f76ad.gif){:width="100px" height="300px"}
+![search](https://user-images.githubusercontent.com/24838124/91518849-0fbb7e00-e92c-11ea-80b6-88cba9fd846b.gif){:width="100px" height="400px"}
+![cart](https://user-images.githubusercontent.com/24838124/91519018-717be800-e92c-11ea-91d1-7bcb347677b7.gif){:width="50%" height="200%"}
+![detail](https://user-images.githubusercontent.com/24838124/91519033-78a2f600-e92c-11ea-815e-cda5d87a6c4d.gif){:width="75px" height="300px"}
 
 # 🐵 팀 룰
 
