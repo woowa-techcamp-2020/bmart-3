@@ -12,6 +12,9 @@ const GET_LIKED = gql`
   query($userId: Int!) {
     GetLiked(userId: $userId) {
       id
+      name
+      price
+      img_url
     }
   }
 `;

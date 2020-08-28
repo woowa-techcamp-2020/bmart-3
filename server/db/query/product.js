@@ -95,8 +95,7 @@ const toggleLikedQuery = (userId, id, liked) => {
 };
 
 const getLikedQuery = (userId) => {
-  const getLikedFormat = `select p.id, p.name,p.price,p.img_url from product p,user u where p.id=2;
-  `;
+  const getLikedFormat = `select p.id,p.name,p.price,p.img_url,l.user_id from product p, liked l where p.id=l.product_id and l.user_id=?`;
   return mysql2.format(getLikedFormat, [userId]);
 };
 
