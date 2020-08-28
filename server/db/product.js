@@ -97,10 +97,10 @@ const getTimeSaleItems = async (limit) => {
   }
 };
 
-const toggleLiked = async (id, liked) => {
+const toggleLiked = async (userId, id, liked) => {
   try {
-    await executeQuery(toggleLikedQuery(id, liked));
-    return { message: '찜하기 토글 성공' };
+    await executeQuery(toggleLikedQuery(userId, id, liked));
+    return { message: 'success' };
   } catch (err) {
     throw err;
   }

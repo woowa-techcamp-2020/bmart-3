@@ -45,7 +45,7 @@ type Query{
 }
 
 type Mutation{
-    ToggleLiked(id:Int,liked:String):Message,
+    ToggleLiked(userId:Int,id:Int,liked:String):Message,
     AddCart(userId: Int, productId: Int, count: Int): Message,
     RemoveCart(userId: Int, productId: Int): Message,
     UpdateCart(userId: Int, productId: Int, count: Int): Message,

@@ -2,7 +2,7 @@ import React from 'react';
 import './reset.scss';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import theme from './component/share/theme';
-import Mainpage from 'component/Mainpage';
+import Mainpage from 'component/share/Mainpage';
 import ParentCategory from 'component/detailpage/ParentCategory';
 import ChildCategory from 'component/detailpage/ChildCategory';
 import Loginpage from 'component/Loginpage';

@@ -40,7 +40,7 @@ export default async function () {
       GetCart: async (_, { userId }) => await getCart(userId),
     },
     Mutation: {
-      ToggleLiked: async (_, { id, liked }) => await toggleLiked(id, liked),
+      ToggleLiked: async (_, { userId, id, liked }) => await toggleLiked(userId, id, liked),
       AddCart: async (_, { userId, productId, count }) => await addCart(userId, productId, count),
       RemoveCart: async (_, { userId, productId }) => await removeCart(userId, productId),
       UpdateCart: async (_, { userId, productId, count }) => await updateCart(userId, productId, count),

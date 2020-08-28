@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const TOGGLE_LIKED = gql`
-  mutation($id: Int, $liked: String) {
-    ToggleLiked(id: $id, liked: $liked) {
+  mutation($userId: Int, $id: Int, $liked: String) {
+    ToggleLiked(userId: $userId, id: $id, liked: $liked) {
       message
     }
   }

@@ -84,14 +84,14 @@ const getTimesaleItemsQuery = (limit) => {
   return mysql2.format(getTimesaleItemsFormat, [limit]);
 };
 
-const toggleLikedQuery = (id, liked) => {
+const toggleLikedQuery = (userId, id, liked) => {
   let toggleLikedFormat;
   if (liked === 'true') {
-    toggleLikedFormat = `delete from liked where user_id=1 and product_id=?`;
+    toggleLikedFormat = `delete from liked where user_id=? and product_id=?`;
   } else {
-    toggleLikedFormat = `insert into liked(user_id,product_id) values(1,?)`;
+    toggleLikedFormat = `insert into liked(user_id,product_id) values(?,?)`;
   }
-  return mysql2.format(toggleLikedFormat, [id]);
+  return mysql2.format(toggleLikedFormat, [userId, id]);
 };
 
 export {
