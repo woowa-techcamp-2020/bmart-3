@@ -94,7 +94,14 @@ const toggleLikedQuery = (userId, id, liked) => {
   return mysql2.format(toggleLikedFormat, [userId, id]);
 };
 
+const getLikedQuery = (userId) => {
+  const getLikedFormat = `select p.id, p.name,p.price,p.img_url from product p,user u where p.id=2;
+  `;
+  return mysql2.format(getLikedFormat, [userId]);
+};
+
 export {
+  getLikedQuery,
   getProductsQuery,
   getProductByIdQuery,
   getProductsByCategoryIdQuery,

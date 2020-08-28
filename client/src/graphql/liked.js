@@ -8,4 +8,12 @@ const TOGGLE_LIKED = gql`
   }
 `;
 
-export { TOGGLE_LIKED };
+const GET_LIKED = gql`
+  query($userId: Int!) {
+    GetLiked(userId: $userId) {
+      id
+    }
+  }
+`;
+
+export { TOGGLE_LIKED, GET_LIKED };

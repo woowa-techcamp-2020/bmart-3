@@ -42,6 +42,7 @@ type Query{
     GetTimeSaleItems(limit:Int):[Product],
     GetSearchProducts(keyword:String, limit: Int):[Product],
     GetCart(userId: Int): [Product]
+    GetLiked(userId:Int):[Product]
 }
 
 type Mutation{

@@ -11,6 +11,7 @@ import {
   getSearchProductsQuery,
   getTimesaleItemsQuery,
   toggleLikedQuery,
+  getLikedQuery,
 } from './query/product';
 
 const getProducts = async () => {
@@ -114,8 +115,17 @@ const getSearchProducts = async (keyword, limit) => {
     throw err;
   }
 };
+const getLiked = async (userId) => {
+  try {
+    const rows = await executeQuery(getLikedQuery(userId));
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+};
 
 export {
+  getLiked,
   getProducts,
   getProductById,
   getProductsByCategoryId,

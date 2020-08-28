@@ -10,6 +10,7 @@ import {
   getTimeSaleItems,
   toggleLiked,
   getSearchProducts,
+  getLiked,
 } from '../product';
 import { getCategoriesParent, getCategoriesChild } from '../category';
 import { addCart, getCart, removeCart, updateCart } from '../cart';
@@ -38,6 +39,7 @@ export default async function () {
       GetTimeSaleItems: async (_, { limit }) => await getTimeSaleItems(limit),
       GetSearchProducts: async (_, { keyword, limit }) => await getSearchProducts(keyword, limit),
       GetCart: async (_, { userId }) => await getCart(userId),
+      GetLiked: async (_, { userId }) => await getLiked(userId),
     },
     Mutation: {
       ToggleLiked: async (_, { userId, id, liked }) => await toggleLiked(userId, id, liked),
