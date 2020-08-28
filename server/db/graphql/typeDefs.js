@@ -9,6 +9,14 @@ type Category{
     categoriesChild: [Category],  
 }
 
+type OrderList{
+    id: Int!,
+    name: String!,
+    count: Int!,
+    date: DateTime!,
+    userId: Int,
+}
+
 type Product{
     id: Int!,
     name: String!,
@@ -41,7 +49,8 @@ type Query{
     GetRandItems(limit:Int):[Product],
     GetTimeSaleItems(limit:Int):[Product],
     GetSearchProducts(keyword:String, limit: Int):[Product],
-    GetCart(userId: Int): [Product]
+    GetCart(userId: Int): [Product],
+    GetOrderlistByUserId(userId: Int): [OrderList],
 }
 
 type Mutation{
