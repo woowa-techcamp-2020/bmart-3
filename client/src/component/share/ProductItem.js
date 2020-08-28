@@ -8,6 +8,7 @@ import { TOGGLE_LIKED } from 'graphql/liked';
 import BuyProduct from 'component/share/BuyProduct';
 import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
 import { AuthContext } from 'context/AuthContext';
+import { LikedContext } from 'context/LikedContext';
 
 import {
   PriceSection,
@@ -88,10 +89,11 @@ const ProductContentRow = styled.div`
 `;
 
 const ProductItem = ({ content, row }) => {
-  const [liked, setLiked] = useState(content.liked);
-  const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
+  // const [liked, setLiked] = useState(content.liked);
+  // const [toggleLikedMutation, { error }] = useMutation(TOGGLE_LIKED);
   const [selected, setSelected, cartItem, setCartItem] = useContext(ToggleProductBuyContext);
   const [userInfo] = useContext(AuthContext);
+  const [likedItem, setLikedItem, getLikedQuery, toggleLikedQuery] = useContext(LikedContext);
 
   if (selected[content.id] === 'undefined') {
     selected[content.id] = false;
@@ -107,8 +109,8 @@ const ProductItem = ({ content, row }) => {
   };
 
   const toggleLike = (id) => {
-    setLiked((prev) => (prev === 'true' ? 'false' : 'true'));
-    toggleLikedMutation({ variables: { userId: userInfo.id, id, liked } });
+    // setLiked((prev) => (prev === 'true' ? 'false' : 'true'));
+    toggleLikedQuery({ variables: { userId: userInfo.id, id, liked } });
   };
 
   if (error) return <div>error...</div>;
@@ -140,7 +142,7 @@ const ProductItem = ({ content, row }) => {
             </ProductContent>
             <FilledProductCart onClick={() => toggleCart()} isFilled={cartItem[content.id]} />
 
-            {liked === 'true' ? (
+            {likedItem[contet.id] !== 'undefined' ? (
               <StyledLiked onClick={() => toggleLike(content.id)} />
             ) : (
               <StyledUnliked onClick={() => toggleLike(content.id)} />
@@ -171,7 +173,7 @@ const ProductItem = ({ content, row }) => {
                 </PriceSection>
               </ProductContentRow>
             </ProductContent>
-            {liked === 'true' ? (
+            {likedItem[contet.id] !== 'undefined' ? (
               <StyledLiked onClick={() => toggleLike(content.id)} />
             ) : (
               <StyledUnliked onClick={() => toggleLike(content.id)} />
