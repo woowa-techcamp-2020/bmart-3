@@ -6,6 +6,8 @@ import { Minus } from '@styled-icons/boxicons-regular/Minus';
 import { Link, useHistory } from 'react-router-dom';
 import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
 import { addCommaToNumber } from 'component/share/util';
+import { AuthContext } from 'context/AuthContext';
+import { handleArrowBackIconClick } from 'component/share/util';
 
 const CartContainer = styled.div`
   background: ${(props) => props.theme.color.gray};
@@ -194,7 +196,10 @@ const StyledLink = styled(Link)`
 `;
 
 const Cart = ({ content }) => {
-  const [, , cartItem, setCartItem, getCartQuery, addCartQuery] = useContext(ToggleProductBuyContext);
+  const [, , cartItem, setCartItem, getCartQuery, addCartQuery, removeCartQuery, updateCartQuery] = useContext(
+    ToggleProductBuyContext
+  );
+  const [userInfo] = useContext(AuthContext);
   const [cartProducts, setCartProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedAll, setSelectedAll] = useState(false);
@@ -202,14 +207,14 @@ const Cart = ({ content }) => {
 
   const handleMinusClick = (productId) => {
     if (cartItem[productId].count > 1) {
-      cartItem[productId].count -= 1;
-      setCartItem({ ...cartItem });
+      const count = cartItem[productId].count - 1;
+      updateCartQuery({ variables: { userId: userInfo.id, productId, count } });
     }
   };
 
   const handlePlusClick = (productId) => {
-    cartItem[productId].count += 1;
-    setCartItem({ ...cartItem });
+    const count = cartItem[productId].count + 1;
+    updateCartQuery({ variables: { userId: userInfo.id, productId, count } });
   };
 
   const handleSelectAll = () => {
@@ -225,6 +230,10 @@ const Cart = ({ content }) => {
       }
       setSelectedAll(true);
     }
+  };
+
+  const handleDeleteItem = (productId) => {
+    removeCartQuery({ variables: { userId: userInfo.id, productId } });
   };
 
   useEffect(() => {
@@ -244,7 +253,7 @@ const Cart = ({ content }) => {
                 <StyledInput name="authorization" value="쓰기권한" />
                 <BigTitle>{product.name}</BigTitle>
               </LabelContainer>
-              <DeleteBtn>삭제</DeleteBtn>
+              <DeleteBtn onClick={() => handleDeleteItem(product.id)}>삭제</DeleteBtn>
             </ItemHeaderRow>
             <ItemContainer>
               <Img src={product.img_url} />

@@ -6,10 +6,10 @@ import { AuthContext } from 'context/AuthContext';
 export const ToggleProductBuyContext = createContext();
 
 export const ToggleProductBuyProvider = ({ children }) => {
-  const [getCartQuery, { data: cart }] = useLazyQuery(GET_CART);
+  const [getCartQuery, { data: cart }] = useLazyQuery(GET_CART, { fetchPolicy: 'network-only' });
   const [addCartQuery, { data: successAdd }] = useMutation(ADD_CART);
   const [removeCartQuery, { data: successRemove }] = useMutation(REMOVE_CART);
-  const [updateCartQuery, { date: successUpdate }] = useMutation(UPDATE_CART);
+  const [updateCartQuery, { data: successUpdate }] = useMutation(UPDATE_CART);
   const [selected, setSelected] = useState([]);
   const [cartItem, setCartItem] = useState({});
   const [userInfo] = useContext(AuthContext);
@@ -40,6 +40,24 @@ export const ToggleProductBuyProvider = ({ children }) => {
       }
     }
   }, [successAdd]);
+
+  useEffect(() => {
+    if (successRemove) {
+      const { success } = successRemove.RemoveCart;
+      if (success) {
+        getCartQuery({ variables: { userId: userInfo.id } });
+      }
+    }
+  }, [successRemove]);
+
+  useEffect(() => {
+    if (successUpdate) {
+      const { success } = successUpdate.UpdateCart;
+      if (success) {
+        getCartQuery({ variables: { userId: userInfo.id } });
+      }
+    }
+  }, [successUpdate]);
 
   return (
     <ToggleProductBuyContext.Provider
