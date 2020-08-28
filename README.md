@@ -75,10 +75,7 @@ cd bmart-3/docker/development
 - 
 
 # 🐹 기능 소개
-<img src="https://user-images.githubusercontent.com/24838124/91518834-092d0680-e92c-11ea-9c0b-18bc5a2f76ad.gif" alt="drawing" width="150" />
-<img src="https://user-images.githubusercontent.com/24838124/91518849-0fbb7e00-e92c-11ea-80b6-88cba9fd846b.giff" alt="drawing" width="150" />
-<img src="https://user-images.githubusercontent.com/24838124/91519018-717be800-e92c-11ea-91d1-7bcb347677b7.gif" alt="drawing" width="150" />
-<img src="https://user-images.githubusercontent.com/24838124/91519033-78a2f600-e92c-11ea-815e-cda5d87a6c4d.gif" alt="drawing" width="150" />
+<img src="https://user-images.githubusercontent.com/24838124/91518834-092d0680-e92c-11ea-9c0b-18bc5a2f76ad.gif" alt="drawing" width="220" /><img src="https://user-images.githubusercontent.com/24838124/91518849-0fbb7e00-e92c-11ea-80b6-88cba9fd846b.gif" alt="drawing" width="220" /><img src="https://user-images.githubusercontent.com/24838124/91519018-717be800-e92c-11ea-91d1-7bcb347677b7.gif" alt="drawing" width="220" /><img src="https://user-images.githubusercontent.com/24838124/91519033-78a2f600-e92c-11ea-815e-cda5d87a6c4d.gif" alt="drawing" width="220" />
 
 # 🐵 팀 룰
 
