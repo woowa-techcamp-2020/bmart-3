@@ -111,14 +111,6 @@ const GET_TIMESALE_ITEMS = gql`
   }
 `;
 
-const TOGGLE_LIKED = gql`
-  mutation($id: Int, $liked: String) {
-    ToggleLiked(id: $id, liked: $liked) {
-      message
-    }
-  }
-`;
-
 const GET_SEARCH_PRODUCT = gql`
   query($keyword: String, $limit: Int) {
     GetSearchProducts(keyword: $keyword, limit: $limit) {
@@ -159,7 +151,6 @@ export {
   GET_POPULAR_ITEMS,
   GET_RAND_ITEMS,
   GET_TIMESALE_ITEMS,
-  TOGGLE_LIKED,
   GET_SEARCH_PRODUCT,
   GET_SEARCH_LOG,
   POST_SEARCH_LOG,

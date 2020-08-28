@@ -4,7 +4,7 @@ import { IMG_URL } from 'component/share/constant';
 import { addCommaToNumber } from 'component/share/util';
 import { Unlike, Liked } from 'component/mainpage/RecommendStyle';
 import { useMutation } from '@apollo/client';
-import { TOGGLE_LIKED } from 'graphql/product';
+import { TOGGLE_LIKED } from 'graphql/liked';
 import BuyProduct from 'component/share/BuyProduct';
 import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
 
