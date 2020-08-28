@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
-import { ADD_CART, GET_CART, REMOVE_CART, UPDATE_CART } from 'graphql/cart';
+import { ADD_CART, GET_CART, REMOVE_CART, UPDATE_CART, SUBMIT_ORDER } from 'graphql/cart';
 import { AuthContext } from 'context/AuthContext';
 
 export const ToggleProductBuyContext = createContext();
@@ -10,6 +10,8 @@ export const ToggleProductBuyProvider = ({ children }) => {
   const [addCartQuery, { data: successAdd }] = useMutation(ADD_CART);
   const [removeCartQuery, { data: successRemove }] = useMutation(REMOVE_CART);
   const [updateCartQuery, { data: successUpdate }] = useMutation(UPDATE_CART);
+  const [submitOrderQuery, { data: successSubmitOrder }] = useMutation(SUBMIT_ORDER);
+
   const [selected, setSelected] = useState([]);
   const [cartItem, setCartItem] = useState({});
   const [userInfo] = useContext(AuthContext);
@@ -59,6 +61,15 @@ export const ToggleProductBuyProvider = ({ children }) => {
     }
   }, [successUpdate]);
 
+  useEffect(() => {
+    if (successSubmitOrder) {
+      const { success } = successSubmitOrder.SubmitOrder;
+      if (success) {
+        getCartQuery({ variables: { userId: userInfo.id } });
+      }
+    }
+  }, [successSubmitOrder]);
+
   return (
     <ToggleProductBuyContext.Provider
       value={[
@@ -70,6 +81,7 @@ export const ToggleProductBuyProvider = ({ children }) => {
         addCartQuery,
         removeCartQuery,
         updateCartQuery,
+        submitOrderQuery,
       ]}
     >
       {children}

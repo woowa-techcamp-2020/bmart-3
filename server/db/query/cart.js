@@ -33,4 +33,20 @@ const updateCartQuery = (userId, productId, count) => {
   return updateCart;
 };
 
-export { addCartQuery, getCartQuery, removeCartQuery, updateCartQuery };
+const submitOrderQuery = (userId) => {
+  const submitOrderFormat = `
+    insert into orderlist (user_id, product_id, count) select user_id, product_id, count from cart where cart.user_id = ?;
+    `;
+  const submitOrder = mysql2.format(submitOrderFormat, [userId]);
+  return submitOrder;
+};
+
+const removeCartByUserQuery = (userId) => {
+  const removeCartByUserFormat = `
+    delete from cart where user_id = ?;
+    `;
+  const removeCartByUser = mysql2.format(removeCartByUserFormat, [userId]);
+  return removeCartByUser;
+};
+
+export { addCartQuery, getCartQuery, removeCartQuery, updateCartQuery, submitOrderQuery, removeCartByUserQuery };

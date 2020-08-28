@@ -12,7 +12,7 @@ import {
   getSearchProducts,
 } from '../product';
 import { getCategoriesParent, getCategoriesChild } from '../category';
-import { addCart, getCart, removeCart, updateCart } from '../cart';
+import { addCart, getCart, removeCart, updateCart, submitOrder } from '../cart';
 
 export default async function () {
   return {
@@ -44,6 +44,7 @@ export default async function () {
       AddCart: async (_, { userId, productId, count }) => await addCart(userId, productId, count),
       RemoveCart: async (_, { userId, productId }) => await removeCart(userId, productId),
       UpdateCart: async (_, { userId, productId, count }) => await updateCart(userId, productId, count),
+      SubmitOrder: async (_, { userId }) => await submitOrder(userId),
     },
   };
 }

@@ -193,9 +193,17 @@ const StyledLink = styled(Link)`
 `;
 
 const Cart = ({ content }) => {
-  const [, , cartItem, setCartItem, getCartQuery, addCartQuery, removeCartQuery, updateCartQuery] = useContext(
-    ToggleProductBuyContext
-  );
+  const [
+    ,
+    ,
+    cartItem,
+    setCartItem,
+    getCartQuery,
+    addCartQuery,
+    removeCartQuery,
+    updateCartQuery,
+    submitOrderQuery,
+  ] = useContext(ToggleProductBuyContext);
   const [userInfo] = useContext(AuthContext);
   const [cartProducts, setCartProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -230,6 +238,10 @@ const Cart = ({ content }) => {
 
   const handleDeleteItem = (productId) => {
     removeCartQuery({ variables: { userId: userInfo.id, productId } });
+  };
+
+  const handleSubmitOrder = (userId) => {
+    submitOrderQuery({ variables: { userId: userInfo.id } });
   };
 
   useEffect(() => {
@@ -295,7 +307,7 @@ const Cart = ({ content }) => {
         </HeaderRow>
       </Header>
       <Section>{cartProducts}</Section>
-      <OrderBtn>{totalPrice}원 배달 주문하기</OrderBtn>
+      <OrderBtn onClick={() => handleSubmitOrder(userInfo.id)}>{totalPrice}원 배달 주문하기</OrderBtn>
     </CartContainer>
   );
 };
