@@ -5,6 +5,7 @@ import { Plus } from '@styled-icons/boxicons-regular/Plus';
 import { Minus } from '@styled-icons/boxicons-regular/Minus';
 import { Link, useHistory } from 'react-router-dom';
 import { ToggleProductBuyContext } from 'context/ToggleProductBuyContext';
+import { addCommaToNumber } from 'component/share/util';
 import { AuthContext } from 'context/AuthContext';
 import { handleArrowBackIconClick } from 'component/share/util';
 
@@ -48,7 +49,8 @@ const Section = styled.section`
 `;
 
 const BigTitle = styled.div`
-  font-size: ${(props) => props.theme.size.md};
+  font-size: ${(props) => props.theme.size.mmd};
+  font-weight: bold;
 `;
 
 const EachCartItem = styled.div`
@@ -56,6 +58,7 @@ const EachCartItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin: 8px 0;
 `;
 
 const LabelContainer = styled.div`
@@ -201,6 +204,7 @@ const Cart = ({ content }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedAll, setSelectedAll] = useState(false);
   const selectedRef = {};
+
   const handleMinusClick = (productId) => {
     if (cartItem[productId].count > 1) {
       const count = cartItem[productId].count - 1;
@@ -255,11 +259,14 @@ const Cart = ({ content }) => {
               <Img src={product.img_url} />
               <PriceBox>
                 <div>
-                  <Price>{product.price}원</Price>
-                  <TotalPrice>합계 {product.price * product.count}원</TotalPrice>
+                  <Price>{`${addCommaToNumber(product.price)}`}원</Price>
+                  <TotalPrice>합계 {`${addCommaToNumber(product.price * product.count)}`}원</TotalPrice>
                 </div>
                 <AmountBox>
-                  <StyledMinus onClick={() => handleMinusClick(product.id)} />
+                  <StyledMinus
+                    onClick={() => handleMinusClick(product.id)}
+                    isOne={product.count === 1 ? true : false}
+                  />
                   {product.count}
                   <StyledPlus onClick={() => handlePlusClick(product.id)} />
                 </AmountBox>
@@ -295,7 +302,7 @@ const Cart = ({ content }) => {
         </HeaderRow>
       </Header>
       <Section>{cartProducts}</Section>
-      <OrderBtn>{totalPrice}원 배달 주문하기</OrderBtn>
+      <OrderBtn>{`${addCommaToNumber(totalPrice)}`}원 배달 주문하기</OrderBtn>
     </CartContainer>
   );
 };
