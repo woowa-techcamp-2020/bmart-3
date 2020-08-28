@@ -33,8 +33,6 @@ function EventPage(props) {
   // -------------------- hook 선언 영역
 
   // -------------------- 백엔드 데이터 요청 영역
-  console.log('queryList[eventType]', queryList[eventType]);
-  console.log('eventType', eventType);
   const { loading, error, data: products } = useQuery(queryList[eventType], {
     variables: { limit },
   });
@@ -45,7 +43,6 @@ function EventPage(props) {
     for (let key in products) {
       //   arrayKey = key;
       setArrayKey(key);
-      console.log('key :', key);
     }
   }, [products]);
 
