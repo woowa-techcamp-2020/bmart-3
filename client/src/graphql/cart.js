@@ -36,4 +36,12 @@ const UPDATE_CART = gql`
   }
 `;
 
-export { ADD_CART, GET_CART, REMOVE_CART, UPDATE_CART };
+const SUBMIT_ORDER = gql`
+  mutation($userId: Int!) {
+    SubmitOrder(userId: $userId) {
+      success
+    }
+  }
+`;
+
+export { ADD_CART, GET_CART, REMOVE_CART, UPDATE_CART, SUBMIT_ORDER };

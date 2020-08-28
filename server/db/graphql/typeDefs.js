@@ -58,5 +58,6 @@ type Mutation{
     AddCart(userId: Int, productId: Int, count: Int): Message,
     RemoveCart(userId: Int, productId: Int): Message,
     UpdateCart(userId: Int, productId: Int, count: Int): Message,
+    SubmitOrder(userId: Int): Message,
 }
 `;
